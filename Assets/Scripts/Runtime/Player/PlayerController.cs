@@ -11,8 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _gravityMul = 1f;
     [SerializeField, ReadOnly] private float _gravity = -9.81f;
 
-    [SerializeField, ReadOnly] public bool Climbing = false;
-
     private CharacterController _controller;
     private Vector3 _velocity;
 
@@ -26,8 +24,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Climbing) return;
-
         Vector3 move = transform.right * _input.RawMovement.x + transform.forward * _input.RawMovement.y;
         _controller.Move(move * _walkSpeed * Time.deltaTime);
 

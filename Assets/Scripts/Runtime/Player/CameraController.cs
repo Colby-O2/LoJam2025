@@ -24,8 +24,6 @@ namespace LJ2025
 
         void Update()
         {
-            if (Mouse.current.leftButton.isPressed || Mouse.current.rightButton.isPressed || _pc.Climbing) return;
-
             float mx = _input.RawLook.x * _sensitivity;
             float my = _input.RawLook.y * _sensitivity;
 
