@@ -1,0 +1,284 @@
+using DialogueGraph.Data;
+using PlazmaGames.Attribute;
+using PlazmaGames.Core;
+using PlazmaGames.UI;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
+
+namespace LJ2025.UI
+{
+    public class GameView : View
+    {
+        [SerializeField] private AudioSource _as;
+        [SerializeField] private GameObject _holder;
+
+        [Header("Dialogue")]
+        [SerializeField] private GameObject _dialogueHolder;
+        [SerializeField] private TMP_Text _dialogueAvatarName;
+        [SerializeField] private TMP_Text _dialogue;
+        [SerializeField] private GameObject _dialogueHint;
+        [SerializeField] private float _typeSpeed = 0.1f;
+        [SerializeField] private float _timeout = 4f;
+        [SerializeField] private float _passiveTimeout = 3f;
+        [SerializeField, ReadOnly] private bool _passive = false;
+        [SerializeField, ReadOnly] private float _timeSinceMessageEnd = 0;
+
+        [Header("Choice")]
+        [SerializeField] private GameObject _choiceHolder;
+        [SerializeField] private UIMouseFollow _choiceMouse;
+        [SerializeField] private GameObject _choiceCursor;
+        [SerializeField] private List<TMP_Text> _choiceText;
+
+        [SerializeField, ReadOnly] private DialogueNodeData _currentDialogueNode;
+        [SerializeField, ReadOnly] private float _timeSinceWriteStart = 0f;
+        [SerializeField, ReadOnly] private string _currentMessage;
+        [SerializeField, ReadOnly] private bool _showedMessage = false;
+        [SerializeField, ReadOnly] private bool _showingChoice = false;
+
+        private Coroutine _writeRoutine = null;
+        
+        private bool IsWriting() => _writeRoutine == null;
+
+        private void StopWriteRoutine()
+        {
+            if (_writeRoutine == null) return;
+            StopCoroutine(_writeRoutine);
+            _writeRoutine = null;
+        }
+
+        public void SetPassive(bool state) => _passive = state;
+
+        IEnumerator TypeDialogue(string msg, float typeSpeed, TMP_Text target, UnityAction onFinished = null)
+        {
+            _timeSinceMessageEnd = 0;
+            _currentMessage = msg;
+            _showedMessage = false;
+
+            _timeSinceWriteStart = 0f;
+
+            if (_as) _as.Play();
+
+            target.text = string.Empty;
+
+            for (int i = 0; i < msg.Length; i++)
+            {
+                while (LJ2025GameManager.IsPaused)
+                {
+                    if (_as) _as.Stop();
+                    yield return null;
+                }
+
+                if (_as && !_as.isPlaying) _as.Play();
+
+                if (msg[i] == '<')
+                {
+                    int endIndex = msg.IndexOf('>', i);
+                    if (endIndex != -1)
+                    {
+                        string fullTag = msg.Substring(i, endIndex - i + 1);
+                        target.text += fullTag;
+                        i = endIndex;
+                        continue;
+                    }
+                }
+
+                target.text += msg[i];
+                yield return new WaitForSeconds(typeSpeed * LJ2025GameManager.Preferences.DialogueSpeedMul);
+            }
+
+            if (_as) _as.Stop();
+
+            _showedMessage = true;
+            if (!_passive) _dialogueHint.SetActive(true);
+        }
+
+        public bool IsShowingDialogue()
+        {
+            return _currentDialogueNode != null;
+        }
+
+        public bool IsDialogueWaiting()
+        {
+            return IsShowingDialogue() && _showedMessage;
+        }
+
+        public void ShowDialogue()
+        {
+            _dialogueHolder.SetActive(true);
+            _dialogueHint.SetActive(false);
+
+            if (!_passive) LJ2025GameManager.LockMovement = true;
+        }
+
+        public void DisplayDialogue(DialogueNodeData dialogue)
+        {
+            StopWriteRoutine();
+            _dialogueHint.SetActive(false);
+            _currentDialogueNode = dialogue;
+            _dialogueAvatarName.text = dialogue.ActorName;
+            _writeRoutine = StartCoroutine(TypeDialogue(
+                dialogue.Text,
+                 _typeSpeed,
+                _dialogue,
+                Next)
+            );
+        }
+
+        public void HideDialogue()
+        {
+            _dialogueAvatarName.text = string.Empty;
+            _dialogue.text = string.Empty;
+            _dialogueHolder.SetActive(false);
+            _dialogueHint.SetActive(false);
+
+            if (!_passive) LJ2025GameManager.LockMovement = false;
+        }
+
+        public void GoToNext(int choice)
+        {
+            StopWriteRoutine();
+            _showedMessage = false;
+            GameManager.GetMonoSystem<IDialogueMonoSystem>().OnDialogueNodeFinish(choice);
+        }
+
+        private void Next()
+        {
+            if (_currentDialogueNode.Type == DialogueGraph.Enumeration.DialogueType.SingleChoice)
+            {
+                GoToNext(0);
+            }
+            else if (_currentDialogueNode.Type == DialogueGraph.Enumeration.DialogueType.MultipleChoice)
+            {
+                if (_currentDialogueNode.Choices.Count == 0 || !_currentDialogueNode.Choices.Any(e => e.Next != string.Empty && e.Next != null))
+                {
+                    GameManager.GetMonoSystem<IDialogueMonoSystem>().FinishDialogue();
+                }
+                else StartChoice();
+            }
+        }
+
+        private void StartChoice()
+        {
+            ShowChoice();
+            _showingChoice = true;
+            for (int i = 0; i < _choiceText.Count; i++)
+            {
+                TMP_Text text = _choiceText[i];
+                if (i < _currentDialogueNode.Choices.Count)
+                {
+                    text.text = _currentDialogueNode.Choices[i].Text;
+                }
+                else
+                {
+                    text.text = string.Empty;
+                }
+            }
+        }
+
+        private int GetChoiceSelected()
+        {
+            Vector3 pos = _choiceCursor.transform.localPosition;
+            Vector3 parnetCenter = (_choiceCursor.transform.parent as RectTransform).rect.center;
+
+            if (pos.x >= parnetCenter.x && pos.y >= parnetCenter.y) return 1;
+            else if (pos.x < parnetCenter.x && pos.y >= parnetCenter.y) return 0;
+            else if (pos.x >= parnetCenter.x && pos.y < parnetCenter.y) return 2;
+            else return 3;
+        }
+
+        private void SelectChoice()
+        {
+            _showedMessage = false;
+            _dialogue.text = string.Empty;
+            _as?.Stop();
+            int choice = GetChoiceSelected();
+            GoToNext(choice);
+            HideChoice();
+        }
+
+        private void HideChoice()
+        {
+            _choiceHolder.SetActive(false);
+        }
+
+        private void ShowChoice()
+        {
+            _choiceMouse.Reset();
+            _choiceHolder.SetActive(true);
+        }
+
+        private void HandleTimeout()
+        {
+            if (LJ2025GameManager.IsPaused) return;
+
+            _timeSinceWriteStart += Time.deltaTime;
+
+            if (
+                (_timeSinceWriteStart > _timeout && !_showedMessage) ||
+                (!_passive && Keyboard.current.spaceKey.wasPressedThisFrame && !_showedMessage))
+            {
+                StopWriteRoutine();
+                _as?.Stop();
+                _showedMessage = true;
+                _dialogue.text = _currentMessage;
+                if (!_passive) _dialogueHint.SetActive(true);
+            }
+            else if (_showedMessage)
+            {
+                if (_passive)
+                {
+                    _timeSinceMessageEnd += Time.deltaTime;
+
+                    if (_timeSinceMessageEnd >= _passiveTimeout)
+                    {
+                        _timeSinceMessageEnd = -1;
+                        StopWriteRoutine();
+                        Next();
+                    }
+                }
+                else if (Keyboard.current.spaceKey.wasPressedThisFrame)
+                {
+                    StopWriteRoutine();
+                    Next();
+                }
+            }
+        }
+
+        public override void Show()
+        {
+            base.Show();
+            _holder.gameObject.SetActive(true);
+            LJ2025GameManager.HideCursor();
+        }
+
+        public override void Hide()
+        {
+            _holder.gameObject.SetActive(false);
+        }
+
+        public override void Init()
+        {
+            HideDialogue();
+            HideChoice();
+        }
+
+        private void Update()
+        {
+            HandleTimeout();
+
+            if (_showingChoice)
+            {
+                if (Mouse.current.leftButton.wasPressedThisFrame)
+                {
+                    if (_choiceText[GetChoiceSelected()].text != string.Empty) SelectChoice();
+                }
+            }
+        }
+    }
+}
