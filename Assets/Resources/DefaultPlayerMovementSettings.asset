@@ -17,8 +17,8 @@ MonoBehaviour:
   WalkingBackwardSpeed: 0.5
   WalkingStrideSpeed: 1
   MovementSmoothing: 0.1
-  GravityMultiplier: 1
-  JumpForce: 3
+  GravityMultiplier: 300
+  JumpForce: 100
   CrouchHeight: 1.2
   CrouchSpeedMul: 0.5
   EnableHeadMotion: 1

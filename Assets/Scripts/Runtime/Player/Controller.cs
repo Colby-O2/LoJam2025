@@ -5,6 +5,7 @@ using PlazmaGames.Core;
 using PlazmaGames.UI;
 using UnityEditor;
 using UnityEngine;
+using System;
 
 namespace LJ2025.Player
 {
@@ -259,6 +260,11 @@ namespace LJ2025.Player
         public Transform GetMouth()
         {
             return _head;
+        }
+
+        public Vector3 Velocity()
+        {
+            return _controller.velocity;
         }
     }
 }
