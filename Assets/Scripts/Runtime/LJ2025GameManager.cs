@@ -3,6 +3,8 @@ using PlazmaGames.Audio;
 using PlazmaGames.Core;
 using PlazmaGames.UI;
 using LJ2025.MonoSystems;
+using LJ2025.Player;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,6 +19,15 @@ namespace LJ2025
         [SerializeField] private AnimationMonoSystem _animSystem;
         [SerializeField] private AudioMonoSystem _audioSystem;
         [SerializeField] private InputMonoSystem _inputSystem;
+        [SerializeField] private DialogueMonoSystem _dialogueSystem;
+        [SerializeField] private GameLogicMonoSystem _gameLogicSystem;
+        public static bool IsPaused = false;
+        public static bool LockMovement = false;
+        public static PlayerSettings PlayerSettings;
+        public static Player.Inspector Inspector;
+        public static Player.Controller Player;
+        public static Preferences Preferences { get => (Instance as LJ2025GameManager)._preferences; }
+        [SerializeField] private Preferences _preferences;
 
         public static void HideCursor()
         {
@@ -36,6 +47,8 @@ namespace LJ2025
             AddMonoSystem<AnimationMonoSystem, IAnimationMonoSystem>(_animSystem);
             AddMonoSystem<AudioMonoSystem, IAudioMonoSystem>(_audioSystem);
             AddMonoSystem<InputMonoSystem, IInputMonoSystem>(_inputSystem);
+            AddMonoSystem<DialogueMonoSystem, IDialogueMonoSystem>(_dialogueSystem);
+            AddMonoSystem<GameLogicMonoSystem, IGameLogicMonoSystem>(_gameLogicSystem);
         }
 
         public override string GetApplicationName()
@@ -74,6 +87,8 @@ namespace LJ2025
         {
             Cursor.lockState= CursorLockMode.Locked;
             Cursor.visible = false;
+            Inspector = FindAnyObjectByType<Player.Inspector>();
+            Player = FindAnyObjectByType<Player.Controller>();
         }
 
         private void OnEnable()
@@ -86,6 +101,11 @@ namespace LJ2025
         {
             SceneManager.sceneLoaded -= OnSceneLoad;
             SceneManager.sceneUnloaded -= OnSceneUnload;
+        }
+        
+        public static void QuitGame()
+        {
+            Application.Quit();
         }
     }
 }

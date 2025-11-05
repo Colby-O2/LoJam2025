@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _preserveUIAcrossScenes: 1
-  _startingView: 
+  _startingView: LJ2025.UI.GameView, Assembly-CSharp
   _views: []
   _currentView: {fileID: 0}
   _hasInitialized: 0
@@ -436,6 +436,51 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &3309999758831759670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7281555074690462727}
+  - component: {fileID: 7768012354061058449}
+  m_Layer: 0
+  m_Name: GameLogic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7281555074690462727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3309999758831759670}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2615316343829940386}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7768012354061058449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3309999758831759670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33cbaa66f330bbe49e9740525ecf30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LJ2025.GameLogicMonoSystem
+  _globalTimeScale: 1
 --- !u!1 &5004127398254400908
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,8 +514,74 @@ Transform:
   - {fileID: 741632538771887424}
   - {fileID: 3370061802867189026}
   - {fileID: 2354115222829208728}
+  - {fileID: 6435703396381119081}
+  - {fileID: 7281555074690462727}
   m_Father: {fileID: 6183811345051236087}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7158535651485369430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6435703396381119081}
+  - component: {fileID: 3283356451743238997}
+  m_Layer: 0
+  m_Name: Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6435703396381119081
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7158535651485369430}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2615316343829940386}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3283356451743238997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7158535651485369430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c37cd81b25c59e488f66f7a5f4f1376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LJ2025.DialogueMonoSystem
+  _db: {fileID: 11400000, guid: a2f291f048176f380b8f2ca68cd93ee3, type: 2}
+  _currentDialogue: {fileID: 0}
+  _currentDialogueNode:
+    Guid: 
+    ActorName: 
+    GroupName: 
+    Type: 0
+    Text: 
+    EventID: 
+    position: {x: 0, y: 0}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices: []
+  _currentNodeType: 0
+  _isDialogueInProgress: 0
 --- !u!1 &7331179814383538364
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,7 +758,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8147380436922223611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 723483f8cde8edd4e89236e1aff2d008, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d9243e39d9547244953f29e830c3f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 4328482859697252821}
@@ -703,3 +814,6 @@ MonoBehaviour:
   _animSystem: {fileID: 2668592126853072843}
   _audioSystem: {fileID: 3056642794667792641}
   _inputSystem: {fileID: 2293649868042934979}
+  _dialogueSystem: {fileID: 3283356451743238997}
+  _gameLogicSystem: {fileID: 7768012354061058449}
+  _preferences: {fileID: 11400000, guid: 46d402db5151b0d359306cc0c508c140, type: 2}

@@ -1,3 +1,4 @@
+using PlazmaGames.UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -9,12 +10,14 @@ namespace LJ2025.MonoSystems
     {
         [SerializeField] private PlayerInput _input;
 
+        private IUIMonoSystem _ui;
+
         private InputAction _moveAction;
         private InputAction _lookAction;
-        private InputAction _leftClickAction;
-        private InputAction _rightClickAction;
-        public UnityEvent<InputAction.CallbackContext> LeftClickAction { get; private set; }
-        public UnityEvent<InputAction.CallbackContext> RightClickCallback { get; private set; }
+        private InputAction _jumpAction;
+        private InputAction _interactAction;
+        public UnityEvent JumpAction { get; private set; }
+        public UnityEvent InteractCallback { get; private set; }
 
         public Vector2 RawMovement { get; private set; }
         public Vector2 RawLook { get; private set; }
@@ -29,44 +32,70 @@ namespace LJ2025.MonoSystems
             RawLook = e.ReadValue<Vector2>();
         }
 
-        private void HandleRightClickAction(InputAction.CallbackContext e)
+        private void HandleInteractAction(InputAction.CallbackContext e)
         {
-            RightClickCallback.Invoke(e);
+            InteractCallback.Invoke();
         }
 
-        private void HandleLeftClickAction(InputAction.CallbackContext e)
+        private void HandleJumpAction(InputAction.CallbackContext e)
         {
-            LeftClickAction.Invoke(e);
+            JumpAction.Invoke();
         }
 
         private void Awake()
         {
             if (!_input) _input = GetComponent<PlayerInput>();
 
-            LeftClickAction             = new UnityEvent<InputAction.CallbackContext>();
-            RightClickCallback          = new UnityEvent<InputAction.CallbackContext>();
+            JumpAction       = new UnityEvent();
+            InteractCallback = new UnityEvent();
 
-            _moveAction                 = _input.actions["Move"];
-            _lookAction                 = _input.actions["Look"];
-            _leftClickAction            = _input.actions["LeftClick"];
-            _rightClickAction           = _input.actions["RightClick"];
+            _moveAction       = _input.actions["Move"];
+            _lookAction       = _input.actions["Look"];
+            _jumpAction       = _input.actions["Jump"];
+            _interactAction   = _input.actions["Interact"];
 
             _moveAction.performed       += HandleMoveAction;
             _lookAction.performed       += HandleLookAction;
-            _leftClickAction.performed  += HandleLeftClickAction;
-            _rightClickAction.performed += HandleRightClickAction;
-            _leftClickAction.canceled   += HandleLeftClickAction;
-            _rightClickAction.canceled  += HandleRightClickAction;
+            _jumpAction.performed       += HandleJumpAction;
+            _interactAction.performed   += HandleInteractAction;
+        }
+
+        private void Start()
+        {
+            _ui = LJ2025GameManager.GetMonoSystem<IUIMonoSystem>();
+        }
+
+        private void Update()
+        {
+            /*
+            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                if (_ui.GetCurrentViewIs<GameView>())
+                {
+                    _ui.Show<PauseView>();
+                }
+                else if (_ui.GetCurrentViewIs<InspectorView>())
+                {
+                    LJ2025GameManager.Inspector.StopInspecting();
+                }
+                else if (_ui.GetCurrentViewIs<PauseView>())
+                {
+                    _ui.GetView<PauseView>().Resume();
+                }
+                else if (_ui.GetCurrentViewIs<SettingsView>())
+                {
+                    _ui.GetView<SettingsView>().Back();
+                }
+            }
+            */
         }
 
         private void OnDestroy()
         {
             _moveAction.performed       -= HandleMoveAction;
             _lookAction.performed       -= HandleLookAction;
-            _leftClickAction.performed  -= HandleLeftClickAction;
-            _rightClickAction.performed -= HandleRightClickAction;
-            _leftClickAction.canceled   -= HandleLeftClickAction;
-            _rightClickAction.canceled  -= HandleRightClickAction;
+            _jumpAction.performed       -= HandleJumpAction;
+            _interactAction.performed   -= HandleInteractAction;
         }
     }
 }
