@@ -43,5 +43,6 @@ namespace LJ2025.Player
         public float DadThrowBallAngle = 30;
         public float DadHoldBallTime = 2;
         public float DadCatchDistance = 1;
+        public float SitTime = 1.0f;
     }
 }

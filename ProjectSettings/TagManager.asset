@@ -8,6 +8,11 @@ TagManager:
   - Fadeout
   - StartChair
   - HomePhone
+  - RigPart
+  - Dad
+  - SitBack
+  - SitSide
+  - RoadwayGenerateNear
   layers:
   - Default
   - TransparentFX
@@ -20,7 +25,7 @@ TagManager:
   - Hint
   - News
   - VisibleSnowMask
-  - 
+  - Ground
   - 
   - 
   - 
