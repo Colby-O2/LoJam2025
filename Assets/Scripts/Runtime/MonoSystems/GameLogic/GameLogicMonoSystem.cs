@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro.EditorUtilities;
 
 namespace LJ2025
 {
@@ -58,6 +59,9 @@ namespace LJ2025
             public Chair startChair;
             public Phone homePhone;
             public Pather dad;
+            public Dictionary<string, GameObject> scenes;
+            public Chair busStopChair;
+            public MoveAlongSpline busMover;
         }
 
         private void Start()
@@ -72,6 +76,15 @@ namespace LJ2025
             _refs.startChair = GameObject.FindWithTag("StartChair").GetComponent<Chair>();
             _refs.homePhone = GameObject.FindWithTag("HomePhone").GetComponent<Phone>();
             _refs.dad = GameObject.FindWithTag("Dad").GetComponent<Pather>();
+            Transform sceneHolder = GameObject.FindWithTag("SceneHolder").transform;
+            _refs.scenes = new Dictionary<string, GameObject>();
+            foreach (Transform scene in sceneHolder)
+            {
+                _refs.scenes.Add(scene.gameObject.name, scene.gameObject);
+            }
+            
+            _refs.busStopChair = GameObject.FindWithTag("BusStopChair").GetComponent<Chair>();
+            _refs.busMover = GameObject.FindWithTag("Bus").GetComponent<MoveAlongSpline>();
             
             _states = GameObject.FindObjectsByType<ResetableState>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (var rs in _states) rs.InitState();
@@ -100,6 +113,10 @@ namespace LJ2025
             {
                 case "Begin":
                 {
+                    foreach (var (sceneName, sceneObj) in _refs.scenes)
+                    {
+                        if (sceneName != "House") sceneObj.SetActive(false);
+                    }
                     _player.TeleportToChair(_refs.startChair);
                     _player.LockHead();
                     _scheduler.Wait(4)
@@ -123,7 +140,6 @@ namespace LJ2025
                         .Then(_ =>
                         {
                             _gameState = LJ2025.GameState.LeaveForWork;
-                    _refs.dad.Next();
                         });
                     break;
                 }
@@ -135,19 +151,59 @@ namespace LJ2025
                         .Then(_ => _screenEffectMs.FadeoutText("Bus Stop", 2))
                         .Then(_ =>
                         {
+                            TriggerEvent("StartBusScene", transform);
+                        });
+                    break;
+                }
 
-                        })
-                        .Then(_ => _screenEffectMs.FadeinText(2))
+                case "StartBusScene":
+                {
+                    SetUpBusScene();
+                    _screenEffectMs.FadeinText(2)
                         .Then(_ => _screenEffectMs.Fadein(3))
                         .Then(_ =>
                         {
                             LJ2025GameManager.LockMovement = false;
+                        })
+                        .Then(_ => _refs.dad.Next())
+                        .Then(_ => _dialogueMs.StartDialoguePromise("BusStopTalk"))
+                        .Then(_ =>
+                        {
+                            _refs.busMover.Continue();
+                        })
+                        .Then(_ => _scheduler.When(() => !_refs.busMover.IsMoving()))
+                        .Then(_ =>
+                        {
+                            _player.UnlockHead();
+                        })
+                        .Then(_ => _scheduler.When(() => !_player.HasDetachedHead()))
+                        .Then(_ => _scheduler.Wait(5))
+                        .Then(_ =>
+                        {
+                        });
+                    break;
+                }
+
+                case "BusDoorOpen":
+                {
+                    _scheduler.Wait(3)
+                        .Then(_ =>
+                        {
+                            _refs.busMover.Continue();
                         });
                     break;
                 }
             }
         }
-        
+
+        private void SetUpBusScene()
+        {
+            _refs.scenes["House"].SetActive(false);
+            _refs.scenes["BusStop"].SetActive(true);
+            _player.TeleportToChair(_refs.busStopChair);
+            _player.LockHead();
+        }
+
 
         private void Update()
         {
