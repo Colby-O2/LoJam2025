@@ -49,6 +49,50 @@ MonoBehaviour:
   _views: []
   _currentView: {fileID: 0}
   _hasInitialized: 0
+--- !u!1 &988569626510257950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8920185835523074634}
+  - component: {fileID: 7781471901149471696}
+  m_Layer: 0
+  m_Name: ScreenEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8920185835523074634
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988569626510257950}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2615316343829940386}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7781471901149471696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988569626510257950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b32075a99fac1418c086ca466acb97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LJ2025.ScreenEffectMonoSystem
 --- !u!1 &1229001489034586531
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,6 +560,7 @@ Transform:
   - {fileID: 2354115222829208728}
   - {fileID: 6435703396381119081}
   - {fileID: 7281555074690462727}
+  - {fileID: 8920185835523074634}
   m_Father: {fileID: 6183811345051236087}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7158535651485369430
@@ -816,4 +861,5 @@ MonoBehaviour:
   _inputSystem: {fileID: 2293649868042934979}
   _dialogueSystem: {fileID: 3283356451743238997}
   _gameLogicSystem: {fileID: 7768012354061058449}
+  _screenEffectSystem: {fileID: 7781471901149471696}
   _preferences: {fileID: 11400000, guid: 46d402db5151b0d359306cc0c508c140, type: 2}
