@@ -57,6 +57,7 @@ namespace LJ2025
         {
             public Chair startChair;
             public Phone homePhone;
+            public Pather dad;
         }
 
         private void Start()
@@ -70,6 +71,7 @@ namespace LJ2025
             
             _refs.startChair = GameObject.FindWithTag("StartChair").GetComponent<Chair>();
             _refs.homePhone = GameObject.FindWithTag("HomePhone").GetComponent<Phone>();
+            _refs.dad = GameObject.FindWithTag("Dad").GetComponent<Pather>();
             
             _states = GameObject.FindObjectsByType<ResetableState>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (var rs in _states) rs.InitState();
@@ -121,6 +123,7 @@ namespace LJ2025
                         .Then(_ =>
                         {
                             _gameState = LJ2025.GameState.LeaveForWork;
+                    _refs.dad.Next();
                         });
                     break;
                 }

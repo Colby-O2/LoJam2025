@@ -1,11 +1,9 @@
 using LJ2025.MonoSystems;
-using LJ2025;
 using PlazmaGames.Attribute;
 using PlazmaGames.Core;
 using PlazmaGames.UI;
 using UnityEditor;
 using UnityEngine;
-using System;
 
 namespace LJ2025.Player
 {
@@ -63,7 +61,6 @@ namespace LJ2025.Player
         public bool Occupied() => LJ2025GameManager.IsPaused || LJ2025GameManager.LockMovement || _inspector.IsInspecting() || _objectMover.IsMoving();
         
         public bool HasDetachedHead() => _detachedHeadState == DetachedHeadState.Looking;
-        public bool IsNotInChair() => _detachedHeadState == DetachedHeadState.Attached;
 
         public void LockHead() => _lockHead = true;
         public void UnlockHead() => _lockHead = false;
@@ -263,9 +260,6 @@ namespace LJ2025.Player
             return _head;
         }
 
-        public Vector3 Velocity()
-        {
-            return _controller.velocity;
-        }
+        public Vector3 Velocity() => _controller.velocity;
     }
 }

@@ -8,6 +8,10 @@ TagManager:
   - Fadeout
   - StartChair
   - HomePhone
+  - RigPart
+  - Dad
+  - SitBack
+  - SitSide
   layers:
   - Default
   - TransparentFX
@@ -19,7 +23,7 @@ TagManager:
   - Player
   - Hint
   - News
-  - 
+  - Ground
   - 
   - 
   - 
