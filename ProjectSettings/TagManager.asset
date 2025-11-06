@@ -13,6 +13,9 @@ TagManager:
   - SitBack
   - SitSide
   - RoadwayGenerateNear
+  - SceneHolder
+  - BusStopChair
+  - Bus
   layers:
   - Default
   - TransparentFX
