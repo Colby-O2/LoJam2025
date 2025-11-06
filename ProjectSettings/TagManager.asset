@@ -6,6 +6,8 @@ TagManager:
   tags:
   - MusicSource
   - Fadeout
+  - StartChair
+  - HomePhone
   layers:
   - Default
   - TransparentFX

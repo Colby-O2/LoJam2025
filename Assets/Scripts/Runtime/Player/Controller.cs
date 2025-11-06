@@ -63,6 +63,7 @@ namespace LJ2025.Player
         public bool Occupied() => LJ2025GameManager.IsPaused || LJ2025GameManager.LockMovement || _inspector.IsInspecting() || _objectMover.IsMoving();
         
         public bool HasDetachedHead() => _detachedHeadState == DetachedHeadState.Looking;
+        public bool IsNotInChair() => _detachedHeadState == DetachedHeadState.Attached;
 
         public void LockHead() => _lockHead = true;
         public void UnlockHead() => _lockHead = false;

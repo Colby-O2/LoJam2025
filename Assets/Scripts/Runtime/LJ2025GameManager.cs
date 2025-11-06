@@ -21,6 +21,7 @@ namespace LJ2025
         [SerializeField] private InputMonoSystem _inputSystem;
         [SerializeField] private DialogueMonoSystem _dialogueSystem;
         [SerializeField] private GameLogicMonoSystem _gameLogicSystem;
+        [SerializeField] private ScreenEffectMonoSystem _screenEffectSystem;
         public static bool IsPaused = false;
         public static bool LockMovement = false;
         public static PlayerSettings PlayerSettings;
@@ -49,6 +50,7 @@ namespace LJ2025
             AddMonoSystem<InputMonoSystem, IInputMonoSystem>(_inputSystem);
             AddMonoSystem<DialogueMonoSystem, IDialogueMonoSystem>(_dialogueSystem);
             AddMonoSystem<GameLogicMonoSystem, IGameLogicMonoSystem>(_gameLogicSystem);
+            AddMonoSystem<ScreenEffectMonoSystem, IScreenEffectMonoSystem>(_screenEffectSystem);
         }
 
         public override string GetApplicationName()
