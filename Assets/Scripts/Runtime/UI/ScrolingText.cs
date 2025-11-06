@@ -11,6 +11,7 @@ namespace LJ2025.UI
         [SerializeField] private float _scrollSpeed = 100f;
 
         [SerializeField] private int _maxClones = 10;
+        [SerializeField] private float _offset;
 
         [SerializeField, ReadOnly] float _textWidth;
         [SerializeField, ReadOnly] LinkedList<RectTransform> _texts = new LinkedList<RectTransform>();
@@ -34,7 +35,7 @@ namespace LJ2025.UI
         {
             float lastPos = _texts.Last.Value.localPosition.x;
             Vector3 newPos = clone.localPosition;
-            newPos.x = lastPos + _textWidth;
+            newPos.x = lastPos + _textWidth + _offset;
             clone.localPosition = newPos;
         }
 
