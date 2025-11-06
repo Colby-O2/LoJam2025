@@ -46,7 +46,7 @@ namespace LJ2025
 
             foreach (var sample in samples)
             {
-                Vector3 position = new Vector3(sample.x, 0f, sample.y); // adjust y if needed
+                Vector3 position = new Vector3(sample.x, 0f, sample.y);
                 if (parent != null)
                     position += parent.position;
 
