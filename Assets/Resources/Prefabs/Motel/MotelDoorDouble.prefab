@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &650584690635864830
+--- !u!1 &752340554574897152
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4211775075041416011}
-  - component: {fileID: 1638832380813228797}
-  - component: {fileID: 3697385110383929154}
-  - component: {fileID: 1357993830224258898}
+  - component: {fileID: 8453482134054738590}
+  - component: {fileID: 8052447603644311862}
+  - component: {fileID: 8710098053533183200}
+  - component: {fileID: 4632128482359172851}
+  - component: {fileID: 1795400783140339934}
+  - component: {fileID: 8145326610108560713}
   m_Layer: 0
-  m_Name: StiarRailing
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4211775075041416011
+--- !u!4 &8453482134054738590
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 650584690635864830}
+  m_GameObject: {fileID: 752340554574897152}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1336923929507478523}
+  m_Father: {fileID: 4761665737758613244}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1638832380813228797
+--- !u!33 &8052447603644311862
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 650584690635864830}
-  m_Mesh: {fileID: -8768229664706591535, guid: d592f143e08efee4593a5aa5c8e15469, type: 3}
---- !u!23 &3697385110383929154
+  m_GameObject: {fileID: 752340554574897152}
+  m_Mesh: {fileID: 9108014057634455617, guid: db5214108301411459d1b2777a7a745c, type: 3}
+--- !u!23 &8710098053533183200
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 650584690635864830}
+  m_GameObject: {fileID: 752340554574897152}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -67,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1984d63113a1c9a46b3d62231ee0bb0d, type: 2}
+  - {fileID: 2100000, guid: f17c1c3e99a6af54abb97e5d05165ff2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -90,13 +92,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1357993830224258898
+--- !u!65 &4632128482359172851
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 650584690635864830}
+  m_GameObject: {fileID: 752340554574897152}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -109,9 +111,51 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.019279039, y: 0.00087549904, z: 0.009453023}
-  m_Center: {x: -0.0020392083, y: -0.000014077418, z: -0.00218325}
---- !u!1 &3654573825793587157
+  m_Size: {x: 0.02, y: 0.003975812, z: 0.015011848}
+  m_Center: {x: 0, y: 4.558493e-17, z: 0.021494078}
+--- !u!65 &1795400783140339934
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752340554574897152}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0043520886, y: 0.003975812, z: 0.040032007}
+  m_Center: {x: 0.007823949, y: -2.868808e-17, z: 0.008983994}
+--- !u!65 &8145326610108560713
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752340554574897152}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.004308252, y: 0.003975812, z: 0.040032007}
+  m_Center: {x: -0.007845861, y: -2.868808e-17, z: 0.008983994}
+--- !u!1 &2839354030181739900
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,27 +163,27 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1336923929507478523}
+  - component: {fileID: 4761665737758613244}
   m_Layer: 0
-  m_Name: StairRailing
+  m_Name: MotelDoorDouble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1336923929507478523
+--- !u!4 &4761665737758613244
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3654573825793587157}
+  m_GameObject: {fileID: 2839354030181739900}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4211775075041416011}
+  - {fileID: 8453482134054738590}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
