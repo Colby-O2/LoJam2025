@@ -41,6 +41,8 @@ namespace LJ2025.UI
         [SerializeField, ReadOnly] private bool _showedMessage = false;
         [SerializeField, ReadOnly] private bool _showingChoice = false;
 
+        private bool _initialInputLockState = false;
+
         private Coroutine _writeRoutine = null;
         
         private bool IsWriting() => _writeRoutine == null;
@@ -110,9 +112,12 @@ namespace LJ2025.UI
 
         public void ShowDialogue()
         {
+            if (!_dialogueHolder.activeSelf)
+            {
+                _initialInputLockState = LJ2025GameManager.LockMovement;
+            }
             _dialogueHolder.SetActive(true);
             _dialogueHint.SetActive(false);
-
             if (!_passive) LJ2025GameManager.LockMovement = true;
         }
 
@@ -137,7 +142,7 @@ namespace LJ2025.UI
             _dialogueHolder.SetActive(false);
             _dialogueHint.SetActive(false);
 
-            if (!_passive) LJ2025GameManager.LockMovement = false;
+            if (!_passive) LJ2025GameManager.LockMovement = _initialInputLockState;
         }
 
         public void GoToNext(int choice)

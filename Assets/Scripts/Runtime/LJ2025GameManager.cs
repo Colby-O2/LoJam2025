@@ -23,7 +23,17 @@ namespace LJ2025
         [SerializeField] private GameLogicMonoSystem _gameLogicSystem;
         [SerializeField] private ScreenEffectMonoSystem _screenEffectSystem;
         public static bool IsPaused = false;
-        public static bool LockMovement = false;
+
+
+        private static bool _lockMovement = false;
+        public static bool LockMovement
+        {
+            get { return _lockMovement; }
+            set
+            {
+                _lockMovement = value;
+            }
+        }
         public static PlayerSettings PlayerSettings;
         public static Player.Inspector Inspector;
         public static Player.Controller Player;

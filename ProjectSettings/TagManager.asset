@@ -16,6 +16,8 @@ TagManager:
   - SceneHolder
   - BusStopChair
   - Bus
+  - OfficePhone
+  - Snack
   layers:
   - Default
   - TransparentFX
@@ -29,7 +31,7 @@ TagManager:
   - News
   - VisibleSnowMask
   - Ground
-  - 
+  - KeepOn
   - 
   - 
   - 
