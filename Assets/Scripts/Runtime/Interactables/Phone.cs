@@ -8,13 +8,22 @@ namespace LJ2025
     {
         [SerializeField] private AudioSource _ringSource;
         [SerializeField] private SphereCollider _bounds;
-        public void Ring()
+
+        private Promise _promise = null;
+        
+        public Promise Ring()
         {
             _ringSource.Play();
+            _promise = new Promise();
+            return _promise;
         }
 
         public void StopRinging()
         {
+            if (!IsRinging()) return;
+            Promise tmp = _promise;
+            _promise = null;
+            tmp.Resolve();
             _ringSource.Stop();
         }
 
@@ -32,7 +41,7 @@ namespace LJ2025
         {
             if (IsRinging())
             {
-                GameManager.GetMonoSystem<IGameLogicMonoSystem>().TriggerEvent("AnswerHomePhone", transform);
+                StopRinging();
             }
             else
             {

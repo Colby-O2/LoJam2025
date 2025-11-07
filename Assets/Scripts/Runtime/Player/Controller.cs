@@ -27,10 +27,6 @@ namespace LJ2025.Player
         [SerializeField, ReadOnly] private Vector3 _currentVel;
         [SerializeField, ReadOnly] private float _velY;
 
-        [Header("Debug -- Look")]
-        [SerializeField, ReadOnly] private float _smoothedXRot;
-        [SerializeField, ReadOnly] private float _smoothedYRot;
-
         enum DetachedHeadState
         {
             Attached,
@@ -67,18 +63,29 @@ namespace LJ2025.Player
 
         public void DetachHead(Transform target)
         {
+            DetachHead(target, target);
+        }
+        
+        public void DetachHead(MathExt.Transform target, Transform obj)
+        {
             if (_detachedHeadState != DetachedHeadState.Attached) return;
-            _detachedHeadTargetObject = target;
+            _detachedHeadTargetObject = obj;
             _detachedHeadTarget = target;
             _detachedHeadTransition = 0;
             _detachedHeadState = DetachedHeadState.Entering;
             _detachedHeadFromTrans = _head;
         }
         
+        public void DetachHeadLookAt(Vector3 targetPos)
+        {
+            MathExt.Transform pos = _head;
+            pos.rotation = Quaternion.LookRotation(targetPos - pos.position);
+            DetachHead(pos, null);
+        }
+        
         public void AttachHead()
         {
-            if (LJ2025GameManager.IsPaused || LJ2025GameManager.LockMovement || _inspector.IsInspecting() || _objectMover.IsMoving()) return;
-            if (_lockHead || _detachedHeadState != DetachedHeadState.Looking) return;
+            if (_detachedHeadState != DetachedHeadState.Looking) return;
             _detachedHeadTarget = _head;
             _detachedHeadState = DetachedHeadState.Returning;
             _detachedHeadTransition = 0;
@@ -133,20 +140,19 @@ namespace LJ2025.Player
 
         private void ProcessLook()
         {
-            // Head Rotation
-            _smoothedXRot -= (_settings.InvertLookY ? -1 : 1) * _settings.Sensitivity.y * _input.RawLook.y;
-            _smoothedXRot = Mathf.Clamp(_smoothedXRot, _settings.YLookLimit.x, _settings.YLookLimit.y);
-            Quaternion headRot = Quaternion.Euler(_smoothedXRot, 0f, 0f);
-            _head.localRotation = headRot;
-
-            // Body Rotation
-            _smoothedYRot += (_settings.InvertLookX ? -1 : 1) * _settings.Sensitivity.x * _input.RawLook.x;
-            Quaternion playerRot = Quaternion.Euler(0f, _smoothedYRot, 0f);
-            transform.localRotation = playerRot;
+            float x = _head.localEulerAngles.AngleAs180().x;
+            x -= (_settings.InvertLookY ? -1 : 1) * _settings.Sensitivity.y * _input.RawLook.y;
+            x = Mathf.Clamp(x , _settings.YLookLimit.x, _settings.YLookLimit.y);
+            _head.localEulerAngles = _head.localEulerAngles.SetX(x);
+            
+            float y = transform.localEulerAngles.y;
+            y += (_settings.InvertLookX ? -1 : 1) * _settings.Sensitivity.x * _input.RawLook.x;
+            transform.localEulerAngles = transform.localEulerAngles.SetY(y);
         }
         
         private void ProcessDetachedHeadLook()
         {
+            if (LJ2025GameManager.LockMovement) return;
             Vector3 rot = _head.localEulerAngles.AngleAs180();
             rot.x -= (_settings.InvertLookY ? -1 : 1) * _settings.Sensitivity.y * _input.RawLook.y;
             rot.x = Mathf.Clamp(rot.x , _settings.YLookLimit.x, _settings.YLookLimit.y);
@@ -166,12 +172,16 @@ namespace LJ2025.Player
             _input = GameManager.GetMonoSystem<IInputMonoSystem>();
 
             _input.JumpAction.AddListener(Jump);
-            _input.JumpAction.AddListener(() => AttachHead());
+            _input.JumpAction.AddListener(() =>
+            {
+                if (_lockHead || LJ2025GameManager.IsPaused || LJ2025GameManager.LockMovement || _inspector.IsInspecting() || _objectMover.IsMoving()) return;
+                AttachHead();
+            });
         }
 
         private void Update()
         {
-            if (LJ2025GameManager.IsPaused || LJ2025GameManager.LockMovement || _inspector.IsInspecting())
+            if (LJ2025GameManager.IsPaused || _inspector.IsInspecting())
             {
                 if (_as.isPlaying) _as.Stop();
                 return;
@@ -204,6 +214,12 @@ namespace LJ2025.Player
 
                     if (_detachedHeadTransition >= 1) _detachedHeadState = DetachedHeadState.Attached;
                 }
+                return;
+            }
+
+            if (LJ2025GameManager.LockMovement)
+            {
+                if (_as.isPlaying) _as.Stop();
                 return;
             }
             ProcessLook();
@@ -242,7 +258,7 @@ namespace LJ2025.Player
             _detachedHeadTransition = 1;
         }
 
-        private void Teleport(MathExt.Transform loc)
+        public void Teleport(MathExt.Transform loc)
         {
             bool prevState = _controller.enabled;
             _controller.enabled = false;

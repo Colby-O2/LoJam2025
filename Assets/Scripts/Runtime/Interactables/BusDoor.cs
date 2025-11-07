@@ -14,16 +14,19 @@ namespace LJ2025
         [SerializeField] private DoorOpen _rightDoor;
         public bool IsInteractable() => true;
 
-        public string GetHintName() => "Door";
+        public string GetHintName() => "Bus";
 
-        public string GetHintAction() => "Open";
+        public string GetHintAction() => "Leave";
         public SphereCollider BoundingRadius() => _bounds;
 
-        public bool Interact(Interactor interactor)
+        public void Open()
         {
             _leftDoor.OpenDoor();
             _rightDoor.OpenDoor();
-            GameManager.GetMonoSystem<IGameLogicMonoSystem>().TriggerEvent("BusDoorOpen", transform);
+        }
+        public bool Interact(Interactor interactor)
+        {
+            GameManager.GetMonoSystem<IGameLogicMonoSystem>().TriggerEvent("GoOnBus", transform);
             return true;
         }
 
