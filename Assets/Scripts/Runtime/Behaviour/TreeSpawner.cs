@@ -16,6 +16,9 @@ namespace LJ2025
         public GameObject treePrefab;
         public Transform parent;
         public int maxTrees = 100;
+        public Vector2 heightRange;
+        public float scale;
+       
 
         [Header("Seed Settings")]
         public int? seed = null;
@@ -52,6 +55,7 @@ namespace LJ2025
 
                 GameObject tree = (GameObject)Instantiate(treePrefab);
                 tree.transform.position = position;
+                tree.transform.localScale = new Vector3(scale, Random.Range(heightRange.x, heightRange.y), scale);
                 tree.transform.SetParent(parent);
             }
 
