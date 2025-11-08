@@ -888,6 +888,74 @@ Transform:
   - {fileID: 1664318538}
   m_Father: {fileID: 1603085238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &24902785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 24902786}
+  - component: {fileID: 24902788}
+  - component: {fileID: 24902787}
+  m_Layer: 6
+  m_Name: Room3Trigger (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &24902786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24902785}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 53.54, y: 1.936, z: 49.745}
+  m_LocalScale: {x: 6.423939, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 749262141}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &24902787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24902785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d9a9fd910069eaf3bf7c04f9e0b6e68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LJ2025.NotifyInside
+  _id: InMaintenance
+  _targetTag: Player
+--- !u!65 &24902788
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24902785}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &26297281
 GameObject:
   m_ObjectHideFlags: 0
@@ -15343,6 +15411,7 @@ Transform:
   - {fileID: 1495098594}
   - {fileID: 1455192502}
   - {fileID: 286124213}
+  - {fileID: 24902786}
   - {fileID: 931877687}
   - {fileID: 1889220304}
   - {fileID: 1186495872}
@@ -21537,7 +21606,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f19755fbbca8d524c8d7f74dda07dae5, type: 2}
+  - {fileID: 2100000, guid: f75838e65e090f3428e8a98144ea527b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26249,7 +26318,7 @@ GameObject:
   - component: {fileID: 1095323939}
   - component: {fileID: 1095323943}
   m_Layer: 0
-  m_Name: Dad
+  m_Name: Stranger
   m_TagString: Dad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34349,7 +34418,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f19755fbbca8d524c8d7f74dda07dae5, type: 2}
+  - {fileID: 2100000, guid: 9d9f88a0a7e5c0d4ea09ee7c8a7e18af, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -44264,7 +44333,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f19755fbbca8d524c8d7f74dda07dae5, type: 2}
+  - {fileID: 2100000, guid: 0c2bc06c7d2b640448a57aea5bc55803, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -44696,6 +44765,7 @@ MonoBehaviour:
   _id: TrashThrownOut
   _requiredTrashCount: 1
   _trashCount: 0
+  TaskEnabledRoom: 0
 --- !u!65 &1704838827
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -46393,6 +46463,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: House
       objectReference: {fileID: 0}
+    - target: {fileID: 8323125698872775820, guid: 6656efa8ab404174eb5f25795f1ce8b2, type: 3}
+      propertyPath: _playerCamera
+      value: 
+      objectReference: {fileID: 207562464}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -52354,6 +52428,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4775728811628983014, guid: 45ffa1af164d61c4090aa31dc67fd9c7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 4777073951043384151, guid: 45ffa1af164d61c4090aa31dc67fd9c7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -52584,6 +52662,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashCan
       objectReference: {fileID: 0}
+    - target: {fileID: 5816840908354598433, guid: 0f4c5aa094bed7c47a4cf1f71fb84477, type: 3}
+      propertyPath: m_TagString
+      value: RoomTrashBin
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -52620,6 +52702,7 @@ MonoBehaviour:
   _id: AllTrashCleared
   _requiredTrashCount: 9
   _trashCount: 0
+  TaskEnabledRoom: 0
 --- !u!65 &2034607085
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94358,7 +94441,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3846018093981099296, guid: e770c6153e05291439a7df239bf09027, type: 3}
+  - {fileID: 2100000, guid: 45a1f4d20186a23468f4067cb90eadfe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

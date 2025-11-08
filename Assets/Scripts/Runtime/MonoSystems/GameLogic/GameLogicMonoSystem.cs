@@ -7,6 +7,7 @@ using System.Linq;
 using PlazmaGames.Animation;
 using TMPro.EditorUtilities;
 using Unity.Hierarchy;
+using LJ2025.MonoSystems;
 
 namespace LJ2025
 {
@@ -48,6 +49,7 @@ namespace LJ2025
 
         private IDialogueMonoSystem _dialogueMs;
         private IScreenEffectMonoSystem _screenEffectMs;
+        private ITaskMonoSystem _taskMs;
         private DateTime _date = new DateTime(2012, 3, 3, 17, 0, 0);
         private float _timeScale = 10;
 
@@ -94,12 +96,14 @@ namespace LJ2025
             public Transform foodZoomLocation;
             public Transform heartAttackLocation;
             public HeartAttack heartAttack;
+            public TrashBin roomTrashBin;
         }
 
         private void Start()
         {
             _screenEffectMs = GameManager.GetMonoSystem<IScreenEffectMonoSystem>();
             _dialogueMs = GameManager.GetMonoSystem<IDialogueMonoSystem>();
+            _taskMs = GameManager.GetMonoSystem<ITaskMonoSystem>();
             _player = GameObject.FindAnyObjectByType<Player.Controller>();
             _playerInteractor = _player.GetComponent<Player.Interactor>();
             _playerInspector = _player.GetComponent<Player.Inspector>();
@@ -142,6 +146,7 @@ namespace LJ2025
             _refs.foodZoomLocation = GameObject.FindWithTag("FoodZoom").transform;
             _refs.heartAttackLocation = GameObject.FindWithTag("HeartAttack").transform;
             _refs.heartAttack = GameObject.FindAnyObjectByType<HeartAttack>();
+            _refs.roomTrashBin = GameObject.FindWithTag("RoomTrashBin").GetComponent<TrashBin>();
             
             _refs.deathRooms.SetActive(false);
             
@@ -189,6 +194,7 @@ namespace LJ2025
                         .Then(_ => _dialogueMs.StartDialoguePromise("NewJobPhoneCall"))
                         .Then(_ =>
                         {
+                            _taskMs.StartTask("Leave your house");
                             _gameState = LJ2025.GameState.LeaveForWork;
                         });
                     
@@ -197,6 +203,7 @@ namespace LJ2025
 
                 case "LeaveForWork":
                 {
+                    _taskMs.EndTask();
                     LJ2025GameManager.LockMovement = true;
                     _screenEffectMs.Fadeout(1)
                         .Then(_ => _screenEffectMs.FadeoutText("Bus Stop", 1))
@@ -235,6 +242,7 @@ namespace LJ2025
                         .Then(_ => _dialogueMs.StartDialoguePromise("BusIsHere"))
                         .Then(_ =>
                         {
+                            _taskMs.StartTask("Get on the bus");
                             _player.UnlockHead();
                         });
                     break;
@@ -242,6 +250,7 @@ namespace LJ2025
 
                 case "GoOnBus":
                 {
+                    _taskMs.EndTask();
                     LJ2025GameManager.LockMovement = true;
                     _player.LockHead();
                     _player.DetachHeadLookAt(_refs.dad.transform.position.AddY(1.4f));
@@ -271,11 +280,13 @@ namespace LJ2025
                         .Then(_ => _screenEffectMs.Fadein(1))
                         .Then(_ =>
                         {
+                            _taskMs.StartTask("Go to the front office");
                             LJ2025GameManager.LockMovement = false;
                         })
                         .Then(_ => _scheduler.When(() => IsInRange("Office")))
                         .Then(_ =>
                         {
+                            _taskMs.EndTask();
                             _refs.officeDoors.Close();
                         })
                         .Then(_ => _scheduler.Wait(3))
@@ -283,6 +294,7 @@ namespace LJ2025
                         .Then(_ => _dialogueMs.StartDialoguePromise("IntroductionCall"))
                         .Then(_ =>
                         {
+                            _taskMs.StartTask("Help any customers");
                             _gameState = LJ2025.GameState.ServeGuest;
                         })
                         .Then(_ => _refs.guy1Pather.Next())
@@ -296,13 +308,31 @@ namespace LJ2025
                     _dialogueMs.StartDialoguePromise("Guy1GetRoom")
                         .Then(_ => _refs.guy1Pather.Next())
                         .Then(_ => _scheduler.Wait(2))
+                        .Then(_ =>
+                        {
+                            _taskMs.EndTask();
+                        })
                         .Then(_ => _dialogueMs.StartDialoguePromise("Guy1VendingMachineEmpty"))
+                        .Then(_ =>
+                        {
+                            _refs.vendingMachine.TaskEnabled = true;
+                            _taskMs.StartTask("Refill the vending machine", _refs.vendingMachine.GetMaxCount());
+                        })
                         .Then(_ => _refs.guy1Pather.Next())
                         .Then(_ => _scheduler.When(() => _refs.vendingMachine.IsStocked()))
+                        .Then(_ =>
+                        {
+                            _refs.vendingMachine.TaskEnabled = false;
+                            _taskMs.EndTask();
+                        })
                         .Then(_ => _scheduler.Wait(1.5f))
                         .Then(_ => _refs.guy1Pather.Next())
                         .Then(_ => _scheduler.Wait(1.5f))
                         .Then(_ => _dialogueMs.StartDialoguePromise("Guy1VendingChoose"))
+                        .Then(_ =>
+                        {
+                            _taskMs.StartTask("Help any customers");
+                        })
                         .Then(_ => _scheduler.Wait(1.5f))
                         .Then(_ => _refs.guy1Grabber.Grab(_refs.vendingMachine.RemoveItem()))
                         .Then(_ => _refs.guy1Pather.Next())
@@ -328,7 +358,18 @@ namespace LJ2025
                 case "Guy3Talk":
                 {
                     _gameState = LJ2025.GameState.GetTrashCan;
+                    _taskMs.EndTask();
                     _dialogueMs.StartDialoguePromise("Guy3Leaving")
+                        .Then(_ =>
+                        {
+                            _taskMs.StartTask("Go to room 3");
+                            _scheduler.When(() => IsInRange("Guy3Found"))
+                            .Then(_ => {
+                                _taskMs.EndTask();
+                                _refs.roomTrashBin.TaskEnabledRoom = true;
+                                _taskMs.StartTask("Pick up trash", _refs.roomTrashBin.RequiredTrash); 
+                            });
+                        })
                         .Then(_ => _refs.guy3Pather.Next())
                         .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy3Pather.transform, 2))
                         .Then(_ => _refs.guy3Pather.Next())
@@ -341,6 +382,9 @@ namespace LJ2025
                 
                 case "AllTrashCleared":
                 {
+                    _refs.roomTrashBin.TaskEnabledRoom = false;
+                    _taskMs.EndTask();
+                    _taskMs.StartTask("Throw trash bag in the outside bin");
                     _refs.trashBag.SetActive(true);
                     _dialogueMs.StartDialoguePromise("ThatsAllTheTrash");
                     _gameState = LJ2025.GameState.ServeGuest;
@@ -349,6 +393,8 @@ namespace LJ2025
 
                 case "TrashThrownOut":
                 {
+                    _taskMs.EndTask();
+                    _taskMs.StartTask("Help any customers");
                     _dialogueMs.StartDialoguePromise("GetBackToOffice");
                     _refs.guy2Pather.gameObject.SetActive(true);
                     break;
@@ -370,15 +416,32 @@ namespace LJ2025
                         })
                         .Then(_ => _scheduler.Wait(4))
                         .Then(_ => _refs.officePhone.Ring())
-                        .Then(_ => _dialogueMs.StartDialoguePromise("WaterCold"));
+                        .Then(_ => _dialogueMs.StartDialoguePromise("WaterCold"))
+                        .Then(_ =>
+                        {
+                            _taskMs.StartTask("Find the maintenance room");
+                            _scheduler.When(() => IsInRange("InMaintenance"))
+                            .Then(_ => {
+                                _taskMs.EndTask();
+                                _taskMs.StartTask("Turn on hot water valve");
+                            });
+                        });
                     break;
                 }
 
                 case "WaterFixed":
                 {
-
+                    _taskMs.EndTask();
                     _dialogueMs.StartDialoguePromise("WaterFixed")
+                        .Then(_ =>
+                        {
+                            _taskMs.StartTask("Return to office");
+                        })
                         .Then(_ => _scheduler.When(() => IsInRange("Office")))
+                        .Then(_ =>
+                        {
+                            _taskMs.EndTask();
+                        })
                         .Then(_ => _scheduler.Wait(5))
                         .Then(_ => _dialogueMs.StartDialoguePromise("WaitUntilCheckout"))
                         .Then(_ => _screenEffectMs.Fadeout(1))

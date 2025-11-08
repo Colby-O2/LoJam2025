@@ -100,6 +100,7 @@ namespace LJ2025.UI
                 yield return new WaitForSeconds(typeSpeed * LJ2025GameManager.Preferences.DialogueSpeedMul);
             }
 
+            target.text = msg;
             if (!isDigloue) _isTyping = false;
             if (_as) _as.Stop();
 

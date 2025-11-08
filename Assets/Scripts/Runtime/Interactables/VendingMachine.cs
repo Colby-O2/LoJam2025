@@ -1,3 +1,5 @@
+using LJ2025.MonoSystems;
+using PlazmaGames.Core;
 using System.Collections.Generic;
 using System.Data;
 using Unity.VisualScripting;
@@ -14,7 +16,19 @@ namespace LJ2025
         private List<GameObject> _items = new();
         private int _itemsStocked = 0;
 
+        public bool TaskEnabled { get; set; }
+
         public bool IsStocked() => _itemsStocked == _items.Count;
+
+        public int GetMaxCount()
+        {
+            return _items.Count - _initialStock;
+        }
+
+        public int GetCount()
+        {
+            return _itemsStocked;
+        }
 
         private void Awake()
         {
@@ -33,6 +47,7 @@ namespace LJ2025
         public void AddItem()
         {
             if (_itemsStocked == _items.Count) return;
+            if (TaskEnabled) GameManager.GetMonoSystem<ITaskMonoSystem>().UpdateTask();
             _items[_itemsStocked++].SetActive(true);
         }
 
