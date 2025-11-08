@@ -12,7 +12,10 @@ GameObject:
   - component: {fileID: 1857825806659975885}
   - component: {fileID: 7770322230792234802}
   - component: {fileID: -4731318867286908000}
-  m_Layer: 0
+  - component: {fileID: 2696753830151215811}
+  - component: {fileID: 2874989301000247276}
+  - component: {fileID: 3521380051996123162}
+  m_Layer: 6
   m_Name: BeerCanCrushed
   m_TagString: Trash
   m_Icon: {fileID: 0}
@@ -27,13 +30,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3226297405311245309}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071069, y: 0, z: 0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 17.628033, y: 1.569, z: 53.515682}
   m_LocalScale: {x: 22.529373, y: 22.529373, z: 25.913021}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &1857825806659975885
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -110,4 +113,72 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.024341393, y: 0.025048602, z: 0.0148760965}
+  m_Center: {x: 0.00021458883, y: 0.0012696399, z: -0.0056420327}
+--- !u!54 &2696753830151215811
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3226297405311245309}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2874989301000247276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3226297405311245309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e81efb34caf8a1aa4ad5ef8db7abe2cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LJ2025.MoveableObject
+  _settings:
+    name: Crushed Beer Can
+    holdDistance: 1
+    rotateType: 1
+    bounds: {fileID: 3521380051996123162}
+    ignoreChildren: 0
+  _enabled: 1
+  _detachFromParent: 0
+--- !u!135 &3521380051996123162
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3226297405311245309}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 0.012524301
   m_Center: {x: 0.00021458883, y: 0.0012696399, z: -0.0056420327}
