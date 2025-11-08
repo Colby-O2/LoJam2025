@@ -18,6 +18,7 @@ namespace LJ2025
         public System.DateTime CurrentDate();
         public string CurrentTime();
         public void TriggerEvent(string eventName, Transform by);
+        public Scheduler Scheduler();
         public void SetInRange(string id, bool state);
         public bool IsInRange(string id);
     }

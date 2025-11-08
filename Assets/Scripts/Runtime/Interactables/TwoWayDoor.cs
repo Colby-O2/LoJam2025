@@ -38,6 +38,8 @@ namespace LJ2025
         public UnityEvent OnOpen = new UnityEvent();
         [SerializeField] private SphereCollider _boundingRadius;
 
+        private Promise _promise = null;
+
         public void SetDirectionOverride(int dir)
         {
             _directionOverride = dir;
@@ -79,10 +81,11 @@ namespace LJ2025
         public string GetHintName() => "Door";
         public string GetHintAction() => "Open";
 
-        public void Open(Transform from, bool overrideAudio = false)
+        public Promise Open(Transform from, bool overrideAudio = false)
         {
-            if (_isOpen) return;
-            if (_inProgress) return;
+            if (_isOpen) return _promise;
+            if (_inProgress) return _promise;
+            _promise = new Promise();
 
             if (IsLocked())
             {
@@ -90,7 +93,7 @@ namespace LJ2025
 
                 OpenedWhenLocked();
 
-                return;
+                return _promise;
             }
 
             if (!_hasOpenedBefore)
@@ -128,8 +131,13 @@ namespace LJ2025
                 () =>
                 {
                     _inProgress = false;
+                    Promise tmp = _promise;
+                    _promise = null;
+                    tmp.Resolve();
                 }
             );
+
+            return _promise;
         }
 
         public void Restart()
@@ -216,5 +224,21 @@ namespace LJ2025
             _isLocked = false;
             _pivot.localRotation = Quaternion.identity;
         }
+
+        public Promise OpenThenClose(Transform from, float delay)
+        {
+            Promise p = Open(from);
+            GameManager.GetMonoSystem<IGameLogicMonoSystem>()
+                .Scheduler()
+                .Wait(delay)
+                .Then(_ =>
+                {
+                    Close();
+                });
+
+            return p;
+        }
+
+        public bool IsOpen() => _isOpen;
     }
 }

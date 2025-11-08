@@ -13,6 +13,15 @@ namespace LJ2025
     {
         Start,
         LeaveForWork,
+        ServeGuest,
+        GetTrashCan,
+        GoCleanRoom,
+        WaitCheckout,
+        CheckOnGuests,
+        GuestsDead0,
+        GuestsDead1,
+        GuestsDead2,
+        GuestsDead3,
     }
 
     public static class GameStateExt
@@ -44,6 +53,7 @@ namespace LJ2025
         private ResetableState[] _states;
 
         private Scheduler _scheduler = new();
+        public Scheduler Scheduler() => _scheduler;
 
         private int _act = 0;
         private GameState _gameState = LJ2025.GameState.Start;
@@ -66,6 +76,16 @@ namespace LJ2025
             public MoveAlongSpline busMover;
             public Phone officePhone;
             public VendingMachine vendingMachine;
+            public TwoWayDoor officeDoors;
+            public Pather guy1Pather;
+            public Pather guy2Pather;
+            public Pather guy3Pather;
+            public Grabber guy1Grabber;
+            public TwoWayDoor guy1Door;
+            public TwoWayDoor guy2Door;
+            public TwoWayDoor guy3Door;
+            public GameObject manager;
+            public GameObject trashBag;
         }
 
         private void Start()
@@ -93,6 +113,19 @@ namespace LJ2025
             
             _refs.officePhone = GameObject.FindWithTag("OfficePhone").GetComponent<Phone>();
             _refs.vendingMachine = GameObject.FindAnyObjectByType<VendingMachine>();
+        
+            _refs.officeDoors = GameObject.FindWithTag("OfficeDoor").GetComponent<TwoWayDoor>();
+            _refs.guy1Pather = GameObject.FindWithTag("Guy1").GetComponent<Pather>();
+            _refs.guy2Pather = GameObject.FindWithTag("Guy2").GetComponent<Pather>();
+            _refs.guy3Pather = GameObject.FindWithTag("Guy3").GetComponent<Pather>();
+            _refs.guy1Grabber = GameObject.FindWithTag("Guy1").GetComponent<Grabber>();
+            _refs.guy1Door = GameObject.FindWithTag("Guy1Door").GetComponent<TwoWayDoor>();
+            _refs.guy2Door = GameObject.FindWithTag("Guy2Door").GetComponent<TwoWayDoor>();
+            _refs.guy3Door = GameObject.FindWithTag("Guy3Door").GetComponent<TwoWayDoor>();
+            _refs.manager = GameObject.FindWithTag("Manager");
+            _refs.trashBag = GameObject.FindWithTag("TrashBag");
+            _refs.trashBag.SetActive(false);
+            _refs.guy2Pather.gameObject.SetActive(false);
             
             _states = GameObject.FindObjectsByType<ResetableState>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (var rs in _states) rs.InitState();
@@ -127,13 +160,13 @@ namespace LJ2025
                     }
                     _player.TeleportToChair(_refs.startChair);
                     _player.LockHead();
-                    _scheduler.Wait(4)
+                    _scheduler.Wait(1)
                         .Then(_ => _dialogueMs.StartDialoguePromise("StartingMonologue"))
                         .Then(_ =>
                         {
                             _player.UnlockHead();
                         })
-                        .Then(_ => _scheduler.Wait(3))
+                        .Then(_ => _scheduler.Wait(1))
                         .Then(_ => _refs.homePhone.Ring())
                         .Then(_ => _dialogueMs.StartDialoguePromise("NewJobPhoneCall"))
                         .Then(_ =>
@@ -147,8 +180,8 @@ namespace LJ2025
                 case "LeaveForWork":
                 {
                     LJ2025GameManager.LockMovement = true;
-                    _screenEffectMs.Fadeout(3)
-                        .Then(_ => _screenEffectMs.FadeoutText("Bus Stop", 2))
+                    _screenEffectMs.Fadeout(1)
+                        .Then(_ => _screenEffectMs.FadeoutText("Bus Stop", 1))
                         .Then(_ =>
                         {
                             TriggerEvent("StartBusScene", transform);
@@ -163,8 +196,8 @@ namespace LJ2025
                     _player.TeleportToChair(_refs.busStopChair);
                     _player.LockHead();
                     
-                    _screenEffectMs.FadeinText(2)
-                        .Then(_ => _screenEffectMs.Fadein(3))
+                    _screenEffectMs.FadeinText(1)
+                        .Then(_ => _screenEffectMs.Fadein(1))
                         .Then(_ =>
                         {
                             LJ2025GameManager.LockMovement = false;
@@ -201,8 +234,8 @@ namespace LJ2025
                             _player.AttachHead();
                         })
                         .Then(_ => _scheduler.When(() => !_player.HasDetachedHead()))
-                        .Then(_ => _screenEffectMs.Fadeout(3))
-                        .Then(_ => _screenEffectMs.FadeoutText("Motel", 2))
+                        .Then(_ => _screenEffectMs.Fadeout(1))
+                        .Then(_ => _screenEffectMs.FadeoutText("Motel", 1))
                         .Then(_ =>
                         {
                             TriggerEvent("StartMotelScene", transform);
@@ -215,20 +248,156 @@ namespace LJ2025
                     _refs.scenes["BusStop"].SetActive(false);
                     _refs.scenes["Motel"].SetActive(true);
                     _player.Teleport(_refs.scenes["Motel"].transform.Find("StartLocation"));
-                    _screenEffectMs.FadeinText(2)
-                        .Then(_ => _screenEffectMs.Fadein(3))
+                    _screenEffectMs.FadeinText(1)
+                        .Then(_ => _screenEffectMs.Fadein(1))
                         .Then(_ =>
                         {
                             LJ2025GameManager.LockMovement = false;
                         })
+                        .Then(_ => _scheduler.When(() => IsInRange("Office")))
+                        .Then(_ =>
+                        {
+                            _refs.officeDoors.Close();
+                        })
                         .Then(_ => _scheduler.Wait(3))
                         .Then(_ => _refs.officePhone.Ring())
                         .Then(_ => _dialogueMs.StartDialoguePromise("IntroductionCall"))
-                        .Then(_ => _scheduler.When(() => _refs.vendingMachine.IsStocked()))
-                        .Then(_ => _dialogueMs.StartDialoguePromise("Test"));
+                        .Then(_ =>
+                        {
+                            _gameState = LJ2025.GameState.ServeGuest;
+                        })
+                        .Then(_ => _refs.guy1Pather.Next())
+                        .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy1Pather.transform, 2))
+                        .Then(_ => _refs.guy1Pather.Next());
                     break;
                 }
+
+                case "Guy1Talk":
+                {
+                    _dialogueMs.StartDialoguePromise("Guy1GetRoom")
+                        .Then(_ => _refs.guy1Pather.Next())
+                        .Then(_ => _scheduler.Wait(2))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("Guy1VendingMachineEmpty"))
+                        .Then(_ => _refs.guy1Pather.Next())
+                        .Then(_ => _scheduler.When(() => _refs.vendingMachine.IsStocked()))
+                        .Then(_ => _scheduler.Wait(1.5f))
+                        .Then(_ => _refs.guy1Pather.Next())
+                        .Then(_ => _scheduler.Wait(1.5f))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("Guy1VendingChoose"))
+                        .Then(_ => _scheduler.Wait(1.5f))
+                        .Then(_ => _refs.guy1Grabber.Grab(_refs.vendingMachine.RemoveItem()))
+                        .Then(_ => _refs.guy1Pather.Next())
+                        .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy1Pather.transform, 2))
+                        .Then(_ =>
+                        {
+                            _refs.guy1Pather.Next()
+                                .Then(_ => _refs.guy1Door.OpenThenClose(_refs.guy1Pather.transform, 2))
+                                .Then(_ => _refs.guy1Pather.Next());
+                        })
+                        .Then(_ => _refs.guy3Pather.Next())
+                        .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy3Pather.transform, 2))
+                        .Then(_ => _refs.guy3Pather.Next());
+                    break;
+                }
+
+                case "Guy3Talk":
+                {
+                    _gameState = LJ2025.GameState.GetTrashCan;
+                    _dialogueMs.StartDialoguePromise("Guy3Leaving")
+                        .Then(_ => _refs.guy3Pather.Next())
+                        .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy3Pather.transform, 2))
+                        .Then(_ => _refs.guy3Pather.Next());
+                    break;
+                }
+                
+                case "AllTrashCleared":
+                {
+                    _refs.trashBag.SetActive(true);
+                    _dialogueMs.StartDialoguePromise("ThatsAllTheTrash");
+                    _gameState = LJ2025.GameState.ServeGuest;
+                    break;
+                }
+
+                case "TrashThrownOut":
+                {
+                    _dialogueMs.StartDialoguePromise("GetBackToOffice");
+                    _refs.guy2Pather.gameObject.SetActive(true);
+                    break;
+                }
+
+                case "Guy2Talk":
+                {
+                    _dialogueMs.StartDialoguePromise("Guy2GetRoom")
+                        .Then(_ => _refs.guy2Pather.Next())
+                        .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy2Pather.transform, 2))
+                        .Then(_ => _refs.guy2Pather.Next())
+                        .Then(_ => _refs.guy2Door.OpenThenClose(_refs.guy2Pather.transform, 2))
+                        .Then(_ => _refs.guy2Pather.Next())
+                        .Then(_ => _scheduler.Wait(4))
+                        .Then(_ => _refs.officePhone.Ring())
+                        .Then(_ => _dialogueMs.StartDialoguePromise("WaterCold"));
+                    break;
+                }
+
+                case "WaterFixed":
+                {
+
+                    _dialogueMs.StartDialoguePromise("WaterFixed")
+                        .Then(_ => _scheduler.When(() => IsInRange("Office")))
+                        .Then(_ => _scheduler.Wait(5))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("WaitUntilCheckout"))
+                        .Then(_ =>
+                        {
+                            _gameState = LJ2025.GameState.WaitCheckout;
+                        })
+                        .Then(_ => _scheduler.Wait(5))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime"))
+                        .Then(_ => _scheduler.Wait(5))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime"))
+                        .Then(_ => _scheduler.Wait(5))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime"))
+                        .Then(_ => _scheduler.Wait(5))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime"))
+                        .Then(_ =>
+                        {
+                            _gameState = LJ2025.GameState.CheckOnGuests;
+                        })
+                        .Then(_ => _scheduler.When(AllDoorsKnocked))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("GetMasterKey"))
+                        .Then(_ => _scheduler.When(() => IsInRange("MasterKey")))
+                        .Then(_ =>
+                        {
+                            _refs.guy1Door.Unlock();
+                        });
+                    break;
+                }
+
+                case "Guy1Found":
+                {
+                    _refs.guy2Door.Unlock();
+                    break;
+                }
+                
+                case "Guy2Found":
+                {
+                    _refs.guy3Door.Unlock();
+                    break;
+                }
+                
+                case "Guy3Found":
+                {
+                    _refs.manager.SetActive(true);
+                    _scheduler.When(() => _refs.guy3Door.IsOpen())
+                        .Then(_ => _dialogueMs.StartDialoguePromise("Confrontation"));
+                    break;
+                }
+
             }
+        }
+
+        private bool AllDoorsKnocked()
+        {
+            return IsInRange("Door1Knocked") && IsInRange("Door2Knocked") && IsInRange("Door3Knocked");
         }
 
         private void Update()

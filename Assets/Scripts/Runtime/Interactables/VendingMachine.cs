@@ -7,6 +7,8 @@ namespace LJ2025
 {
     public class VendingMachine : MonoBehaviour
     {
+        [SerializeField] private GameObject _snackPrefab;
+        [SerializeField] private Transform _exitLocation;
         [SerializeField] private int _initialStock = 0;
         
         private List<GameObject> _items = new();
@@ -33,10 +35,13 @@ namespace LJ2025
             _items[_itemsStocked++].SetActive(true);
         }
 
-        public void RemoveItem()
+        public Transform RemoveItem()
         {
-            if (_itemsStocked == 0) return;
+            if (_itemsStocked == 0) return null;
             _items[--_itemsStocked].SetActive(false);
+            Transform t = GameObject.Instantiate(_snackPrefab).transform;
+            t.position = _exitLocation.position;
+            return t;
         }
     }
 }

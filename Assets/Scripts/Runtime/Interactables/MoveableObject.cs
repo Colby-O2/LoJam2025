@@ -7,7 +7,10 @@ namespace LJ2025
     {
         [SerializeField] private MoveableSettings _settings;
 
-        public bool IsInteractable() => true;
+        [SerializeField] private bool _enabled = true;
+        public void SetEnabled(bool val) => _enabled = val;
+
+        public bool IsInteractable() => _enabled;
         public string GetHintName() => _settings.name;
         public string GetHintAction() => "Move";
         public SphereCollider BoundingRadius() => _settings.bounds;
