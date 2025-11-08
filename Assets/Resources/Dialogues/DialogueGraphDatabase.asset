@@ -13,6 +13,29 @@ MonoBehaviour:
   m_Name: DialogueGraphDatabase
   m_EditorClassIdentifier: DialogueGraph::DialogueGraph.Data.DialogueGraphDatabase
   _useRawSO: 1
-  _database: []
+  _database:
+  - {fileID: 11400000, guid: 57fd6f2de178d7a46abedc5275fa3d5d, type: 2}
+  - {fileID: 11400000, guid: 3ea856f1b59b999d5ae7358870602233, type: 2}
+  - {fileID: 11400000, guid: 76625df3ed520ec64992700bda49a1cc, type: 2}
+  - {fileID: 11400000, guid: 568f19cacb3cd2973afc201f8a248512, type: 2}
+  - {fileID: 11400000, guid: 554483b0b24892520a5ca60ab29b7c43, type: 2}
+  - {fileID: 11400000, guid: 106dc5dec42196c4bb2ef35df2753e8c, type: 2}
+  - {fileID: 11400000, guid: 8f649ecec6f18664280efdeb5323fc5b, type: 2}
+  - {fileID: 11400000, guid: 26ebd0eb0b37db936b7319626bf686b7, type: 2}
+  - {fileID: 11400000, guid: cd234e1cb717f74cab71baecd9e1422b, type: 2}
+  - {fileID: 11400000, guid: 335bfd2a011b607dabf0fddfcdeb7135, type: 2}
+  - {fileID: 11400000, guid: 43e6a7467861651d3a3bae58f89a74d6, type: 2}
+  - {fileID: 11400000, guid: 22a723c738f7f4fb490048660384fded, type: 2}
+  - {fileID: 11400000, guid: 7880477543d970931b9f79e1c90626d0, type: 2}
+  - {fileID: 11400000, guid: 47a9ef06d3e41d8b19197f8ed5c53eab, type: 2}
+  - {fileID: 11400000, guid: 79492d819f0d157bfa52b038b6e4da48, type: 2}
+  - {fileID: 11400000, guid: 0002bfb0304e6cdf6b75200dd9fb1890, type: 2}
+  - {fileID: 11400000, guid: 3f9e81082da099226b132deeef4fe0c2, type: 2}
+  - {fileID: 11400000, guid: a419cc2cac6458c6681bc4bbfd40759e, type: 2}
+  - {fileID: 11400000, guid: 7598bd58847a23bb7bcf4efe865c749b, type: 2}
+  - {fileID: 11400000, guid: 85c96b411b135d9ab9d0357b9fd661a5, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: d6df6dbf461f4980381c4a7519b2adac, type: 2}
+  - {fileID: 11400000, guid: 043db700217fa8c2cb3c10d5f2b3b9a3, type: 2}
   _initDatabase: 0
   _clearDatabase: 0

@@ -248,6 +248,7 @@ namespace LJ2025
                     _refs.scenes["BusStop"].SetActive(false);
                     _refs.scenes["Motel"].SetActive(true);
                     _player.Teleport(_refs.scenes["Motel"].transform.Find("StartLocation"));
+                    _player.UnlockHead();
                     _screenEffectMs.FadeinText(1)
                         .Then(_ => _screenEffectMs.Fadein(1))
                         .Then(_ =>
@@ -350,17 +351,20 @@ namespace LJ2025
                         {
                             _gameState = LJ2025.GameState.WaitCheckout;
                         })
-                        .Then(_ => _scheduler.Wait(5))
+                        .Then(_ => _scheduler.Wait(2))
                         .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime"))
-                        .Then(_ => _scheduler.Wait(5))
+                        .Then(_ => _scheduler.Wait(2))
                         .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime"))
-                        .Then(_ => _scheduler.Wait(5))
+                        .Then(_ => _scheduler.Wait(2))
                         .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime"))
-                        .Then(_ => _scheduler.Wait(5))
+                        .Then(_ => _scheduler.Wait(2))
                         .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime"))
                         .Then(_ =>
                         {
                             _gameState = LJ2025.GameState.CheckOnGuests;
+                            _refs.guy1Door.Lock();
+                            _refs.guy2Door.Lock();
+                            _refs.guy3Door.Lock();
                         })
                         .Then(_ => _scheduler.When(AllDoorsKnocked))
                         .Then(_ => _dialogueMs.StartDialoguePromise("GetMasterKey"))
