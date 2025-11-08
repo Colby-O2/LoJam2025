@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b7bdba6bc3a0cc1bfd86f7800d4d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LJ2025.DoorOpen
-  _interactable: 1
+  _interactable: 0
   _openSpeed: 1.6
   _startOpen: 0
   _pivot: {fileID: 7413975823793001032}
@@ -606,7 +606,7 @@ MonoBehaviour:
   _animator: {fileID: 0}
   _splineIndex: 0
   _travelRange: {x: 0, y: 1}
-  _speed: 5
+  _speed: 20
   _useSpeedUpRange: 0
   _speedUpRange: {x: 0, y: 0}
   _speedUpValue: 10
@@ -616,7 +616,7 @@ MonoBehaviour:
   _offsetRight: -1.5
   _offsetUp: 1.2
   _rotationOffset: {x: 0, y: 0, z: 0}
-  t: 0.70631325
+  t: 0
   _isWaiting: 1
   _knotWaits:
   - positionT: 0.715
@@ -701,8 +701,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LJ2025.BusDoor
   _bounds: {fileID: 4632420076719104222}
-  _leftDoor: {fileID: 0}
-  _rightDoor: {fileID: 0}
+  _leftDoor: {fileID: 7857096121852753346}
+  _rightDoor: {fileID: 8251820408103047388}
 --- !u!135 &4632420076719104222
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -722,7 +722,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.21
+  m_Radius: 0.3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9084846212093130776
 GameObject:
@@ -849,7 +849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b7bdba6bc3a0cc1bfd86f7800d4d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LJ2025.DoorOpen
-  _interactable: 1
+  _interactable: 0
   _openSpeed: 1.6
   _startOpen: 0
   _pivot: {fileID: 5989015730223590666}
