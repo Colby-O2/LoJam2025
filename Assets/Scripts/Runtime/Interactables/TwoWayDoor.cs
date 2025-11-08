@@ -81,7 +81,7 @@ namespace LJ2025
         public string GetHintName() => "Door";
         public string GetHintAction() => "Open";
 
-        public Promise Open(Transform from, bool overrideAudio = false)
+        public virtual Promise Open(Transform from, bool overrideAudio = false)
         {
             if (_isOpen)
             {
