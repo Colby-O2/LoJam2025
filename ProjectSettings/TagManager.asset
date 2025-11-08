@@ -28,6 +28,12 @@ TagManager:
   - Guy3Door
   - TrashBag
   - Trash
+  - Curtains
+  - DeathRooms
+  - Guy2BathroomDoor
+  - ShowerZoom
+  - FoodZoom
+  - HeartAttack
   layers:
   - Default
   - TransparentFX

@@ -92,7 +92,7 @@ namespace LJ2025.Player
             _detachedHeadTargetObject = null;
         }
         
-        private void AttachHeadImmediately()
+        public void AttachHeadImmediately()
         {
             _detachedHeadState = DetachedHeadState.Attached;
             _detachedHeadFromTrans.ApplyTo(_head);
