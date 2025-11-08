@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _preserveUIAcrossScenes: 1
-  _startingView: LJ2025.UI.GameView, Assembly-CSharp
+  _startingView: LJ2025.MainMenuView, Assembly-CSharp
   _views: []
   _currentView: {fileID: 0}
   _hasInitialized: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4276544284126003965}
   - component: {fileID: 4199994312400560353}
   - component: {fileID: 7553009572726116605}
+  - component: {fileID: 20955296600954209}
   m_Layer: 0
   m_Name: SignO
   m_TagString: Untagged
@@ -90,6 +91,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &20955296600954209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238162192339652253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413f5b3bef9d3124688d33e6d48ed847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LJ2025.LightFlicker
+  _onMat: {fileID: 2100000, guid: 923b825c300f5fb4b9f190443bd29d94, type: 2}
+  _offMat: {fileID: 2100000, guid: 6793c7b3b42c8d144b4f3041912e4600, type: 2}
+  _matIdx: 1
+  _renderer: {fileID: 7553009572726116605}
+  _flickerInterval: {x: 0.05, y: 1}
+  _flickerChance: 0.6
+  _flickerDuration: {x: 0.02, y: 0.2}
+  _glitchChance: 0.1
+  _glitchDuration: {x: 0.3, y: 1.5}
+  _isOn: 1
 --- !u!1 &770821046467940004
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +499,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7011722708772287975}

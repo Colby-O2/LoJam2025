@@ -40,6 +40,11 @@ namespace LJ2025
         public static Preferences Preferences { get => (Instance as LJ2025GameManager)._preferences; }
         [SerializeField] private Preferences _preferences;
 
+        public static void UseCustomCursor()
+        {
+            if (Instance) Cursor.SetCursor(Preferences.Cursor, Vector2.zero, CursorMode.Auto);
+        }
+
         public static void HideCursor()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -48,6 +53,7 @@ namespace LJ2025
 
         public static void ShowCursor()
         {
+            UseCustomCursor();
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
         }
@@ -97,8 +103,8 @@ namespace LJ2025
 
         private void Start()
         {
-            Cursor.lockState= CursorLockMode.Locked;
-            Cursor.visible = false;
+            //Cursor.lockState= CursorLockMode.Locked;
+            //Cursor.visible = false;
             Inspector = FindAnyObjectByType<Player.Inspector>();
             Player = FindAnyObjectByType<Player.Controller>();
         }

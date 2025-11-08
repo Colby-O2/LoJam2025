@@ -1,3 +1,4 @@
+using LJ2025.UI;
 using PlazmaGames.UI;
 using UnityEngine;
 using UnityEngine.Events;
@@ -67,7 +68,6 @@ namespace LJ2025.MonoSystems
 
         private void Update()
         {
-            /*
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
             {
                 if (_ui.GetCurrentViewIs<GameView>())
@@ -87,7 +87,6 @@ namespace LJ2025.MonoSystems
                     _ui.GetView<SettingsView>().Back();
                 }
             }
-            */
         }
 
         private void OnDestroy()

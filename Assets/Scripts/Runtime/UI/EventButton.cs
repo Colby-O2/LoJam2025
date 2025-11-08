@@ -29,9 +29,13 @@ namespace LJ2025
     {
         public UnityEvent onPointerUp = new UnityEvent();
         public UnityEvent onPointerDown = new UnityEvent();
+        public UnityEvent onPointerEnter = new UnityEvent();
+        public UnityEvent onPointerExit = new UnityEvent();
 
         [SerializeField] private bool _playSound = true;
         [SerializeField, ReadOnly] private bool _isDisabled = false;
+
+        [SerializeField] private bool _disabledAutoOverlayToggle = true;
 
         [SerializeField] private Image _icon;
         [SerializeField] private Image _overlay;
@@ -61,6 +65,16 @@ namespace LJ2025
 
         public bool IsPointerUsed { get; set; }
 
+        public Image GetOverlay()
+        {
+            return _overlay;
+        }
+
+        public Color GetOverlayColor()
+        {
+            return _overlayColor;
+        }
+
         public void ToggleSound(bool state) => _playSound = state;
 
         public override void OnPointerUp(PointerEventData eventData)
@@ -86,27 +100,29 @@ namespace LJ2025
         public override void OnPointerEnter(PointerEventData eventData)
         {
             if (IsDisabled) return;
-
+            onPointerEnter.Invoke();
             if (!DisableAutoIconToggle) ShowOverlay();
         }
 
         public override void OnPointerExit(PointerEventData eventData)
         {
             if (IsDisabled) return;
-
+            onPointerExit.Invoke();
             if (!DisableAutoIconToggle) HideOverlay();
         }
 
         public void ShowOverlay()
         {
-            _icon.color = _iconColor;
-            _overlay.color = _overlayColor;
+            if (_disabledAutoOverlayToggle) return;
+            if (_icon) _icon.color = _iconColor;
+            if (_overlay) _overlay.color = _overlayColor;
         }
 
         public void HideOverlay()
         {
-            _icon.color = Color.clear;
-            _overlay.color = Color.clear;
+            if (_disabledAutoOverlayToggle) return;
+            if (_icon) _icon.color = Color.clear;
+            if (_overlay) _overlay.color = Color.clear;
         }
 
         protected override void Awake()

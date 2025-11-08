@@ -4,6 +4,7 @@ using PlazmaGames.Core;
 using PlazmaGames.UI;
 using System;
 using UnityEngine;
+using TMPro;
 
 namespace LJ2025
 {
@@ -14,6 +15,7 @@ namespace LJ2025
         [SerializeField] private EventButton _settings;
         [SerializeField] private EventButton _exit;
 
+        [SerializeField] private TMP_Text _version;
         [SerializeField] private GameObject _screen;
 
         private void Quit()
@@ -23,6 +25,7 @@ namespace LJ2025
 
         private void Settings()
         {
+            Debug.Log("Settings");
             GameManager.GetMonoSystem<IUIMonoSystem>().Show<SettingsView>();
         }
 
@@ -36,6 +39,7 @@ namespace LJ2025
 
         public override void Init()
         {
+            _version.text = GameManager.Instance.GetApplicationVersion();
             _play.onPointerDown.AddListener(Play);
             _settings.onPointerDown.AddListener(Settings);
             _exit.onPointerDown.AddListener(Quit);

@@ -31,8 +31,7 @@ namespace LJ2025.UI
 
         [Header("Choice")]
         [SerializeField] private GameObject _choiceHolder;
-        [SerializeField] private UIMouseFollow _choiceMouse;
-        [SerializeField] private GameObject _choiceCursor;
+        [SerializeField] private List<EventButton> _choiceButtons;
         [SerializeField] private List<TMP_Text> _choiceText;
 
         [SerializeField, ReadOnly] private DialogueNodeData _currentDialogueNode;
@@ -40,6 +39,7 @@ namespace LJ2025.UI
         [SerializeField, ReadOnly] private string _currentMessage;
         [SerializeField, ReadOnly] private bool _showedMessage = false;
         [SerializeField, ReadOnly] private bool _showingChoice = false;
+        [SerializeField, ReadOnly] private int _selectedChoice = -1;
 
         private bool _initialInputLockState = false;
 
@@ -171,50 +171,66 @@ namespace LJ2025.UI
         private void StartChoice()
         {
             ShowChoice();
-            _showingChoice = true;
             for (int i = 0; i < _choiceText.Count; i++)
             {
                 TMP_Text text = _choiceText[i];
+                text.color = Color.white;
                 if (i < _currentDialogueNode.Choices.Count)
                 {
+                    int choice = i;
                     text.text = _currentDialogueNode.Choices[i].Text;
+                    _choiceButtons[i].enabled = true;
+                    _choiceButtons[i].onPointerDown.RemoveAllListeners();
+                    _choiceButtons[i].onPointerDown.AddListener(() => SelectChoice(choice));
+                    _choiceButtons[i].onPointerEnter.RemoveAllListeners();
+                    _choiceButtons[i].onPointerEnter.AddListener(() => {
+                        _selectedChoice = choice;
+                        _choiceButtons[choice].GetOverlay().color = _choiceButtons[choice].GetOverlayColor();
+                        _choiceText[choice].color = Color.black;
+                        for (int j = 0; j < _choiceText.Count; j++)
+                        {
+                            if (j == choice) continue;
+                            _choiceButtons[j].GetOverlay().color = Color.clear;
+                            _choiceText[j].color = Color.white;
+                        }
+                    });
                 }
                 else
                 {
                     text.text = string.Empty;
+                    _choiceButtons[i].enabled = false;
                 }
             }
         }
 
-        private int GetChoiceSelected()
-        {
-            Vector3 pos = _choiceCursor.transform.localPosition;
-            Vector3 parnetCenter = (_choiceCursor.transform.parent as RectTransform).rect.center;
-
-            if (pos.x >= parnetCenter.x && pos.y >= parnetCenter.y) return 1;
-            else if (pos.x < parnetCenter.x && pos.y >= parnetCenter.y) return 0;
-            else if (pos.x >= parnetCenter.x && pos.y < parnetCenter.y) return 2;
-            else return 3;
-        }
-
-        private void SelectChoice()
+        private void SelectChoice(int choice)
         {
             _showedMessage = false;
             _dialogue.text = string.Empty;
             _as?.Stop();
-            int choice = GetChoiceSelected();
-            GoToNext(choice);
             HideChoice();
+            GoToNext(choice);
         }
 
         private void HideChoice()
         {
+            _showingChoice = false;
+
+            LJ2025GameManager.HideCursor();
+
+            foreach (EventButton button in _choiceButtons)
+            {
+                button.onPointerEnter.RemoveAllListeners();
+                button.onPointerDown.RemoveAllListeners();
+            }
+            foreach (TMP_Text text in _choiceText) text.text = string.Empty;
             _choiceHolder.SetActive(false);
         }
 
         private void ShowChoice()
         {
-            _choiceMouse.Reset();
+            _showingChoice = true;
+            LJ2025GameManager.ShowCursor();
             _choiceHolder.SetActive(true);
         }
 
@@ -255,11 +271,16 @@ namespace LJ2025.UI
             }
         }
 
+        public bool IsShowingChoice()
+        {
+            return _showingChoice;
+        }
+
         public override void Show()
         {
             base.Show();
             _holder.gameObject.SetActive(true);
-            LJ2025GameManager.HideCursor();
+            if (!IsShowingChoice()) LJ2025GameManager.HideCursor();
         }
 
         public override void Hide()
@@ -275,13 +296,15 @@ namespace LJ2025.UI
 
         private void Update()
         {
+            if (LJ2025GameManager.IsPaused) return;
+
             HandleTimeout();
 
             if (_showingChoice)
             {
-                if (Mouse.current.leftButton.wasPressedThisFrame)
+                if (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.spaceKey.wasPressedThisFrame)
                 {
-                    if (_choiceText[GetChoiceSelected()].text != string.Empty) SelectChoice();
+                    if (_selectedChoice >= 0 && _choiceText[_selectedChoice].text != string.Empty) SelectChoice(_selectedChoice);
                 }
             }
         }

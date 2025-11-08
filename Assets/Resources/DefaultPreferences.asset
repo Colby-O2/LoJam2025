@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b96586955818ad5797addc956daedc9, type: 3}
   m_Name: DefaultPreferences
   m_EditorClassIdentifier: Assembly-CSharp::LJ2025.Preferences
-  Cursor: {fileID: 2800000, guid: 949d4c83ac9caf0cdabcec1688a4770a, type: 3}
-  DialogueSpeedMul: 1
+  Cursor: {fileID: 2800000, guid: 807e60af9af7bae418b339493df704b3, type: 3}
+  DialogueSpeedMul: 1.0048647
