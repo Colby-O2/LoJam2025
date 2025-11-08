@@ -18,6 +18,16 @@ TagManager:
   - Bus
   - OfficePhone
   - Snack
+  - OfficeDoor
+  - Guy1
+  - Guy2
+  - Guy3
+  - Manager
+  - Guy1Door
+  - Guy2Door
+  - Guy3Door
+  - TrashBag
+  - Trash
   layers:
   - Default
   - TransparentFX

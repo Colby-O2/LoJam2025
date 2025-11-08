@@ -16,6 +16,7 @@ namespace LJ2025
         public float holdDistance = 0.4f;
         public RotateType rotateType = RotateType.JustYAxis;
         public SphereCollider bounds;
+        public bool ignoreChildren = false;
 
         public float BoundingRadius() => this.bounds.radius;
     }

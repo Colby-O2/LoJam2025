@@ -1,4 +1,5 @@
 using LJ2025.Player;
+using PlazmaGames.Core;
 using UnityEngine;
 
 namespace LJ2025
@@ -7,7 +8,11 @@ namespace LJ2025
     {
         [SerializeField] private MoveableSettings _settings;
 
-        public bool IsInteractable() => true;
+        [SerializeField] private bool _enabled = true;
+        [SerializeField] private bool _detachFromParent = false;
+        public void SetEnabled(bool val) => _enabled = val;
+
+        public bool IsInteractable() => _enabled;
         public string GetHintName() => _settings.name;
         public string GetHintAction() => "Move";
         public SphereCollider BoundingRadius() => _settings.bounds;
@@ -16,6 +21,7 @@ namespace LJ2025
         {
             if (interactor.TryGetComponent(out Player.ObjectMover mover))
             {
+                if (_detachFromParent) transform.parent = null;
                 mover.Move(transform, _settings);
             }
             return true;

@@ -20,11 +20,19 @@ namespace LJ2025.Player
         {
             this.obj = obj;
             this.settings = settings;
+            if (settings.ignoreChildren)
+            {
+                this.rigs = obj.GetComponents<Rigidbody>()
+                    .ToList();
+            }
+            else
+            {
+                this.rigs = obj.GetComponentsInChildren<Rigidbody>(false)
+                    .ToList();
+            }
             this.colliders = obj.GetComponentsInChildren<Collider>(false)
                 .Where(c => c.enabled)
                 .Where(c => (c.excludeLayers & LayerMask.GetMask("KeepOn")) == 0)
-                .ToList();
-            this.rigs = obj.GetComponentsInChildren<Rigidbody>(false)
                 .ToList();
             this.rotationOffset = Quaternion.Inverse(mover.rotation) * obj.rotation;
         }
@@ -84,7 +92,7 @@ namespace LJ2025.Player
                 _head.forward,
                 _hits,
                 _profile.settings.holdDistance,
-                ~LayerMask.GetMask("Player") ^ LayerMask.GetMask("PlayerBounds"));
+                ~LayerMask.GetMask("Player") ^ LayerMask.GetMask("PlayerBounds") ^ LayerMask.GetMask("Interactable"));
 
             RaycastHit? hit =
                 _hits

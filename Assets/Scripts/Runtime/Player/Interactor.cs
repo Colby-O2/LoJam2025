@@ -4,6 +4,7 @@ using PlazmaGames.Core;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace LJ2025.Player
 {
@@ -35,19 +36,42 @@ namespace LJ2025.Player
             Debug.Log("Interact");
             interactable.Interact(this);
         }
-
+        
+        RaycastHit[] _tmpHits = new RaycastHit[64];
+        
         private (Transform, IInteractable) GetPossibleInteractable()
         {
-            if
-            (
-                Physics.Raycast(_head.position, (_interactionPoint.position - _head.position).normalized, out RaycastHit hit, _interactionRadius, _interactionLayer) ||
-                Physics.SphereCast(_head.position, _spehreCastRadius, (_interactionPoint.position - _head.position).normalized, out hit, _interactionRadius, _interactionLayer)
-            )
+            int size = Physics.RaycastNonAlloc(_head.position, (_interactionPoint.position - _head.position).normalized, _tmpHits, _interactionRadius, _interactionLayer);
+            (Transform, IInteractable, float dist)? outt = null;
+            for (int i = 0; i < size; i++)
             {
+                RaycastHit hit = _tmpHits[i];
                 IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-                if (interactable != null && interactable.IsInteractable()) return (hit.transform, interactable);
+                if (interactable != null && interactable.IsInteractable())
+                {
+                    if (outt == null || hit.distance < outt.Value.Item3)
+                    {
+                        outt = (hit.transform, interactable, hit.distance);
+                    }
+                }
             }
 
+            if (outt != null) return (outt.Value.Item1, outt.Value.Item2);
+            size = Physics.SphereCastNonAlloc(_head.position, _spehreCastRadius, (_interactionPoint.position - _head.position).normalized, _tmpHits, _interactionRadius, _interactionLayer);
+            for (int i = 0; i < size; i++)
+            {
+                RaycastHit hit = _tmpHits[i];
+                IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+                if (interactable != null && interactable.IsInteractable())
+                {
+                    if (outt == null || hit.distance < outt.Value.Item3)
+                    {
+                        outt = (hit.transform, interactable, hit.distance);
+                    }
+                }
+            }
+
+            if (outt != null) return (outt.Value.Item1, outt.Value.Item2);
             return (null, null);
         }
 
