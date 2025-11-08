@@ -4,6 +4,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using PlazmaGames.Animation;
+using TMPro.EditorUtilities;
+using Unity.Hierarchy;
 
 namespace LJ2025
 {
@@ -81,9 +84,16 @@ namespace LJ2025
             public Grabber guy1Grabber;
             public TwoWayDoor guy1Door;
             public TwoWayDoor guy2Door;
+            public TwoWayDoor guy2BathroomDoor;
             public TwoWayDoor guy3Door;
-            public GameObject manager;
+            public Pather manager;
             public GameObject trashBag;
+            public Transform curtains;
+            public GameObject deathRooms;
+            public Transform showerZoomLocation;
+            public Transform foodZoomLocation;
+            public Transform heartAttackLocation;
+            public HeartAttack heartAttack;
         }
 
         private void Start()
@@ -115,15 +125,25 @@ namespace LJ2025
             _refs.officeDoors = GameObject.FindWithTag("OfficeDoor").GetComponent<TwoWayDoor>();
             _refs.guy1Pather = GameObject.FindWithTag("Guy1").GetComponent<Pather>();
             _refs.guy2Pather = GameObject.FindWithTag("Guy2").GetComponent<Pather>();
+            _refs.guy2Pather.gameObject.SetActive(false);
             _refs.guy3Pather = GameObject.FindWithTag("Guy3").GetComponent<Pather>();
             _refs.guy1Grabber = GameObject.FindWithTag("Guy1").GetComponent<Grabber>();
             _refs.guy1Door = GameObject.FindWithTag("Guy1Door").GetComponent<TwoWayDoor>();
             _refs.guy2Door = GameObject.FindWithTag("Guy2Door").GetComponent<TwoWayDoor>();
+            _refs.guy2BathroomDoor = GameObject.FindWithTag("Guy2BathroomDoor").GetComponent<TwoWayDoor>();
             _refs.guy3Door = GameObject.FindWithTag("Guy3Door").GetComponent<TwoWayDoor>();
-            _refs.manager = GameObject.FindWithTag("Manager");
+            _refs.manager = GameObject.FindWithTag("Manager").GetComponent<Pather>();
+            _refs.manager.gameObject.SetActive(false);
             _refs.trashBag = GameObject.FindWithTag("TrashBag");
             _refs.trashBag.SetActive(false);
-            _refs.guy2Pather.gameObject.SetActive(false);
+            _refs.curtains = GameObject.FindWithTag("Curtains").transform;
+            _refs.deathRooms = GameObject.FindWithTag("DeathRooms");
+            _refs.showerZoomLocation = GameObject.FindWithTag("ShowerZoom").transform;
+            _refs.foodZoomLocation = GameObject.FindWithTag("FoodZoom").transform;
+            _refs.heartAttackLocation = GameObject.FindWithTag("HeartAttack").transform;
+            _refs.heartAttack = GameObject.FindAnyObjectByType<HeartAttack>();
+            
+            _refs.deathRooms.SetActive(false);
             
             _states = GameObject.FindObjectsByType<ResetableState>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (var rs in _states) rs.InitState();
@@ -291,7 +311,13 @@ namespace LJ2025
                         {
                             _refs.guy1Pather.Next()
                                 .Then(_ => _refs.guy1Door.OpenThenClose(_refs.guy1Pather.transform, 2))
-                                .Then(_ => _refs.guy1Pather.Next());
+                                .Then(_ => _refs.guy1Pather.Next())
+                                .Then(_ =>
+                                {
+                                    _refs.curtains.GetChild(1).localScale = new Vector3(1, 1, 1);
+                                    _refs.guy1Door.Lock();
+                                    _refs.guy1Pather.gameObject.SetActive(false);
+                                });
                         })
                         .Then(_ => _refs.guy3Pather.Next())
                         .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy3Pather.transform, 2))
@@ -305,7 +331,11 @@ namespace LJ2025
                     _dialogueMs.StartDialoguePromise("Guy3Leaving")
                         .Then(_ => _refs.guy3Pather.Next())
                         .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy3Pather.transform, 2))
-                        .Then(_ => _refs.guy3Pather.Next());
+                        .Then(_ => _refs.guy3Pather.Next())
+                        .Then(_ =>
+                        {
+                            _refs.guy3Pather.gameObject.SetActive(false);
+                        });
                     break;
                 }
                 
@@ -332,6 +362,12 @@ namespace LJ2025
                         .Then(_ => _refs.guy2Pather.Next())
                         .Then(_ => _refs.guy2Door.OpenThenClose(_refs.guy2Pather.transform, 2))
                         .Then(_ => _refs.guy2Pather.Next())
+                        .Then(_ =>
+                        {
+                            _refs.curtains.GetChild(0).localScale = new Vector3(1, 1, 1);
+                            _refs.guy2Door.Lock();
+                            _refs.guy2Pather.gameObject.SetActive(false);
+                        })
                         .Then(_ => _scheduler.Wait(4))
                         .Then(_ => _refs.officePhone.Ring())
                         .Then(_ => _dialogueMs.StartDialoguePromise("WaterCold"));
@@ -345,8 +381,16 @@ namespace LJ2025
                         .Then(_ => _scheduler.When(() => IsInRange("Office")))
                         .Then(_ => _scheduler.Wait(5))
                         .Then(_ => _dialogueMs.StartDialoguePromise("WaitUntilCheckout"))
+                        .Then(_ => _screenEffectMs.Fadeout(1))
+                        .Then(_ => _screenEffectMs.FadeoutText("Checkout Time\n6:00", 1))
+                        .Then(_ => _screenEffectMs.FadeinText(1))
+                        .Then(_ => _screenEffectMs.Fadein(1))
                         .Then(_ =>
                         {
+                            _refs.curtains.GetChild(0).localScale = new Vector3(1, 1, 1);
+                            _refs.curtains.GetChild(1).localScale = new Vector3(1, 1, 1);
+                            _refs.curtains.GetChild(2).localScale = new Vector3(1, 1, 1);
+                            _refs.deathRooms.SetActive(true);
                             _gameState = LJ2025.GameState.WaitCheckout;
                         })
                         .Then(_ => _scheduler.Wait(2))
@@ -365,35 +409,108 @@ namespace LJ2025
                             _refs.guy3Door.Lock();
                         })
                         .Then(_ => _scheduler.When(AllDoorsKnocked))
+                        .Then(_ => _scheduler.Wait(3))
                         .Then(_ => _dialogueMs.StartDialoguePromise("GetMasterKey"))
                         .Then(_ => _scheduler.When(() => IsInRange("MasterKey")))
                         .Then(_ =>
                         {
+                            _refs.guy2Door.Unlock();
+                        })
+                        .Then(_ => _scheduler.When(() => IsInRange("Guy1Found")))
+                        .Then(_ => _scheduler.When(() => _refs.guy2BathroomDoor.IsOpen()))
+                        .Then(_ => _scheduler.Wait(1.4f))
+                        .Then(_ =>
+                        {
+                            _player.LockHead();
+                            LJ2025GameManager.LockMovement = true;
+                            _player.DetachHead(_refs.showerZoomLocation);
+                        })
+                        .Then(_ => _scheduler.Wait(6))
+                        .Then(_ =>
+                        {
+                            _player.UnlockHead();
+                            LJ2025GameManager.LockMovement = false;
+                            _player.AttachHeadImmediately();
+                        })
+                        .Then(_ => _dialogueMs.StartDialoguePromise("FoundShower"))
+                        .Then(_ =>
+                        {
                             _refs.guy1Door.Unlock();
-                        });
-                    break;
-                }
-
-                case "Guy1Found":
-                {
-                    _refs.guy2Door.Unlock();
-                    break;
-                }
-                
-                case "Guy2Found":
-                {
-                    _refs.guy3Door.Unlock();
-                    break;
-                }
-                
-                case "Guy3Found":
-                {
-                    _refs.manager.SetActive(true);
-                    _scheduler.When(() => _refs.guy3Door.IsOpen())
+                        })
+                        .Then(_ => _scheduler.When(() => IsInRange("Guy2Found")))
+                        .Then(_ =>
+                        {
+                            _player.LockHead();
+                            LJ2025GameManager.LockMovement = true;
+                            _player.DetachHead(_refs.foodZoomLocation);
+                        })
+                        .Then(_ => _scheduler.Wait(6))
+                        .Then(_ =>
+                        {
+                            _player.UnlockHead();
+                            LJ2025GameManager.LockMovement = false;
+                            _player.AttachHeadImmediately();
+                        })
+                        .Then(_ => _dialogueMs.StartDialoguePromise("FoundFood"))
+                        .Then(_ =>
+                        {
+                            _refs.guy3Door.Unlock();
+                        })
+                        .Then(_ => _scheduler.When(() => IsInRange("Guy3Found")))
+                        .Then(_ =>
+                        {
+                            _refs.guy3Door.Close();
+                            _player.LockHead();
+                            LJ2025GameManager.LockMovement = true;
+                            _player.DetachHead(_refs.heartAttackLocation);
+                        })
+                        .Then(_ => _scheduler.Wait(2))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("HeartAttack"))
+                        .Then(_ =>
+                        {
+                            _refs.heartAttack.StartAttack(4);
+                        })
+                        .Then(_ => _scheduler.Wait(7))
+                        .Then(_ =>
+                        {
+                            _player.UnlockHead();
+                            LJ2025GameManager.LockMovement = false;
+                            _player.AttachHeadImmediately();
+                        })
+                        .Then(_ => _scheduler.When(() => _refs.guy3Door.IsOpen()))
+                        .Then(_ =>
+                        {
+                            _refs.manager.gameObject.SetActive(true);
+                            _player.DetachHeadLookAt(_refs.manager.transform.position + new Vector3(0, 1.4f, 0));
+                            _player.LockHead();
+                            LJ2025GameManager.LockMovement = true;
+                        })
+                        .Then(_ => _scheduler.Wait(1.3f))
+                        .Then(_ =>
+                        {
+                            _refs.manager.Next().Then(_ =>
+                            {
+                                _refs.guy3Door.Close();
+                            });
+                            Promise p = new();
+                            Vector3 startPos = _player.transform.position;
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>().RequestAnimation(
+                                this,
+                                1,
+                                t => _player.Teleport(new MathExt.Transform(
+                                    Vector3.Lerp(startPos, startPos + new Vector3(0, 0, 3), t),
+                                    _player.transform.rotation
+                                )),
+                                () =>
+                                {
+                                    p.Resolve();
+                                });
+                            return p;
+                        })
                         .Then(_ => _dialogueMs.StartDialoguePromise("Confrontation"));
+                    
                     break;
                 }
-
             }
         }
 
