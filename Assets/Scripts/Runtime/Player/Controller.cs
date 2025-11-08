@@ -1,3 +1,4 @@
+using System;
 using LJ2025.MonoSystems;
 using PlazmaGames.Attribute;
 using PlazmaGames.Core;
@@ -51,7 +52,9 @@ namespace LJ2025.Player
         private IInputMonoSystem _input;
 
         private Vector3 _groundPoint;
-        
+        [SerializeField] private AudioClip _indoorsClip;
+        [SerializeField] private AudioClip _outdoorsClip;
+
         public Transform Head() => _head;
 
         public bool Occupied() => LJ2025GameManager.IsPaused || LJ2025GameManager.LockMovement || _inspector.IsInspecting() || _objectMover.IsMoving();
@@ -275,5 +278,22 @@ namespace LJ2025.Player
         }
 
         public Vector3 Velocity() => _controller.velocity;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log(other.name);
+        }
+
+        public void SetIndoors(bool state)
+        {
+            if (state)
+            {
+                _as.clip = _indoorsClip;
+            }
+            else
+            {
+                _as.clip = _outdoorsClip;
+            }
+        }
     }
 }

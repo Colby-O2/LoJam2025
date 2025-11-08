@@ -35,6 +35,9 @@ TagManager:
   - FoodZoom
   - HeartAttack
   - RoomTrashBin
+  - FinalDoorLight
+  - MaintenanceLight
+  - MaintenanceDoor
   layers:
   - Default
   - TransparentFX
