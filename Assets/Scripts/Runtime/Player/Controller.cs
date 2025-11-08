@@ -166,8 +166,6 @@ namespace LJ2025.Player
             LJ2025GameManager.PlayerSettings = _settings;
             _inspector = GetComponent<Inspector>();
             _objectMover = GetComponent<ObjectMover>();
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
             if (!_controller) _controller = GetComponent<CharacterController>();
             _input = GameManager.GetMonoSystem<IInputMonoSystem>();
 

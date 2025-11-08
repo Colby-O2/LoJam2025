@@ -68,7 +68,7 @@ namespace LJ2025.MonoSystems
 
         private void Update()
         {
-            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (Keyboard.current.escapeKey.wasPressedThisFrame || Keyboard.current.pKey.wasPressedThisFrame)
             {
                 if (_ui.GetCurrentViewIs<GameView>())
                 {

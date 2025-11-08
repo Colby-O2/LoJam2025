@@ -34,10 +34,14 @@ namespace LJ2025.UI
         [SerializeField] private List<EventButton> _choiceButtons;
         [SerializeField] private List<TMP_Text> _choiceText;
 
+        [Header("Task")]
+        [SerializeField] private TMP_Text _task;
+
         [SerializeField, ReadOnly] private DialogueNodeData _currentDialogueNode;
         [SerializeField, ReadOnly] private float _timeSinceWriteStart = 0f;
         [SerializeField, ReadOnly] private string _currentMessage;
         [SerializeField, ReadOnly] private bool _showedMessage = false;
+        [SerializeField, ReadOnly] private bool _isTyping = false;
         [SerializeField, ReadOnly] private bool _showingChoice = false;
         [SerializeField, ReadOnly] private int _selectedChoice = -1;
 
@@ -56,7 +60,7 @@ namespace LJ2025.UI
 
         public void SetPassive(bool state) => _passive = state;
 
-        IEnumerator TypeDialogue(string msg, float typeSpeed, TMP_Text target, UnityAction onFinished = null)
+        IEnumerator TypeDialogue(string msg, float typeSpeed, TMP_Text target, UnityAction onFinished = null, bool isDigloue = true)
         {
             _timeSinceMessageEnd = 0;
             _currentMessage = msg;
@@ -67,6 +71,8 @@ namespace LJ2025.UI
             if (_as) _as.Play();
 
             target.text = string.Empty;
+
+            if (!isDigloue) _isTyping = true;
 
             for (int i = 0; i < msg.Length; i++)
             {
@@ -94,10 +100,39 @@ namespace LJ2025.UI
                 yield return new WaitForSeconds(typeSpeed * LJ2025GameManager.Preferences.DialogueSpeedMul);
             }
 
+            if (!isDigloue) _isTyping = false;
             if (_as) _as.Stop();
 
             _showedMessage = true;
-            if (!_passive) _dialogueHint.SetActive(true);
+            if (isDigloue && !_passive) _dialogueHint.SetActive(true);
+        }
+
+        private IEnumerator WaitForTaskToStopTyping(string msg)
+        {
+            yield return new WaitWhile(() => _isTyping);
+            _task.text = msg;
+        }
+
+        public void ShowTask(string msg)
+        {
+            _task.gameObject.SetActive(true);
+            StartCoroutine(TypeDialogue(
+                msg,
+                _typeSpeed,
+                _task,
+                null,
+                false
+            ));
+        }
+
+        public void UpdateTask(string msg)
+        {
+            StartCoroutine(WaitForTaskToStopTyping(msg));
+        }
+
+        public void HideTask()
+        {
+            _task.gameObject.SetActive(false);
         }
 
         public bool IsShowingDialogue()
@@ -131,7 +166,8 @@ namespace LJ2025.UI
                 dialogue.Text,
                  _typeSpeed,
                 _dialogue,
-                Next)
+                Next,
+                true)
             );
         }
 
@@ -290,6 +326,7 @@ namespace LJ2025.UI
 
         public override void Init()
         {
+            HideTask();
             HideDialogue();
             HideChoice();
         }

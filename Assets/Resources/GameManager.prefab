@@ -561,8 +561,57 @@ Transform:
   - {fileID: 6435703396381119081}
   - {fileID: 7281555074690462727}
   - {fileID: 8920185835523074634}
+  - {fileID: 6058758292177345513}
   m_Father: {fileID: 6183811345051236087}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6862907612405217584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6058758292177345513}
+  - component: {fileID: 3494535873561535146}
+  m_Layer: 0
+  m_Name: Task
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6058758292177345513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6862907612405217584}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2615316343829940386}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3494535873561535146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6862907612405217584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 692460a51e54b794fbf299a2ac591865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LJ2025.MonoSystems.TaskMonoSystem
+  _hasTask: 0
+  _taskMsg: 
+  _maxCount: 0
+  _count: 0
 --- !u!1 &7158535651485369430
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,4 +911,5 @@ MonoBehaviour:
   _dialogueSystem: {fileID: 3283356451743238997}
   _gameLogicSystem: {fileID: 7768012354061058449}
   _screenEffectSystem: {fileID: 7781471901149471696}
+  _taskSystem: {fileID: 3494535873561535146}
   _preferences: {fileID: 11400000, guid: 46d402db5151b0d359306cc0c508c140, type: 2}

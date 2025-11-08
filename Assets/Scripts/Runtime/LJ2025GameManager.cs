@@ -22,6 +22,7 @@ namespace LJ2025
         [SerializeField] private DialogueMonoSystem _dialogueSystem;
         [SerializeField] private GameLogicMonoSystem _gameLogicSystem;
         [SerializeField] private ScreenEffectMonoSystem _screenEffectSystem;
+        [SerializeField] private TaskMonoSystem _taskSystem;
         public static bool IsPaused = false;
 
 
@@ -42,11 +43,23 @@ namespace LJ2025
 
         public static void UseCustomCursor()
         {
-            if (Instance) Cursor.SetCursor(Preferences.Cursor, Vector2.zero, CursorMode.Auto);
+            if (Instance)
+            {
+                Cursor.SetCursor(Preferences.Cursor, Vector2.zero, CursorMode.Auto);
+            }
+        }
+
+        private void OnApplicationFocus(bool focus)
+        {
+            if (focus)
+            {
+                UseCustomCursor();
+            }
         }
 
         public static void HideCursor()
         {
+            UseCustomCursor();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -67,6 +80,7 @@ namespace LJ2025
             AddMonoSystem<DialogueMonoSystem, IDialogueMonoSystem>(_dialogueSystem);
             AddMonoSystem<GameLogicMonoSystem, IGameLogicMonoSystem>(_gameLogicSystem);
             AddMonoSystem<ScreenEffectMonoSystem, IScreenEffectMonoSystem>(_screenEffectSystem);
+            AddMonoSystem<TaskMonoSystem, ITaskMonoSystem>(_taskSystem);
         }
 
         public override string GetApplicationName()
@@ -103,8 +117,6 @@ namespace LJ2025
 
         private void Start()
         {
-            //Cursor.lockState= CursorLockMode.Locked;
-            //Cursor.visible = false;
             Inspector = FindAnyObjectByType<Player.Inspector>();
             Player = FindAnyObjectByType<Player.Controller>();
         }

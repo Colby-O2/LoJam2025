@@ -194,8 +194,7 @@ namespace LJ2025.Player
 
         private void EndInspection()
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            LJ2025GameManager.HideCursor();
             _profile = null;
             GameManager.GetMonoSystem<IUIMonoSystem>().ShowLast();
         }
