@@ -19,6 +19,8 @@ namespace LJ2025
         [SerializeField] private TMP_Text _version;
         [SerializeField] private GameObject _screen;
 
+        [SerializeField] private GameObject _gameView;
+
         private void Quit()
         {
             LJ2025GameManager.QuitGame();
@@ -32,6 +34,7 @@ namespace LJ2025
 
         private void Play()
         {
+            _gameView.SetActive(true);
             _mainMenuScene.SetActive(false);
             _screen.SetActive(false);
             LJ2025GameManager.IsPaused = false;
@@ -49,6 +52,7 @@ namespace LJ2025
         public override void Show()
         {
             base.Show();
+            _gameView.SetActive(false);
             _mainMenuScene.SetActive(true);
             _screen.SetActive(true);
             _play.HideOverlay();

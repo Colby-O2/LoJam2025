@@ -870,7 +870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: a02306b6105546347985d0ae932acac3, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -15321,6 +15321,7 @@ MonoBehaviour:
   _exit: {fileID: 8041063663449085926}
   _version: {fileID: 4621784054209317960}
   _screen: {fileID: 367947064335098023}
+  _gameView: {fileID: 7014794967768400217}
 --- !u!1001 &6711771229285490922
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17260,6 +17261,14 @@ PrefabInstance:
     - target: {fileID: 764617901815243761, guid: 413959ae1e82904379ac13e13d577202, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 764858455024768165, guid: 413959ae1e82904379ac13e13d577202, type: 3}
+      propertyPath: m_SpotAngle
+      value: 179
+      objectReference: {fileID: 0}
+    - target: {fileID: 764858455024768165, guid: 413959ae1e82904379ac13e13d577202, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 765550621778738549, guid: 413959ae1e82904379ac13e13d577202, type: 3}
       propertyPath: m_Layer
@@ -23524,6 +23533,14 @@ PrefabInstance:
     - target: {fileID: 3098685974191797593, guid: 413959ae1e82904379ac13e13d577202, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100178129464018743, guid: 413959ae1e82904379ac13e13d577202, type: 3}
+      propertyPath: m_SpotAngle
+      value: 179
+      objectReference: {fileID: 0}
+    - target: {fileID: 3100178129464018743, guid: 413959ae1e82904379ac13e13d577202, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3100592205617468947, guid: 413959ae1e82904379ac13e13d577202, type: 3}
       propertyPath: m_Layer
@@ -37844,6 +37861,14 @@ PrefabInstance:
     - target: {fileID: 8727604612703640685, guid: 413959ae1e82904379ac13e13d577202, type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8728193628823982201, guid: 413959ae1e82904379ac13e13d577202, type: 3}
+      propertyPath: m_SpotAngle
+      value: 179
+      objectReference: {fileID: 0}
+    - target: {fileID: 8728193628823982201, guid: 413959ae1e82904379ac13e13d577202, type: 3}
+      propertyPath: m_InnerSpotAngle
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8728396261359862025, guid: 413959ae1e82904379ac13e13d577202, type: 3}
       propertyPath: m_Layer
