@@ -34,6 +34,9 @@ TagManager:
   - ShowerZoom
   - FoodZoom
   - HeartAttack
+  - FinalDoorLight
+  - MaintenanceLight
+  - MaintenanceDoor
   layers:
   - Default
   - TransparentFX

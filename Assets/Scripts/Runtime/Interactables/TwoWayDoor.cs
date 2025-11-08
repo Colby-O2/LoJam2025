@@ -19,6 +19,8 @@ namespace LJ2025
         [SerializeField] private bool _flipDirection = false;
         [SerializeField] private bool _interactable = true;
 
+        public void SetOpenSpeed(float val) => _openSpeed = val;
+
         [Header("Dialogue")]
         [SerializeField, ReadOnly] private bool _hasOpenedBefore = false;
 

@@ -5,8 +5,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using PlazmaGames.Animation;
+using PlazmaGames.Core.Utils;
 using TMPro.EditorUtilities;
 using Unity.Hierarchy;
+using Time = UnityEngine.Time;
 
 namespace LJ2025
 {
@@ -82,8 +84,8 @@ namespace LJ2025
             public Pather guy2Pather;
             public Pather guy3Pather;
             public Grabber guy1Grabber;
-            public TwoWayDoor guy1Door;
-            public TwoWayDoor guy2Door;
+            public GuyDoor guy1Door;
+            public GuyDoor guy2Door;
             public TwoWayDoor guy2BathroomDoor;
             public TwoWayDoor guy3Door;
             public Pather manager;
@@ -94,6 +96,9 @@ namespace LJ2025
             public Transform foodZoomLocation;
             public Transform heartAttackLocation;
             public HeartAttack heartAttack;
+            public Light finalLight;
+            public LightFlicker2 maintenanceLight;
+            public TwoWayDoor maintenanceDoor;
         }
 
         private void Start()
@@ -128,10 +133,10 @@ namespace LJ2025
             _refs.guy2Pather.gameObject.SetActive(false);
             _refs.guy3Pather = GameObject.FindWithTag("Guy3").GetComponent<Pather>();
             _refs.guy1Grabber = GameObject.FindWithTag("Guy1").GetComponent<Grabber>();
-            _refs.guy1Door = GameObject.FindWithTag("Guy1Door").GetComponent<TwoWayDoor>();
-            _refs.guy2Door = GameObject.FindWithTag("Guy2Door").GetComponent<TwoWayDoor>();
+            _refs.guy1Door = GameObject.FindWithTag("Guy1Door").GetComponent<GuyDoor>();
+            _refs.guy2Door = GameObject.FindWithTag("Guy2Door").GetComponent<GuyDoor>();
             _refs.guy2BathroomDoor = GameObject.FindWithTag("Guy2BathroomDoor").GetComponent<TwoWayDoor>();
-            _refs.guy3Door = GameObject.FindWithTag("Guy3Door").GetComponent<TwoWayDoor>();
+            _refs.guy3Door = GameObject.FindWithTag("Guy3Door").GetComponent<GuyDoor>();
             _refs.manager = GameObject.FindWithTag("Manager").GetComponent<Pather>();
             _refs.manager.gameObject.SetActive(false);
             _refs.trashBag = GameObject.FindWithTag("TrashBag");
@@ -142,6 +147,10 @@ namespace LJ2025
             _refs.foodZoomLocation = GameObject.FindWithTag("FoodZoom").transform;
             _refs.heartAttackLocation = GameObject.FindWithTag("HeartAttack").transform;
             _refs.heartAttack = GameObject.FindAnyObjectByType<HeartAttack>();
+            _refs.finalLight = GameObject.FindWithTag("FinalDoorLight").GetComponent<Light>();
+            _refs.maintenanceLight = GameObject.FindWithTag("MaintenanceLight").GetComponent<LightFlicker2>();
+            _refs.maintenanceLight.enabled = false;
+            _refs.maintenanceDoor = GameObject.FindWithTag("MaintenanceDoor").GetComponent<TwoWayDoor>();
             
             _refs.deathRooms.SetActive(false);
             
@@ -213,6 +222,7 @@ namespace LJ2025
                     _refs.scenes["BusStop"].SetActive(true);
                     _player.TeleportToChair(_refs.busStopChair);
                     _player.LockHead();
+                    _player.SetIndoors(false);
                     
                     _screenEffectMs.FadeinText(1)
                         .Then(_ => _screenEffectMs.Fadein(1))
@@ -457,6 +467,7 @@ namespace LJ2025
                             _refs.guy3Door.Unlock();
                         })
                         .Then(_ => _scheduler.When(() => IsInRange("Guy3Found")))
+                        .Then(_ => _scheduler.When(() => _refs.guy3Door.IsOpen()))
                         .Then(_ =>
                         {
                             _refs.guy3Door.Close();
@@ -480,6 +491,35 @@ namespace LJ2025
                         .Then(_ => _scheduler.When(() => _refs.guy3Door.IsOpen()))
                         .Then(_ =>
                         {
+                            foreach (Light light in GameObject.FindObjectsByType<Light>(FindObjectsSortMode.None))
+                            {
+                                light.gameObject.SetActive(false);
+                            }
+
+                            _refs.finalLight.gameObject.SetActive(true);
+                            _refs.maintenanceLight.gameObject.SetActive(true);
+                            _refs.maintenanceLight.enabled = true;
+                            
+                            _refs.guy1Door.Lock();
+                            _refs.guy2Door.Lock();
+                            _refs.guy3Door.Lock();
+                        })
+                        .Then(_ => _scheduler.When(() => IsInRange("InMaintenance")))
+                        .Then(_ =>
+                        {
+                            _refs.maintenanceDoor.Close();
+                            _refs.maintenanceLight.gameObject.SetActive(false);
+                        })
+                        .Then(_ => _scheduler.Wait(3))
+                        .Then(_ =>
+                        {
+                            _refs.maintenanceLight.gameObject.SetActive(true);
+                            _refs.maintenanceLight.enabled = false;
+                            _refs.maintenanceDoor.SetOpenSpeed(0.25f);
+                        })
+                        .Then(_ => _scheduler.When(() => _refs.maintenanceDoor.IsOpen()))
+                        .Then(_ =>
+                        {
                             _refs.manager.gameObject.SetActive(true);
                             _player.DetachHeadLookAt(_refs.manager.transform.position + new Vector3(0, 1.4f, 0));
                             _player.LockHead();
@@ -490,15 +530,16 @@ namespace LJ2025
                         {
                             _refs.manager.Next().Then(_ =>
                             {
-                                _refs.guy3Door.Close();
+                                _refs.maintenanceDoor.Close();
                             });
                             Promise p = new();
                             Vector3 startPos = _player.transform.position;
+                            Vector3 endPos = startPos + new Vector3(0, 0, 3);
                             GameManager.GetMonoSystem<IAnimationMonoSystem>().RequestAnimation(
                                 this,
                                 1,
                                 t => _player.Teleport(new MathExt.Transform(
-                                    Vector3.Lerp(startPos, startPos + new Vector3(0, 0, 3), t),
+                                    Vector3.Lerp(startPos, endPos, t),
                                     _player.transform.rotation
                                 )),
                                 () =>
