@@ -102,6 +102,7 @@ namespace LJ2025
             public Light finalLight;
             public LightFlicker2 maintenanceLight;
             public TwoWayDoor maintenanceDoor;
+            public Peeker peeker;
         }
 
         private void Start()
@@ -161,6 +162,25 @@ namespace LJ2025
             
             _states = GameObject.FindObjectsByType<ResetableState>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (var rs in _states) rs.InitState();
+
+            _refs.peeker = GameObject.FindAnyObjectByType<Peeker>();
+            _refs.peeker.gameObject.SetActive(false);
+            DoPeek();
+        }
+
+        private void DoPeek()
+        {
+            _scheduler.When(() => IsInRange("BackOffice"))
+                .Then(_ => _scheduler.Wait(UnityEngine.Random.Range(3, 6)))
+                .Then(_ =>
+                {
+                    if (IsInRange("BackOffice") && UnityEngine.Random.Range(0, 2) == 0) _refs.peeker.Peek(0.3f, 1.7f);
+                })
+                .Then(_ => _scheduler.Wait(7))
+                .Then(_ =>
+                {
+                    DoPeek();
+                });
         }
 
 
@@ -477,6 +497,10 @@ namespace LJ2025
                         .Then(_ =>
                         {
                             _gameState = LJ2025.GameState.CheckOnGuests;
+                            _refs.guy1Door.Close();
+                            _refs.guy2Door.Close();
+                            _refs.guy3Door.Close();
+                            _refs.maintenanceDoor.Close();
                             _refs.guy1Door.Lock();
                             _refs.guy2Door.Lock();
                             _refs.guy3Door.Lock();
@@ -491,7 +515,7 @@ namespace LJ2025
                         })
                         .Then(_ => _scheduler.When(() => IsInRange("Guy1Found")))
                         .Then(_ => _scheduler.When(() => _refs.guy2BathroomDoor.IsOpen()))
-                        .Then(_ => _scheduler.Wait(1.4f))
+                        .Then(_ => _scheduler.Wait(0.2f))
                         .Then(_ =>
                         {
                             _player.LockHead();
