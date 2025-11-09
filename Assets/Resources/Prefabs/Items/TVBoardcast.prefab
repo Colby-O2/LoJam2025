@@ -273,7 +273,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Local Forcast
+  m_text: Murder's At Local Motel
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 36a9552945374614789065e54bdc4daf, type: 2}
   m_sharedMaterial: {fileID: 6511946604088186698, guid: 36a9552945374614789065e54bdc4daf, type: 2}
@@ -381,6 +381,114 @@ RectTransform:
   m_AnchoredPosition: {x: 1.2099915, y: -1.8200073}
   m_SizeDelta: {x: -155.426, y: -171.256}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &5184407839433463790
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3641428364071413}
+  m_Layer: 9
+  m_Name: EndScene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3641428364071413
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5184407839433463790}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7336045237773302067}
+  m_Father: {fileID: 6517990075418997960}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.157, y: 2.923}
+  m_SizeDelta: {x: 599.569, y: 198.229}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &5622423107489473486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7336045237773302067}
+  - component: {fileID: 7868467382323798750}
+  - component: {fileID: 2380071261864998593}
+  m_Layer: 9
+  m_Name: View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7336045237773302067
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5622423107489473486}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3641428364071413}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1, y: 3.469}
+  m_SizeDelta: {x: 411.07, y: 229.518}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7868467382323798750
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5622423107489473486}
+  m_CullTransparentMesh: 1
+--- !u!114 &2380071261864998593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5622423107489473486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 8400000, guid: 146c65b22d3d15848b70d211c04cc8da, type: 2}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &5977913882312705466
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,6 +652,7 @@ RectTransform:
   - {fileID: 6314940544579529637}
   - {fileID: 8275392239898269857}
   - {fileID: 3166979761613585290}
+  - {fileID: 3641428364071413}
   m_Father: {fileID: 574409904497239139}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -563,7 +672,7 @@ GameObject:
   - component: {fileID: 5596268063694740077}
   m_Layer: 9
   m_Name: TVBoardcast
-  m_TagString: Untagged
+  m_TagString: TV
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -604,48 +713,64 @@ MonoBehaviour:
     Background: {fileID: 2800000, guid: 9807203acd2e17d4da8a8e75779350c4, type: 3}
     Duration: 5
     Data: {fileID: 0}
+    OverrideScroll: 0
+    Scroll: 
   - Type: 2
     Title: Local Forcast
     CanSwitchTo: 1
     Background: {fileID: 2800000, guid: 16b9c68b1a3c4c34fad0ef6272f8d664, type: 3}
     Duration: 15
     Data: {fileID: 4191959996078079490}
+    OverrideScroll: 0
+    Scroll: 
   - Type: 2
     Title: Local Forcast
     CanSwitchTo: 1
     Background: {fileID: 2800000, guid: e4bea46fc455e7940bca2965a67cdac7, type: 3}
     Duration: 15
     Data: {fileID: 4191959996078079490}
+    OverrideScroll: 0
+    Scroll: 
   - Type: 1
     Title: 
     CanSwitchTo: 1
     Background: {fileID: 2800000, guid: 4df5a3d1f6ef632489dd47687e66339a, type: 3}
     Duration: 10
     Data: {fileID: 7965735458805043344}
+    OverrideScroll: 0
+    Scroll: 
   - Type: 3
     Title: Face-Off
     CanSwitchTo: 1
     Background: {fileID: 2800000, guid: 764ee07383f91a145ad3f1caa36c82d9, type: 3}
     Duration: 10
     Data: {fileID: 0}
+    OverrideScroll: 0
+    Scroll: 
   - Type: 4
     Title: Downtown Fire
     CanSwitchTo: 1
     Background: {fileID: 2800000, guid: b69c5ee91d593564484b6863c8d17648, type: 3}
     Duration: 15
     Data: {fileID: 2398022068638107049}
+    OverrideScroll: 0
+    Scroll: 
   - Type: 4
     Title: Downtown Fire
     CanSwitchTo: 1
     Background: {fileID: 2800000, guid: a623dbd29de67174ca1e1c74259c98a6, type: 3}
     Duration: 15
     Data: {fileID: 2398022068638107049}
+    OverrideScroll: 0
+    Scroll: 
   - Type: 6
-    Title: 
+    Title: Murder's At Local Motel
     CanSwitchTo: 0
-    Background: {fileID: 2800000, guid: bd21c4c97d302e745ada61b99064151a, type: 3}
-    Duration: 5
-    Data: {fileID: 0}
+    Background: {fileID: 2800000, guid: a623dbd29de67174ca1e1c74259c98a6, type: 3}
+    Duration: 100000
+    Data: {fileID: 5184407839433463790}
+    OverrideScroll: 1
+    Scroll: 'Breaking News: Staff memeber at local motel involved in a triple homicide '
   _start: 0
   _background: {fileID: 7011785306199445820}
   _newsScroll: {fileID: 3984899760046540974}
@@ -658,6 +783,8 @@ MonoBehaviour:
     Background: {fileID: 0}
     Duration: 0
     Data: {fileID: 0}
+    OverrideScroll: 0
+    Scroll: 
   _segmentIdx: 0
   _timeElasped: 0
   _newsScrollSegments:

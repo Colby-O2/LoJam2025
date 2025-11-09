@@ -39,6 +39,8 @@ TagManager:
   - MaintenanceLight
   - MaintenanceDoor
   - MurderBath
+  - MurderKnob
+  - TV
   layers:
   - Default
   - TransparentFX

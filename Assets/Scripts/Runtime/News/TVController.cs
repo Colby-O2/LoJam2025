@@ -29,6 +29,8 @@ namespace LJ2025
         public Texture2D Background;
         public float Duration;
         public GameObject Data;
+        public bool OverrideScroll = false;
+        public string Scroll;
     }
 
     public class TVController : MonoBehaviour
@@ -65,6 +67,11 @@ namespace LJ2025
             };
         }
 
+        public void DisplayEnd()
+        {
+            SwitchSegment(_segments.FirstOrDefault(s => s.Type == TVSegmnetType.End));
+        }
+
         public string GetDateTime()
         {
             DateTime now = DateTime.Now;
@@ -92,7 +99,7 @@ namespace LJ2025
         {
             _newsScroll.gameObject.SetActive(true);
             TMP_Text scroll = _newsScroll.GetFirst();
-            scroll.text = $"{_newsScrollSegments.OrderBy(_ => UnityEngine.Random.value).FirstOrDefault()}\t";
+            scroll.text = (_segment != null && _segment.OverrideScroll) ? $"{_segment.Scroll}\t" : $"{_newsScrollSegments.OrderBy(_ => UnityEngine.Random.value).FirstOrDefault()}\t";
             _newsScroll.OnTextUpdate();
         }
 
@@ -107,6 +114,7 @@ namespace LJ2025
                 case TVSegmnetType.Weather:
                 case TVSegmnetType.Debate:
                 case TVSegmnetType.Story:
+                case TVSegmnetType.End:
                     UpdateNewsScroll();
                     break;
                 default:

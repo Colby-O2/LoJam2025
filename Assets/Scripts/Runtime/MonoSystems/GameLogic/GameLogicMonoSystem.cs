@@ -10,6 +10,8 @@ using TMPro.EditorUtilities;
 using Unity.Hierarchy;
 using LJ2025.MonoSystems;
 using Time = UnityEngine.Time;
+using PlazmaGames.UI;
+using LJ2025.UI;
 
 namespace LJ2025
 {
@@ -104,6 +106,8 @@ namespace LJ2025
             public TwoWayDoor maintenanceDoor;
             public Peeker peeker;
             public ShowerController murderBath;
+            public ShowerKnob murderKnob;
+            public TVController tv;
         }
 
         private void Start()
@@ -159,6 +163,8 @@ namespace LJ2025
             _refs.maintenanceLight.enabled = false;
             _refs.maintenanceDoor = GameObject.FindWithTag("MaintenanceDoor").GetComponent<TwoWayDoor>();
             _refs.murderBath = GameObject.FindWithTag("MurderBath").GetComponent<ShowerController>();
+            _refs.murderKnob = GameObject.FindWithTag("MurderKnob").GetComponent<ShowerKnob>();
+            _refs.tv = GameObject.FindWithTag("TV").GetComponent<TVController>();
 
             _refs.deathRooms.SetActive(false);
             
@@ -487,6 +493,7 @@ namespace LJ2025
                             _refs.curtains.GetChild(2).localScale = new Vector3(1, 1, 1);
                             _refs.deathRooms.SetActive(true);
                             _refs.murderBath.Toggle();
+                            _refs.murderKnob.SetInteractable();
                             _gameState = LJ2025.GameState.WaitCheckout;
                         })
                         .Then(_ => _scheduler.Wait(2))
@@ -638,7 +645,22 @@ namespace LJ2025
                                 });
                             return p;
                         })
-                        .Then(_ => _dialogueMs.StartDialoguePromise("Confrontation"));
+                        .Then(_ => _dialogueMs.StartDialoguePromise("Confrontation"))
+                        .Then(_ => _scheduler.Wait(3f))
+                        .Then(_ => _screenEffectMs.Fadeout(1f))
+                        .Then(_ => _screenEffectMs.FadeoutText("Later", 1f))
+                        .Then(_ =>
+                        {
+                            _taskMs.EndTask();
+                            _refs.tv.DisplayEnd();
+                            GameManager.GetMonoSystem<IUIMonoSystem>().Show<EndView>(hideLastView: false);       
+                        })
+                        .Then(_ => _screenEffectMs.FadeinText(1f))
+                        .Then(_ => _screenEffectMs.Fadein(1f))
+                        .Then(_ =>
+                        {
+                            _dialogueMs.StartDialoguePromise("End");
+                        });
                     
                     break;
                 }
