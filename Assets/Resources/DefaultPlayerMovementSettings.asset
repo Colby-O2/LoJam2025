@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b89bb55cbf1234d4abcf1907a2400e89, type: 3}
   m_Name: DefaultPlayerMovementSettings
   m_EditorClassIdentifier: Assembly-CSharp::DOH.Player.PlayerSettings
-  Speed: 7
+  Speed: 8
   WalkingForwardSpeed: 1
   WalkingBackwardSpeed: 0.5
   WalkingStrideSpeed: 1

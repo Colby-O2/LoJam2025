@@ -17,23 +17,23 @@ MonoBehaviour:
   _injectionPoint: 550
   _screenResolution: {x: 256, y: 256}
   _screenBend: 1000
-  _screenRoundness: 0
-  _vignetteOpacity: 1
-  _scanLineVerticalOpacity: 0
-  _scanLineHoriztionalOpacity: 0.1
-  _scanLineVerticalSpeed: 0.1
-  _scanLineHoriztionalSpeed: 3
+  _screenRoundness: 1
+  _vignetteOpacity: 0.3
+  _scanLineVerticalOpacity: 0.954
+  _scanLineHoriztionalOpacity: 0.823
+  _scanLineVerticalSpeed: 1
+  _scanLineHoriztionalSpeed: 1
   _scanLineStrength: 0
-  _noiseScale: 0.666
-  _noiseSpeed: 0.1
-  _noiseFade: 0
+  _noiseScale: 0.206
+  _noiseSpeed: 1
+  _noiseFade: 0.5
   _chromaticOffset: 0
   _chromaticOffsetSpeed: 0
   _brightness: 0.5
   _contrast: 0.5
   _saturation: 0.5
   _hue: 0
-  _redShift: 0
+  _redShift: 1
   _blueShift: 0
   _greenShift: 0
   _isMonochrome: 0

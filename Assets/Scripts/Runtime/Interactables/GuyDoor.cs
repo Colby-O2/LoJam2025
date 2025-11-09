@@ -29,6 +29,7 @@ namespace LJ2025
         protected override void OpenedWhenLocked()
         {
             base.OpenedWhenLocked();
+            if (GameManager.GetMonoSystem<IGameLogicMonoSystem>().GameState() != GameState.CheckOnGuests) return;
             if (_knocked == false) GameManager.GetMonoSystem<IDialogueMonoSystem>().StartDialogue(_lockedDialogue);
             else GameManager.GetMonoSystem<IDialogueMonoSystem>().StartDialogue(_lockedAfterDialogue);
             _knocked = true;

@@ -22,6 +22,7 @@ namespace LJ2025
         ServeGuest,
         GetTrashCan,
         GoCleanRoom,
+        FixWater,
         WaitCheckout,
         CheckOnGuests,
         GuestsDead0,
@@ -101,13 +102,19 @@ namespace LJ2025
             public Transform heartAttackLocation;
             public HeartAttack heartAttack;
             public TrashBin roomTrashBin;
-            public Light finalLight;
+            public LightFlicker2 finalLight;
             public LightFlicker2 maintenanceLight;
             public TwoWayDoor maintenanceDoor;
             public Peeker peeker;
             public ShowerController murderBath;
             public ShowerKnob murderKnob;
             public TVController tv;
+            public LightFlicker2 room1Light;
+            public LightFlicker2 room2Light;
+            public LightFlicker2 room3Light;
+            public AudioSource ambiance;
+            public AudioSource spookSound;
+            public AudioSource wind;
         }
 
         private void Start()
@@ -129,6 +136,10 @@ namespace LJ2025
             {
                 _refs.scenes.Add(scene.gameObject.name, scene.gameObject);
             }
+
+            _refs.ambiance = GameObject.FindWithTag("Ambiance").GetComponent<AudioSource>();
+            _refs.wind = GameObject.FindWithTag("Wind").GetComponent<AudioSource>();
+            _refs.spookSound = GameObject.FindWithTag("SpookSound").GetComponent<AudioSource>();
             
             _refs.busStopChair = GameObject.FindWithTag("BusStopChair").GetComponent<Chair>();
             _refs.busDoor = GameObject.FindWithTag("Bus").GetComponentInChildren<BusDoor>();
@@ -139,14 +150,17 @@ namespace LJ2025
         
             _refs.officeDoors = GameObject.FindWithTag("OfficeDoor").GetComponent<TwoWayDoor>();
             _refs.guy1Pather = GameObject.FindWithTag("Guy1").GetComponent<Pather>();
+            _refs.guy1Grabber = GameObject.FindWithTag("Guy1").GetComponent<Grabber>();
+            _refs.guy1Pather.gameObject.SetActive(false);
             _refs.guy2Pather = GameObject.FindWithTag("Guy2").GetComponent<Pather>();
             _refs.guy2Pather.gameObject.SetActive(false);
             _refs.guy3Pather = GameObject.FindWithTag("Guy3").GetComponent<Pather>();
-            _refs.guy1Grabber = GameObject.FindWithTag("Guy1").GetComponent<Grabber>();
+            _refs.guy3Pather.gameObject.SetActive(false);
             _refs.guy1Door = GameObject.FindWithTag("Guy1Door").GetComponent<GuyDoor>();
             _refs.guy2Door = GameObject.FindWithTag("Guy2Door").GetComponent<GuyDoor>();
             _refs.guy2BathroomDoor = GameObject.FindWithTag("Guy2BathroomDoor").GetComponent<TwoWayDoor>();
             _refs.guy3Door = GameObject.FindWithTag("Guy3Door").GetComponent<GuyDoor>();
+            _refs.guy3Door.Lock();
             _refs.manager = GameObject.FindWithTag("Manager").GetComponent<Pather>();
             _refs.manager.gameObject.SetActive(false);
             _refs.trashBag = GameObject.FindWithTag("TrashBag");
@@ -158,13 +172,24 @@ namespace LJ2025
             _refs.heartAttackLocation = GameObject.FindWithTag("HeartAttack").transform;
             _refs.heartAttack = GameObject.FindAnyObjectByType<HeartAttack>();
             _refs.roomTrashBin = GameObject.FindWithTag("RoomTrashBin").GetComponent<TrashBin>();
-            _refs.finalLight = GameObject.FindWithTag("FinalDoorLight").GetComponent<Light>();
+            _refs.finalLight = GameObject.FindWithTag("FinalDoorLight").GetComponent<LightFlicker2>();
+            _refs.finalLight.enabled = false;
+            _refs.finalLight.GetComponent<Light>().enabled = true;
             _refs.maintenanceLight = GameObject.FindWithTag("MaintenanceLight").GetComponent<LightFlicker2>();
             _refs.maintenanceLight.enabled = false;
             _refs.maintenanceDoor = GameObject.FindWithTag("MaintenanceDoor").GetComponent<TwoWayDoor>();
             _refs.murderBath = GameObject.FindWithTag("MurderBath").GetComponent<ShowerController>();
             _refs.murderKnob = GameObject.FindWithTag("MurderKnob").GetComponent<ShowerKnob>();
             _refs.tv = GameObject.FindWithTag("TV").GetComponent<TVController>();
+            _refs.room1Light = GameObject.FindWithTag("Room1Light").GetComponent<LightFlicker2>();
+            _refs.room1Light.enabled = false;
+            _refs.room1Light.GetComponent<Light>().enabled = true;
+            _refs.room2Light = GameObject.FindWithTag("Room2Light").GetComponent<LightFlicker2>();
+            _refs.room2Light.enabled = false;
+            _refs.room2Light.GetComponent<Light>().enabled = true;
+            _refs.room3Light = GameObject.FindWithTag("Room3Light").GetComponent<LightFlicker2>();
+            _refs.room3Light.enabled = false;
+            _refs.room3Light.GetComponent<Light>().enabled = true;
 
             _refs.deathRooms.SetActive(false);
             
@@ -312,6 +337,8 @@ namespace LJ2025
                 {
                     _refs.scenes["BusStop"].SetActive(false);
                     _refs.scenes["Motel"].SetActive(true);
+                    _refs.ambiance.Play();
+                    _refs.wind.Play();
                     _player.Teleport(_refs.scenes["Motel"].transform.Find("StartLocation"));
                     _player.UnlockHead();
                     _screenEffectMs.FadeinText(1)
@@ -334,6 +361,7 @@ namespace LJ2025
                         {
                             _taskMs.StartTask("Help any customers");
                             _gameState = LJ2025.GameState.ServeGuest;
+                            _refs.guy1Pather.gameObject.SetActive(true);
                         })
                         .Then(_ => _refs.guy1Pather.Next())
                         .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy1Pather.transform, 2))
@@ -386,6 +414,7 @@ namespace LJ2025
                                     _refs.guy1Door.Lock();
                                     _refs.guy1Pather.gameObject.SetActive(false);
                                 });
+                                _refs.guy3Pather.gameObject.SetActive(true);
                         })
                         .Then(_ => _refs.guy3Pather.Next())
                         .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy3Pather.transform, 2))
@@ -400,6 +429,7 @@ namespace LJ2025
                     _dialogueMs.StartDialoguePromise("Guy3Leaving")
                         .Then(_ =>
                         {
+                            _refs.guy3Door.Unlock();
                             _taskMs.StartTask("Go to room 3");
                             _scheduler.When(() => IsInRange("Guy3Found"))
                             .Then(_ => {
@@ -463,12 +493,14 @@ namespace LJ2025
                                 _taskMs.EndTask();
                                 _taskMs.StartTask("Turn on hot water valve");
                             });
+                            _gameState = LJ2025.GameState.FixWater;
                         });
                     break;
                 }
 
                 case "WaterFixed":
                 {
+                    if (_gameState != LJ2025.GameState.FixWater) break;
                     _taskMs.EndTask();
                     _dialogueMs.StartDialoguePromise("WaterFixed")
                         .Then(_ =>
@@ -483,7 +515,7 @@ namespace LJ2025
                         .Then(_ => _scheduler.Wait(5))
                         .Then(_ => _dialogueMs.StartDialoguePromise("WaitUntilCheckout"))
                         .Then(_ => _screenEffectMs.Fadeout(1))
-                        .Then(_ => _screenEffectMs.FadeoutText("Checkout Time\n6:00", 1))
+                        .Then(_ => _screenEffectMs.FadeoutText("Checkout Time\n6:00 AM", 1))
                         .Then(_ => _screenEffectMs.FadeinText(1))
                         .Then(_ => _screenEffectMs.Fadein(1))
                         .Then(_ =>
@@ -495,35 +527,109 @@ namespace LJ2025
                             _refs.murderBath.Toggle();
                             _refs.murderKnob.SetInteractable();
                             _gameState = LJ2025.GameState.WaitCheckout;
-                        })
-                        .Then(_ => _scheduler.Wait(2))
-                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime"))
-                        .Then(_ => _scheduler.Wait(2))
-                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime"))
-                        .Then(_ => _scheduler.Wait(2))
-                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime"))
-                        .Then(_ => _scheduler.Wait(2))
-                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime"))
-                        .Then(_ =>
-                        {
-                            _gameState = LJ2025.GameState.CheckOnGuests;
+                            
                             _refs.guy1Door.Close();
                             _refs.guy2Door.Close();
                             _refs.guy3Door.Close();
                             _refs.maintenanceDoor.Close();
+                            _refs.maintenanceDoor.Lock();
                             _refs.guy1Door.Lock();
                             _refs.guy2Door.Lock();
                             _refs.guy3Door.Lock();
+
+                            foreach (LightFlicker2 light in GameObject.FindObjectsByType<LightFlicker2>(FindObjectsSortMode.None))
+                            {
+                                light.gameObject.SetActive(false);
+                            }
+                            _refs.room1Light.gameObject.SetActive(true);
+                            _refs.room2Light.gameObject.SetActive(true);
+                            _refs.room3Light.gameObject.SetActive(true);
+
+                            _refs.finalLight.gameObject.SetActive(false);
+                            _refs.maintenanceLight.gameObject.SetActive(true);
+                            _refs.maintenanceLight.enabled = true;
+                            
+                            _refs.guy1Door.Lock();
+                            _refs.guy2Door.Lock();
+                            _refs.guy3Door.Lock();
+                            
+                            _taskMs.StartTask("Wait for Guests to Checkout");
                         })
-                        .Then(_ => _scheduler.When(AllDoorsKnocked))
-                        .Then(_ => _scheduler.Wait(3))
-                        .Then(_ => _dialogueMs.StartDialoguePromise("GetMasterKey"))
-                        .Then(_ => _scheduler.When(() => IsInRange("MasterKey")))
+                        .Then(_ => _scheduler.Wait(2))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime", passive:true))
+                        .Then(_ => _scheduler.Wait(2))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime", passive:true))
+                        .Then(_ => _scheduler.Wait(2))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime", passive:true))
+                        .Then(_ => _scheduler.Wait(2))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime", passive:true))
                         .Then(_ =>
                         {
+                            _taskMs.EndTask();
+                            _taskMs.StartTask("Check on Guest in Room 1");
+                            _gameState = LJ2025.GameState.CheckOnGuests;
+                        })
+                        .Then(_ => _scheduler.When(() => IsInRange("Door1Knocked")))
+                        .Then(_ => 
+                        {
+                            _taskMs.EndTask();
+                            _taskMs.StartTask("Check on Guest in Room 2");
+                        })
+                        .Then(_ => _scheduler.When(() => IsInRange("Door2Knocked")))
+                        .Then(_ => 
+                        {
+                            _taskMs.EndTask();
+                            _taskMs.StartTask("Check on Guest in Room 3");
+                        })
+                        .Then(_ => _scheduler.When(() => IsInRange("Door3Knocked")))
+                        .Then(_ => 
+                        {
+                            _taskMs.EndTask();
+                        })
+                        .Then(_ => _scheduler.Wait(3))
+                        .Then(_ => _dialogueMs.StartDialoguePromise("GetMasterKey"))
+                        .Then(_ =>
+                        {
+                            _taskMs.StartTask("Locate Master Key in Office");
+                        })
+                        .Then(_ => _scheduler.When(() => IsInRange("MasterKey")))
+                        .Then(_ => 
+                        {
+                            _taskMs.EndTask();
+                            _taskMs.StartTask("Check on Guest in Room 1");
+                        })
+                        .Then(_ =>
+                        {
+                            _refs.room1Light.enabled = true;
                             _refs.guy2Door.Unlock();
                         })
                         .Then(_ => _scheduler.When(() => IsInRange("Guy1Found")))
+                        .Then(_ =>
+                        {
+                            float amVolFrom = _refs.ambiance.volume;
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                .RequestAnimation(
+                                    this,
+                                    0.6f,
+                                    t => _refs.ambiance.volume = Mathf.Lerp(amVolFrom, 1.0f, t),
+                                    () => { },
+                                    true);
+                            float windVolFrom = _refs.wind.volume;
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                .RequestAnimation(
+                                    this,
+                                    0.6f,
+                                    t => _refs.wind.volume = Mathf.Lerp(windVolFrom, 0.6f, t),
+                                    () => { },
+                                    true);
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                .RequestAnimation(
+                                    this,
+                                    0.6f,
+                                    t => _refs.ambiance.pitch = Mathf.Lerp(1, 1.3f, t),
+                                    () => { },
+                                    true);
+                        })
                         .Then(_ => _scheduler.When(() => _refs.guy2BathroomDoor.IsOpen()))
                         .Then(_ => _scheduler.Wait(0.2f))
                         .Then(_ =>
@@ -531,6 +637,37 @@ namespace LJ2025
                             _player.LockHead();
                             LJ2025GameManager.LockMovement = true;
                             _player.DetachHead(_refs.showerZoomLocation);
+                            float from = _refs.ambiance.pitch;
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                .RequestAnimation(
+                                    this,
+                                    1.5f,
+                                    t => _refs.ambiance.pitch = Mathf.Lerp(from, 0.73f, t),
+                                    () => { },
+                                    true);
+                            float windVolFrom = _refs.wind.volume;
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                .RequestAnimation(
+                                    this,
+                                    0.6f,
+                                    t => _refs.wind.volume = Mathf.Lerp(windVolFrom, 1.5f, t),
+                                    () => { },
+                                    true);
+
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                .RequestAnimation(
+                                    this,
+                                    4.0f,
+                                    t =>
+                                    {
+                                        _screenEffectMs.SetRedShift(Mathf.Lerp(0, 0.33f, t));
+                                        _screenEffectMs.SetStaticLevel(Mathf.Lerp(0, 0.33f, t) * 0.5f);
+                                        _screenEffectMs.SetScreenRoundness(t);
+                                        _screenEffectMs.SetScreenVignetteOpacity(Mathf.Lerp(1, 0.7f, t));
+                                    },
+                                    () => { },
+                                    true);
+
                         })
                         .Then(_ => _scheduler.Wait(6))
                         .Then(_ =>
@@ -538,11 +675,23 @@ namespace LJ2025
                             _player.UnlockHead();
                             LJ2025GameManager.LockMovement = false;
                             _player.AttachHeadImmediately();
+                            _refs.room1Light.gameObject.SetActive(false);
+                            _refs.room2Light.enabled = true;
                         })
                         .Then(_ => _dialogueMs.StartDialoguePromise("FoundShower"))
                         .Then(_ =>
                         {
                             _refs.guy1Door.Unlock();
+                            float from = _refs.ambiance.pitch;
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                .RequestAnimation(
+                                    this,
+                                    6.0f,
+                                    t => _refs.ambiance.pitch = Mathf.Lerp(from, 1.40f, t),
+                                    () => { },
+                                    true);
+                            _taskMs.EndTask();
+                            _taskMs.StartTask("Check on Guest in Room 2");
                         })
                         .Then(_ => _scheduler.When(() => IsInRange("Guy2Found")))
                         .Then(_ =>
@@ -550,6 +699,27 @@ namespace LJ2025
                             _player.LockHead();
                             LJ2025GameManager.LockMovement = true;
                             _player.DetachHead(_refs.foodZoomLocation);
+                            float from = _refs.ambiance.pitch;
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>().StopAllAnimations(this);
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                .RequestAnimation(
+                                    this,
+                                    0.6f,
+                                    t => _refs.ambiance.pitch = Mathf.Lerp(from, 0.7f, t),
+                                    () => { },
+                                    true);
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                .RequestAnimation(
+                                    this,
+                                    4.0f,
+                                    t =>
+                                    {
+                                        _screenEffectMs.SetRedShift(Mathf.Lerp(0.33f, 0.66f, t));
+                                        _screenEffectMs.SetStaticLevel(Mathf.Lerp(0.33f, 0.66f, t) * 0.5f);
+                                        _screenEffectMs.SetScreenVignetteOpacity(Mathf.Lerp(0.7f, 0.5f, t));
+                                    },
+                                    () => { },
+                                    true);
                         })
                         .Then(_ => _scheduler.Wait(6))
                         .Then(_ =>
@@ -562,6 +732,18 @@ namespace LJ2025
                         .Then(_ =>
                         {
                             _refs.guy3Door.Unlock();
+                            _refs.room2Light.gameObject.SetActive(false);
+                            _refs.room3Light.enabled = true;
+                            float from = _refs.ambiance.pitch;
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                .RequestAnimation(
+                                    this,
+                                    6.0f,
+                                    t => _refs.ambiance.pitch = Mathf.Lerp(from, 1.40f, t),
+                                    () => { },
+                                    true);
+                            _taskMs.EndTask();
+                            _taskMs.StartTask("Check on Guest in Room 3");
                         })
                         .Then(_ => _scheduler.When(() => IsInRange("Guy3Found")))
                         .Then(_ => _scheduler.When(() => _refs.guy3Door.IsOpen()))
@@ -571,6 +753,27 @@ namespace LJ2025
                             _player.LockHead();
                             LJ2025GameManager.LockMovement = true;
                             _player.DetachHead(_refs.heartAttackLocation);
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>().StopAllAnimations(this);
+                            float from = _refs.ambiance.pitch;
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                .RequestAnimation(
+                                    this,
+                                    0.6f,
+                                    t => _refs.ambiance.pitch = Mathf.Lerp(from, 0.7f, t),
+                                    () => { },
+                                    true);
+                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                .RequestAnimation(
+                                    this,
+                                    4.0f,
+                                    t =>
+                                    {
+                                        _screenEffectMs.SetRedShift(Mathf.Lerp(0.66f, 1, t));
+                                        _screenEffectMs.SetStaticLevel(Mathf.Lerp(0.66f, 1, t) * 0.5f);
+                                        _screenEffectMs.SetScreenVignetteOpacity(Mathf.Lerp(0.5f, 0.3f, t));
+                                    },
+                                    () => { },
+                                    true);
                         })
                         .Then(_ => _scheduler.Wait(2))
                         .Then(_ => _dialogueMs.StartDialoguePromise("HeartAttack"))
@@ -584,34 +787,35 @@ namespace LJ2025
                             _player.UnlockHead();
                             LJ2025GameManager.LockMovement = false;
                             _player.AttachHeadImmediately();
+                            _refs.room3Light.gameObject.SetActive(false);
+                            _refs.finalLight.gameObject.SetActive(true);
+                            _refs.finalLight.enabled = true;
+                            _refs.maintenanceDoor.Unlock();
+                            _taskMs.EndTask();
+                            _taskMs.StartTask("Follow the Light");
                         })
                         .Then(_ => _scheduler.When(() => _refs.guy3Door.IsOpen()))
-                        .Then(_ =>
-                        {
-                            foreach (Light light in GameObject.FindObjectsByType<Light>(FindObjectsSortMode.None))
-                            {
-                                light.gameObject.SetActive(false);
-                            }
-
-                            _refs.finalLight.gameObject.SetActive(true);
-                            _refs.maintenanceLight.gameObject.SetActive(true);
-                            _refs.maintenanceLight.enabled = true;
-                            
-                            _refs.guy1Door.Lock();
-                            _refs.guy2Door.Lock();
-                            _refs.guy3Door.Lock();
-                        })
                         .Then(_ => _scheduler.When(() => IsInRange("InMaintenance")))
                         .Then(_ =>
                         {
+                            _taskMs.EndTask();
                             _refs.maintenanceDoor.Close();
+                            _refs.finalLight.gameObject.SetActive(false);
+                        })
+                        .Then(_ => _scheduler.Wait(1.4f))
+                        .Then(_ =>
+                        {
                             _refs.maintenanceLight.gameObject.SetActive(false);
+                            _refs.ambiance.volume = 0;
+                            _refs.wind.volume = 0;
                         })
                         .Then(_ => _scheduler.Wait(3))
                         .Then(_ =>
                         {
                             _refs.maintenanceLight.gameObject.SetActive(true);
                             _refs.maintenanceLight.enabled = false;
+                            _refs.maintenanceLight.GetComponent<Light>().enabled = true;
+                            _screenEffectMs.RestoreDefaults();
                             _refs.maintenanceDoor.SetOpenSpeed(0.10f);
                         })
                         .Then(_ => _scheduler.When(() => _refs.maintenanceDoor.IsOpen()))
@@ -621,8 +825,22 @@ namespace LJ2025
                             _player.DetachHeadLookAt(_refs.manager.transform.position + new Vector3(0, 1.4f, 0));
                             _player.LockHead();
                             LJ2025GameManager.LockMovement = true;
+                            _refs.maintenanceLight.enabled = true;
+                            _refs.spookSound.Play();
+                            _scheduler.Wait(4)
+                                .Then(_ =>
+                                {
+                                    float from = _refs.spookSound.volume;
+                                    GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                        .RequestAnimation(
+                                            this,
+                                            1.5f,
+                                            t => _refs.spookSound.volume = Mathf.Lerp(from, 0.0f, t),
+                                            () => { },
+                                            true);
+                                });
                         })
-                        .Then(_ => _scheduler.Wait(1.3f))
+                        .Then(_ => _scheduler.Wait(0.8f))
                         .Then(_ =>
                         {
                             _refs.manager.Next().Then(_ =>
@@ -642,8 +860,17 @@ namespace LJ2025
                                 () =>
                                 {
                                     p.Resolve();
-                                });
+                                },
+                                true);
                             return p;
+                        })
+                        .Then(_ =>
+                        {
+                            _refs.wind.volume = 1.5f;
+                            _scheduler.Wait(4).Then(_ =>
+                            {
+                                _refs.maintenanceLight.enabled = false;
+                            });
                         })
                         .Then(_ => _dialogueMs.StartDialoguePromise("Confrontation"))
                         .Then(_ => _scheduler.Wait(3f))
@@ -665,11 +892,6 @@ namespace LJ2025
                     break;
                 }
             }
-        }
-
-        private bool AllDoorsKnocked()
-        {
-            return IsInRange("Door1Knocked") && IsInRange("Door2Knocked") && IsInRange("Door3Knocked");
         }
 
         private void Update()

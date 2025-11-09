@@ -48,13 +48,19 @@ namespace LJ2025
 
         private void Awake()
         {
-            StartCoroutine(Flicker());
+            if (_light == null) _light = GetComponent<Light>();
+            if (enabled)StartCoroutine(Flicker());
         }
 
         private void OnEnable()
         {
             StopAllCoroutines();
             StartCoroutine(Flicker());
+        }
+        
+        private void OnDisable()
+        {
+            StopAllCoroutines();
         }
     }
 }

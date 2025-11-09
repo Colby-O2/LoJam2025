@@ -15,7 +15,7 @@ namespace LJ2025
         public string GetHintAction() => "Increase Temperature";
 
         public SphereCollider BoundingRadius() => _bounds;
-
+        
         public bool Interact(Interactor interactor)
         {
             GameManager.GetMonoSystem<IGameLogicMonoSystem>().TriggerEvent("WaterFixed", transform);

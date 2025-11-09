@@ -14,7 +14,7 @@ namespace LJ2025
         [SerializeField] private float _defaultNoiseScale = 0f;
         [SerializeField] private float _defaultChromicOffset = 0f;
         [SerializeField] private float _defaultScreenRoundness= 0f;
-        [SerializeField] private float _defaultVignette = 1f;
+        [SerializeField] private float _defaultVignetteOpacity  = 1f;
         [SerializeField] private float _defaultRedShift = 0f;
         [SerializeField] private float _defaultContrast = 0.5f;
 
@@ -30,6 +30,7 @@ namespace LJ2025
         {
             _fadeoutImage = GameObject.FindWithTag("Fadeout").GetComponent<UnityEngine.UI.Image>();
             _fadeoutText = _fadeoutImage.GetComponentInChildren<TMPro.TMP_Text>();
+            RestoreDefaults();
         }
 
         void Update()
@@ -148,14 +149,14 @@ namespace LJ2025
             if (crt) crt.SetRoundness(roudness);
             else PlazmaDebug.LogWarning($"Renderer feature '{"CRTRendererFeature"}' is null.", "Screen Effect", verboseLevel: 2, color: Color.yellow);
         }
-        public void SetScreenVignette(float value)
+        public void SetScreenVignetteOpacity(float value)
         {
             PlazmaDebug.Log($"Setting renderer feature '{"CRTRendererFeature"}' screen vignette to {value}.", "Screen Effect", verboseLevel: 2, color: Color.green);
             CRTRendererFeature crt = GetRendererFeature<CRTRendererFeature>(_rendererData, "CRTRendererFeature");
             if (crt) crt.SetVignetteOpacity(value);
             else PlazmaDebug.LogWarning($"Renderer feature '{"CRTRendererFeature"}' is null.", "Screen Effect", verboseLevel: 2, color: Color.yellow);
         }
-
+        
         public void SetRedShift(float value)
         {
             PlazmaDebug.Log($"Setting renderer feature '{"CRTRendererFeature"}' red shift to {value}.", "Screen Effect", verboseLevel: 2, color: Color.green);
@@ -177,7 +178,7 @@ namespace LJ2025
             SetStaticLevel(_defaultNoiseScale);
             SetChromicOffset(_defaultChromicOffset);
             SetScreenRoundness(_defaultScreenRoundness);
-            SetScreenVignette(_defaultVignette);
+            SetScreenVignetteOpacity(_defaultVignetteOpacity);
             SetRedShift(_defaultRedShift);
             SetContrast(_defaultContrast);
         }

@@ -41,6 +41,12 @@ TagManager:
   - MurderBath
   - MurderKnob
   - TV
+  - Room1Light
+  - Room2Light
+  - Room3Light
+  - Ambiance
+  - SpookSound
+  - Wind
   layers:
   - Default
   - TransparentFX

@@ -104,6 +104,7 @@ namespace DialogueGraph
         {
             if (_dialogueGrapths.ContainsKey(dialogueName))
             {
+                _completelyFinishedCallback?.Invoke();
                 _completelyFinishedCallback = finishCallback;
                 _currentDialogue = _dialogueGrapths[dialogueName];
                 _isDialogueInProgress = true;
