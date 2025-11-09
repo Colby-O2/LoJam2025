@@ -167,5 +167,5 @@ namespace PlazmaGames.Rendering.CRT
 			_rp.ConfigureInput(ScriptableRenderPassInput.Color);
 			renderer.EnqueuePass(_rp);
 		}
-	}
+    }
 }
