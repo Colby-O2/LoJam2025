@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using PlazmaGames.Animation;
 using PlazmaGames.Core.Utils;
-using TMPro.EditorUtilities;
 using Unity.Hierarchy;
 using LJ2025.MonoSystems;
 using Time = UnityEngine.Time;
@@ -471,7 +470,7 @@ namespace LJ2025
                     _taskMs.EndTask();
                     _taskMs.StartTask("Go To The Alleyway To Throw Out The Trash");
                     _refs.trashBag.SetActive(true);
-                    _dialogueMs.StartDialoguePromise("ThatsAllTheTrash");
+
                     _gameState = LJ2025.GameState.ServeGuest;
                     break;
                 }
@@ -517,13 +516,13 @@ namespace LJ2025
                 }
 
                 case "WaterFixed":
-                {
-                    if (_gameState != LJ2025.GameState.FixWater) break;
-                    _taskMs.EndTask();
+                    {
+                        if (_gameState != LJ2025.GameState.FixWater) break;
+                        _taskMs.EndTask();
                         _dialogueMs.StartDialoguePromise("WaterFixed")
                             .Then(_ =>
                             {
-                                _taskMs.StartTask("Return To Front Office");
+                                _taskMs.StartTask("Return To Office");
                             })
                             .Then(_ => _scheduler.When(() => IsInRange("Office")))
                             .Then(_ =>
@@ -531,7 +530,6 @@ namespace LJ2025
                                 _taskMs.EndTask();
                             })
                             .Then(_ => _scheduler.Wait(5))
-                            .Then(_ => _dialogueMs.StartDialoguePromise("WaitUntilCheckout"))
                             .Then(_ => _screenEffectMs.Fadeout(1))
                             .Then(_ => _screenEffectMs.FadeoutText("Checkout Time\n6:00 AM", 1))
                             .Then(_ => _screenEffectMs.FadeinText(1))
@@ -902,11 +900,8 @@ namespace LJ2025
                             })
                             .Then(_ => _screenEffectMs.FadeinText(1f))
                             .Then(_ => _screenEffectMs.Fadein(1f))
-                            .Then(_ => _dialogueMs.StartDialoguePromise("End")
-                            .Then(_ =>
-                            {
-                                Application.Quit();
-                            }));
+                            .Then(_ =>  _dialogueMs.StartDialoguePromise("End"))
+                            .Then(_ => { Application.Quit(); });
                     
                     break;
                 }
