@@ -40,6 +40,10 @@ namespace LJ2025.Player
     
     public class ObjectMover : MonoBehaviour
     {
+        [SerializeField] private AudioSource _as;
+        [SerializeField] private AudioClip _pickupClip;
+        [SerializeField] private AudioClip _dropClip;
+
         private MoveableProfile _profile = null;
 
         private Transform _head;
@@ -54,6 +58,7 @@ namespace LJ2025.Player
         public void Move(Transform obj, MoveableSettings settings)
         {
             if (IsMoving() || _endedThisFrame) return;
+            if (_as && _pickupClip) _as.PlayOneShot(_pickupClip);
             _startedThisFrame = true;
             _profile = new MoveableProfile(_head, obj, settings);
             _profile.colliders.ForEach(c => c.enabled = false);
@@ -64,6 +69,7 @@ namespace LJ2025.Player
         public void EndMove()
         {
             if (!IsMoving() || _startedThisFrame) return;
+            if (_as && _dropClip) _as.PlayOneShot(_dropClip);
             _profile.colliders.ForEach(c => c.enabled = true);
             _profile.rigs.ForEach(c => c.isKinematic = false);
             _profile = null;

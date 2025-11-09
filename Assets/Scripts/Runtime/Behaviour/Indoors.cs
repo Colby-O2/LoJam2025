@@ -11,6 +11,10 @@ namespace LJ2025
             {
                 p.SetIndoors(true);
             }
+            else if (other.TryGetComponent(out WalkingSound ws))
+            {
+                ws.SetIndoors();
+            }
         }
         
         private void OnTriggerExit(Collider other)
@@ -18,6 +22,10 @@ namespace LJ2025
             if (other.TryGetComponent(out Player.Controller p))
             {
                 p.SetIndoors(false);
+            }
+            else if (other.TryGetComponent(out WalkingSound ws))
+            {
+                ws.SetOutdoors();
             }
         }
     }

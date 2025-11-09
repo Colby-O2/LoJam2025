@@ -62,13 +62,13 @@ namespace LJ2025.UI
 
         IEnumerator TypeDialogue(string msg, float typeSpeed, TMP_Text target, UnityAction onFinished = null, bool isDigloue = true)
         {
-            _timeSinceMessageEnd = 0;
-            _currentMessage = msg;
-            _showedMessage = false;
+            if (isDigloue) _timeSinceMessageEnd = 0;
+            if (isDigloue) _currentMessage = msg;
+            if (isDigloue) _showedMessage = false;
 
-            _timeSinceWriteStart = 0f;
+            if (isDigloue) _timeSinceWriteStart = 0f;
 
-            if (_as) _as.Play();
+            if (_as && isDigloue) _as.Play();
 
             target.text = string.Empty;
 
@@ -78,11 +78,11 @@ namespace LJ2025.UI
             {
                 while (LJ2025GameManager.IsPaused)
                 {
-                    if (_as) _as.Stop();
+                    if (_as && isDigloue) _as.Stop();
                     yield return null;
                 }
 
-                if (_as && !_as.isPlaying) _as.Play();
+                if (_as && !_as.isPlaying && isDigloue) _as.Play();
 
                 if (msg[i] == '<')
                 {
@@ -102,9 +102,9 @@ namespace LJ2025.UI
 
             target.text = msg;
             if (!isDigloue) _isTyping = false;
-            if (_as) _as.Stop();
+            if (_as && isDigloue) _as.Stop();
 
-            _showedMessage = true;
+            if (isDigloue) _showedMessage = true;
             if (isDigloue && !_passive) _dialogueHint.SetActive(true);
         }
 

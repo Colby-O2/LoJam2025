@@ -20,6 +20,7 @@ namespace LJ2025
         [SerializeField] private GameObject _screen;
 
         [SerializeField] private GameObject _gameView;
+        [SerializeField] private AudioSource _houseAudio;
 
         private void Quit()
         {
@@ -38,6 +39,7 @@ namespace LJ2025
             _mainMenuScene.SetActive(false);
             _screen.SetActive(false);
             LJ2025GameManager.IsPaused = false;
+            _houseAudio.Play();
             GameManager.GetMonoSystem<IUIMonoSystem>().Show<GameView>();
         }
 

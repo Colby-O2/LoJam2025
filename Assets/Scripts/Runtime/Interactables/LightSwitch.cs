@@ -12,6 +12,9 @@ namespace LJ2025
         [SerializeField] private bool _defaultState = true;
         [SerializeField, ReadOnly] private bool _isOn;
         [SerializeField] private SphereCollider _boundingRadius;
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioClip _onClip;
+        [SerializeField] private AudioClip _offClip;
 
         public void UpdateOnStatus()
         {
@@ -19,16 +22,18 @@ namespace LJ2025
             foreach (Light light in _linkedLights) _isOn &= light.gameObject.activeSelf;
         }
 
-        public void On()
+        public void On(bool playAudio = true)
         {
             _isOn = true;
+            if (playAudio && _audioSource) _audioSource.PlayOneShot(_onClip);
             foreach (Light light in _linkedLights) light.gameObject.SetActive(true);
         }
 
-        public void Off()
+        public void Off(bool playAudio = true)
         {
             _isOn = false;
-            foreach(Light light in _linkedLights) light.gameObject.SetActive(false);
+            if (playAudio && _audioSource) _audioSource.PlayOneShot(_offClip);
+            foreach (Light light in _linkedLights) light.gameObject.SetActive(false);
         }
 
         public bool IsInteractable()
@@ -70,8 +75,8 @@ namespace LJ2025
 
         public void Restart()
         {
-            if (_defaultState) On();
-            else Off();
+            if (_defaultState) On(false);
+            else Off(false);
         }
 
         private void Awake()

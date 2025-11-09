@@ -38,6 +38,10 @@ namespace LJ2025.Player
 
         private float _transition = 0;
 
+        [SerializeField] private AudioSource _as;
+        [SerializeField] private AudioClip _pickupClip;
+        [SerializeField] private AudioClip _dropClip;
+
         private enum State
         {
             Starting,
@@ -59,6 +63,7 @@ namespace LJ2025.Player
             switch (_profile.settings.lookType)
             {
                 case InspectableLookType.Pickup:
+                    if (_as && _pickupClip) _as.PlayOneShot(_pickupClip);
                     _pickupTarget =
                         new MathExt.Transform(
                             _head.position + _head.forward * _profile.settings.offsetDistance,
@@ -87,6 +92,10 @@ namespace LJ2025.Player
         public void StopInspecting()
         {
             if (!IsInspecting()) return;
+            if (_profile.settings.lookType == InspectableLookType.Pickup)
+            {
+                if (_as && _dropClip) _as.PlayOneShot(_dropClip);
+            }
             _state = State.Stopping;
             _pickupTarget.rotation = _profile.obj.rotation;
             _lookAtTarget = new MathExt.Transform(_head);

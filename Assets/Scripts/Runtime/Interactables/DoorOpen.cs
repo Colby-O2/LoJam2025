@@ -14,6 +14,10 @@ namespace LJ2025
         [SerializeField] private Transform _pivotOpen;
         [SerializeField] private SphereCollider _boundingRadius;
 
+        [SerializeField] private AudioSource _as;
+        [SerializeField] private AudioClip _openClip;
+        [SerializeField] private AudioClip _closeClip;
+
         private MathExt.Transform _pivotOpenTrans;
         private MathExt.Transform _pivotClosedTrans;
 
@@ -30,23 +34,25 @@ namespace LJ2025
 
         public bool Interact(Interactor interactor)
         {
-            ToggleDoor();
+            ToggleDoor(true);
             return true;
         }
 
-        public void ToggleDoor()
+        public void ToggleDoor(bool playAudio = false)
         {
-            if (_open) CloseDoor();
-            else OpenDoor();
+            if (_open) CloseDoor(playAudio);
+            else OpenDoor(playAudio);
         }
 
-        public void OpenDoor()
+        public void OpenDoor(bool playAudio = false)
         {
+            if (playAudio && _as && _openClip) _as.PlayOneShot(_openClip);
             _open = true;
         }
         
-        public void CloseDoor()
+        public void CloseDoor(bool playAudio = false)
         {
+            if (playAudio && _as && _closeClip) _as.PlayOneShot(_closeClip);
             _open = false;
         }
 
