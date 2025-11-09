@@ -815,7 +815,7 @@ namespace LJ2025
                             .Then(_ =>
                             {
                                 _taskMs.EndTask();
-                                _refs.maintenanceDoor.Close();
+                                _refs.maintenanceDoor.Close(force: true);
                                 _refs.finalLight.gameObject.SetActive(false);
                             })
                             .Then(_ => _scheduler.Wait(1.4f))

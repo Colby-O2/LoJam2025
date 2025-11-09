@@ -50418,6 +50418,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -184.00012
       objectReference: {fileID: 0}
+    - target: {fileID: 1321102105197900487, guid: 45ffa1af164d61c4090aa31dc67fd9c7, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 1328917625858995859, guid: 45ffa1af164d61c4090aa31dc67fd9c7, type: 3}
       propertyPath: m_IsActive
       value: 1

@@ -90,7 +90,7 @@ MonoBehaviour:
     GroupName: 
     Type: 1
     Text: "<i>Well\u2026 I'd better find something soon. The bills are starting to
-      pile up/</i>"
+      pile up.</i>"
     EventID: 
     position: {x: 1424, y: 8}
     PropertyType: 

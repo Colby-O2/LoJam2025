@@ -16,23 +16,6 @@ MonoBehaviour:
   includeInDatabase: 1
   Name: CheckoutTime
   Nodes:
-  - Guid: ad941379-ce3c-43fd-b1b6-b48e8bd4e694
-    ActorName: 
-    GroupName: 
-    Type: 0
-    Text: 
-    EventID: 
-    position: {x: 0, y: 0}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: 9d0b2f7c-92ed-4f1d-8007-df621216078c
   - Guid: 9d0b2f7c-92ed-4f1d-8007-df621216078c
     ActorName: 
     GroupName: 
@@ -82,7 +65,7 @@ MonoBehaviour:
     PropertyName: CheckCount
     IncrementAmount: 0
     ComparisonType: 0
-    ComparsionCondition: 0
+    ComparsionCondition: 2
     Choices:
     - Text: 
       Next: 7a62a4a5-f33f-4bdc-b2bb-9254adaa81a6
@@ -101,7 +84,7 @@ MonoBehaviour:
     PropertyName: CheckCount
     IncrementAmount: 0
     ComparisonType: 0
-    ComparsionCondition: 0
+    ComparsionCondition: 3
     Choices:
     - Text: 
       Next: 6910197d-b80f-47cd-a2bb-6945c92711cc
@@ -175,6 +158,23 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 
+  - Guid: ad941379-ce3c-43fd-b1b6-b48e8bd4e694
+    ActorName: 
+    GroupName: 
+    Type: 0
+    Text: 
+    EventID: 
+    position: {x: 0, y: 0}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 9d0b2f7c-92ed-4f1d-8007-df621216078c
   Groups: []
   Properties:
   - Name: CheckCount
