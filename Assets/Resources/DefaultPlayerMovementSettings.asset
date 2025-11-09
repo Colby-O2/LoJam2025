@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b89bb55cbf1234d4abcf1907a2400e89, type: 3}
   m_Name: DefaultPlayerMovementSettings
   m_EditorClassIdentifier: Assembly-CSharp::DOH.Player.PlayerSettings
-  Speed: 8
+  Speed: 4
   WalkingForwardSpeed: 1
   WalkingBackwardSpeed: 0.5
   WalkingStrideSpeed: 1
   MovementSmoothing: 0.1
   GravityMultiplier: 300
-  JumpForce: 100
+  JumpForce: 0
   CrouchHeight: 1.2
   CrouchSpeedMul: 0.5
   EnableHeadMotion: 1

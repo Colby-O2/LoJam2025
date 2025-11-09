@@ -32,14 +32,35 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-    ActorName: Guy1
+      Next: 96ca9681-f26c-4c33-9539-cac4ff9b9cef
+  - Guid: 96ca9681-f26c-4c33-9539-cac4ff9b9cef
+    ActorName: Jeremy
+    GroupName: 
+    Type: 2
+    Text: Thanks so much for your fast responce. I expect to be told off from what
+      I heard about the staff here.
+    EventID: 
+    position: {x: 327, y: -27}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: What do you mean?
+      Next: 097b54c0-16e5-4199-af5f-a3926333aa86
+    - Text: I wouldn't know, it's my first shift.
+      Next: 1aad5e61-6a96-4cda-9fd9-abf449f81148
+  - Guid: 097b54c0-16e5-4199-af5f-a3926333aa86
+    ActorName: Jeremy
     GroupName: 
     Type: 1
-    Text: Thanks a lot! What do you think I should get?
+    Text: 'I read a lot of reviews about a member of staff being extremely rude to
+      cusomers. '
     EventID: 
-    position: {x: 290, y: -17}
+    position: {x: 735, y: -318}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -49,33 +70,14 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: 1aad5e61-6a96-4cda-9fd9-abf449f81148
-  - Guid: 1aad5e61-6a96-4cda-9fd9-abf449f81148
-    ActorName: You
-    GroupName: 
-    Type: 2
-    Text: You should get a...
-    EventID: 
-    position: {x: 726, y: 25}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: Fruit bar
-      Next: d1998507-73cc-4823-847a-26b2c91cdbf4
-    - Text: Bag of chips
-      Next: db76f260-fc2a-446a-bf82-ca82a6cdb495
+      Next: 67206555-82b7-477a-9c52-aaa6bbea45e0
   - Guid: d1998507-73cc-4823-847a-26b2c91cdbf4
-    ActorName: Guy1
+    ActorName: Jeremy
     GroupName: 
     Type: 1
-    Text: Nah, I think I'll get a bag of chips.
+    Text: mmm... Nah screw fruit.
     EventID: 
-    position: {x: 1182, y: -17}
+    position: {x: 2434, y: 8}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -87,12 +89,12 @@ MonoBehaviour:
     - Text: 
       Next: 
   - Guid: db76f260-fc2a-446a-bf82-ca82a6cdb495
-    ActorName: Guy1
+    ActorName: Jeremy
     GroupName: 
     Type: 1
-    Text: What a great idea!
+    Text: Silly me, it wasn't even a choice.
     EventID: 
-    position: {x: 1123, y: 263}
+    position: {x: 2375, y: 288}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -103,5 +105,43 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 
+  - Guid: 1aad5e61-6a96-4cda-9fd9-abf449f81148
+    ActorName: You
+    GroupName: 
+    Type: 2
+    Text: Anyways, thanks agian. Do you think I should stick with the Dill Pickel
+      or go with fruit bar instead?
+    EventID: 
+    position: {x: 1978, y: 50}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: Fruit bar
+      Next: d1998507-73cc-4823-847a-26b2c91cdbf4
+    - Text: Dill Pickel
+      Next: db76f260-fc2a-446a-bf82-ca82a6cdb495
+  - Guid: 67206555-82b7-477a-9c52-aaa6bbea45e0
+    ActorName: Jeremy
+    GroupName: 
+    Type: 2
+    Text: A friend of mine was telling me he came in last week and the man running
+      the desk was just stairing at him.
+    EventID: 
+    position: {x: 1496, y: -291}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: That's so werid.
+      Next: 1aad5e61-6a96-4cda-9fd9-abf449f81148
   Groups: []
   Properties: []

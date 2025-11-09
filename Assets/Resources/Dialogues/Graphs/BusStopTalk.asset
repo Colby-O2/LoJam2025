@@ -32,14 +32,14 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-    ActorName: Strange Man
+      Next: cf4a171d-5638-4467-bab1-e8a8719f177d
+  - Guid: cf4a171d-5638-4467-bab1-e8a8719f177d
+    ActorName: Stranger
     GroupName: 
-    Type: 1
-    Text: Howdy
+    Type: 2
+    Text: Late night, huh?
     EventID: 
-    position: {x: 289, y: -25}
+    position: {x: 626, y: -42}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -48,7 +48,96 @@ MonoBehaviour:
     ComparisonType: 0
     ComparsionCondition: 0
     Choices:
-    - Text: 
+    - Text: Yeah... got called in.
+      Next: ae38a120-d5d2-47de-852d-869b97c3af15
+    - Text: Not for me
+      Next: 044bea9b-6d77-4902-9f90-786569f0f63f
+  - Guid: ae38a120-d5d2-47de-852d-869b97c3af15
+    ActorName: Stranger
+    GroupName: 
+    Type: 2
+    Text: That's interesting. Is today your first night on the job?
+    EventID: 
+    position: {x: 1069, y: -188}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: Yeah, got called in last minute.
+      Next: 428dcb86-b595-407d-aa74-9820ca6e2bdf
+  - Guid: 1d2f0d2b-c93c-46cc-a8ca-10fa4bcb756c
+    ActorName: Stranger
+    GroupName: 
+    Type: 2
+    Text: That's interesting. How long you've been doing that?
+    EventID: 
+    position: {x: 1540, y: 323}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: Tonight is my first shift.
+      Next: ae7fdebc-c096-4ebe-b7f0-c0475daa8831
+  - Guid: 428dcb86-b595-407d-aa74-9820ca6e2bdf
+    ActorName: Stranger
+    GroupName: 
+    Type: 2
+    Text: You're going to like it at the motel. It's nice and quiet at night, if
+      that's your thing.
+    EventID: 
+    position: {x: 1609, y: -163}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: Yeah, I guess so
       Next: 
+  - Guid: ae7fdebc-c096-4ebe-b7f0-c0475daa8831
+    ActorName: Stranger
+    GroupName: 
+    Type: 2
+    Text: I'm sure your first night will go great! The motel is nice and quiet at
+      night, if that's your thing.
+    EventID: 
+    position: {x: 1980, y: 316}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: Yeah, I guess so
+      Next: 
+  - Guid: 044bea9b-6d77-4902-9f90-786569f0f63f
+    ActorName: Stranger
+    GroupName: 
+    Type: 2
+    Text: I'm a night owl as well. What do you do for work?
+    EventID: 
+    position: {x: 1118, y: 282}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: I work in retal.
+      Next: 1d2f0d2b-c93c-46cc-a8ca-10fa4bcb756c
   Groups: []
   Properties: []

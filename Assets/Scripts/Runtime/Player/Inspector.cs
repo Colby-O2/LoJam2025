@@ -38,6 +38,7 @@ namespace LJ2025.Player
 
         private float _transition = 0;
 
+        [SerializeField] private GameObject _light; 
         [SerializeField] private AudioSource _as;
         [SerializeField] private AudioClip _pickupClip;
         [SerializeField] private AudioClip _dropClip;
@@ -57,6 +58,7 @@ namespace LJ2025.Player
         public void Inspect(InspectorProfile profile)
         {
             if (IsInspecting()) return;
+            _light.SetActive(true);
             _profile = profile;
             _state = State.Starting;
             _headStart = new MathExt.Transform(_head);
@@ -92,6 +94,7 @@ namespace LJ2025.Player
         public void StopInspecting()
         {
             if (!IsInspecting()) return;
+            _light.SetActive(false);
             if (_profile.settings.lookType == InspectableLookType.Pickup)
             {
                 if (_as && _dropClip) _as.PlayOneShot(_dropClip);
@@ -107,6 +110,7 @@ namespace LJ2025.Player
             
             _player = GetComponent<Player.Controller>();
             _head = _player.Head();
+            _light.SetActive(false);
         }
 
         private void HandleInteractPress()
@@ -133,6 +137,7 @@ namespace LJ2025.Player
             {
                 if (VirtualCaster.Instance.Raycast(Mouse.current.position.value, out IInspectorButton button, 10, _inspectorButtonLayer))
                 {
+                    Debug.Log("Button CLicked");
                     button?.Click();
                 }
             }

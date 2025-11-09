@@ -22,7 +22,7 @@ MonoBehaviour:
     Type: 0
     Text: 
     EventID: 
-    position: {x: 0, y: 0}
+    position: {x: -643, y: 85}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -32,14 +32,14 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-    ActorName: Guy1
+      Next: 862580ff-4a57-4b14-9d30-8a1e45df9d5b
+  - Guid: 862580ff-4a57-4b14-9d30-8a1e45df9d5b
+    ActorName: Jeremy
     GroupName: 
     Type: 1
-    Text: I would like to get a room.
+    Text: Hi... I have a reservation uder the name Turner.
     EventID: 
-    position: {x: 289, y: -25}
+    position: {x: -233, y: -13}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -49,14 +49,14 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: f807b837-ac09-450a-99c9-38d552ed3cde
-  - Guid: f807b837-ac09-450a-99c9-38d552ed3cde
+      Next: 7e9fea8a-5c9e-4dda-b545-5d7962607adf
+  - Guid: 7e9fea8a-5c9e-4dda-b545-5d7962607adf
     ActorName: You
     GroupName: 
     Type: 1
-    Text: Ok, you can take room 1.
+    Text: Let me check...
     EventID: 
-    position: {x: 722, y: 69}
+    position: {x: 186, y: -24}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -66,15 +66,48 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: e1a3e018-78c8-4158-873a-d98b757e25f4
-  - Guid: e1a3e018-78c8-4158-873a-d98b757e25f4
-    ActorName: Guy1
+      Next: acbb40a2-af4d-4340-88a8-1751941f4070
+  - Guid: acbb40a2-af4d-4340-88a8-1751941f4070
+    ActorName: You
     GroupName: 
     Type: 1
-    Text: Great! I''m a little peckish, I think I'll get something from the vending
-      machine.
+    Text: Ah, yes, Mr. Turner. One night correct?
     EventID: 
-    position: {x: 1192, y: 5}
+    position: {x: 563, y: -18}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: b7e79f4a-9ff9-49b3-9836-13f3f64d5919
+  - Guid: b7e79f4a-9ff9-49b3-9836-13f3f64d5919
+    ActorName: Jeremy
+    GroupName: 
+    Type: 1
+    Text: That's correct.
+    EventID: 
+    position: {x: 999, y: -6}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 9153a9da-5b98-4fef-a05c-7c6f7264f55b
+  - Guid: 9153a9da-5b98-4fef-a05c-7c6f7264f55b
+    ActorName: You
+    GroupName: 
+    Type: 1
+    Text: "Here\u2019s your key. Checkout is at 6AM sharp."
+    EventID: 
+    position: {x: 1388, y: -7}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0

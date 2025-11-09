@@ -252,6 +252,7 @@ namespace LJ2025.UI
         private void HideChoice()
         {
             _showingChoice = false;
+            _selectedChoice = -1;
 
             LJ2025GameManager.HideCursor();
 
@@ -259,6 +260,7 @@ namespace LJ2025.UI
             {
                 button.onPointerEnter.RemoveAllListeners();
                 button.onPointerDown.RemoveAllListeners();
+                button.GetOverlay().color = Color.clear;
             }
             foreach (TMP_Text text in _choiceText) text.text = string.Empty;
             _choiceHolder.SetActive(false);

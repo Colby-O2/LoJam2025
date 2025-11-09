@@ -115,6 +115,7 @@ namespace LJ2025
             public AudioSource ambiance;
             public AudioSource spookSound;
             public AudioSource wind;
+            public InspectableObject connect4;
         }
 
         private void Start()
@@ -190,6 +191,7 @@ namespace LJ2025
             _refs.room3Light = GameObject.FindWithTag("Room3Light").GetComponent<LightFlicker2>();
             _refs.room3Light.enabled = false;
             _refs.room3Light.GetComponent<Light>().enabled = true;
+            _refs.connect4 = GameObject.FindWithTag("Connect4").GetComponent<InspectableObject>();
 
             _refs.deathRooms.SetActive(false);
             
@@ -249,14 +251,18 @@ namespace LJ2025
                         .Then(_ => _dialogueMs.StartDialoguePromise("StartingMonologue"))
                         .Then(_ =>
                         {
+                            _taskMs.StartTask("Click 'Space' To Get Up");
                             _player.UnlockHead();
                         })
-                        .Then(_ => _scheduler.Wait(1))
+                        .Then(_ => _scheduler.Wait(5f))
+                        .Then(_ => { _taskMs.EndTask(); })
+                        .Then(_ => _scheduler.Wait(UnityEngine.Random.Range(15f, 20f)))
+                        .Then(_ => { _dialogueMs.StartDialoguePromise("GotCall", passive: true); })
                         .Then(_ => _refs.homePhone.Ring())
                         .Then(_ => _dialogueMs.StartDialoguePromise("NewJobPhoneCall"))
                         .Then(_ =>
                         {
-                            _taskMs.StartTask("Leave your house");
+                            _taskMs.StartTask("Leave The House");
                             _gameState = LJ2025.GameState.LeaveForWork;
                         });
                     
@@ -284,8 +290,8 @@ namespace LJ2025
                     _player.LockHead();
                     _player.SetIndoors(false);
                     
-                    _screenEffectMs.FadeinText(1)
-                        .Then(_ => _screenEffectMs.Fadein(1))
+                    _screenEffectMs.FadeinText(2)
+                        .Then(_ => _screenEffectMs.Fadein(2))
                         .Then(_ =>
                         {
                             LJ2025GameManager.LockMovement = false;
@@ -305,7 +311,7 @@ namespace LJ2025
                         .Then(_ => _dialogueMs.StartDialoguePromise("BusIsHere"))
                         .Then(_ =>
                         {
-                            _taskMs.StartTask("Get on the bus");
+                            _taskMs.StartTask("Get On The Bus");
                             _player.UnlockHead();
                         });
                     break;
@@ -341,11 +347,11 @@ namespace LJ2025
                     _refs.wind.Play();
                     _player.Teleport(_refs.scenes["Motel"].transform.Find("StartLocation"));
                     _player.UnlockHead();
-                    _screenEffectMs.FadeinText(1)
-                        .Then(_ => _screenEffectMs.Fadein(1))
+                    _screenEffectMs.FadeinText(2)
+                        .Then(_ => _screenEffectMs.Fadein(2))
                         .Then(_ =>
                         {
-                            _taskMs.StartTask("Go to the front office");
+                            _taskMs.StartTask("Go To The Front Office");
                             LJ2025GameManager.LockMovement = false;
                         })
                         .Then(_ => _scheduler.When(() => IsInRange("Office")))
@@ -354,15 +360,16 @@ namespace LJ2025
                             _taskMs.EndTask();
                             _refs.officeDoors.Close();
                         })
-                        .Then(_ => _scheduler.Wait(3))
+                        .Then(_ => _scheduler.Wait(UnityEngine.Random.Range(3f, 10f)))
                         .Then(_ => _refs.officePhone.Ring())
                         .Then(_ => _dialogueMs.StartDialoguePromise("IntroductionCall"))
                         .Then(_ =>
                         {
-                            _taskMs.StartTask("Help any customers");
+                            _taskMs.StartTask("Serve Any Customers That Come In.");
                             _gameState = LJ2025.GameState.ServeGuest;
                             _refs.guy1Pather.gameObject.SetActive(true);
                         })
+                        .Then(_ => _scheduler.Wait(UnityEngine.Random.Range(5f, 20f)))
                         .Then(_ => _refs.guy1Pather.Next())
                         .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy1Pather.transform, 2))
                         .Then(_ => _refs.guy1Pather.Next());
@@ -381,8 +388,12 @@ namespace LJ2025
                         .Then(_ => _dialogueMs.StartDialoguePromise("Guy1VendingMachineEmpty"))
                         .Then(_ =>
                         {
+                            _refs.connect4.SetInteractable(true);
+                        })
+                        .Then(_ =>
+                        {
                             _refs.vendingMachine.TaskEnabled = true;
-                            _taskMs.StartTask("Refill the vending machine", _refs.vendingMachine.GetMaxCount());
+                            _taskMs.StartTask("Refill The Vending Machine", _refs.vendingMachine.GetMaxCount());
                         })
                         .Then(_ => _refs.guy1Pather.Next())
                         .Then(_ => _scheduler.When(() => _refs.vendingMachine.IsStocked()))
@@ -397,7 +408,11 @@ namespace LJ2025
                         .Then(_ => _dialogueMs.StartDialoguePromise("Guy1VendingChoose"))
                         .Then(_ =>
                         {
-                            _taskMs.StartTask("Help any customers");
+                            _refs.connect4.SetInteractable(false);
+                        })
+                        .Then(_ =>
+                        {
+                            _taskMs.StartTask("Serve Any Customers That Come In.");
                         })
                         .Then(_ => _scheduler.Wait(1.5f))
                         .Then(_ => _refs.guy1Grabber.Grab(_refs.vendingMachine.RemoveItem()))

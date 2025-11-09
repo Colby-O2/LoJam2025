@@ -19,7 +19,6 @@ namespace LJ2025
 
         private void OnClickPerformed(InputAction.CallbackContext ctx)
         {
-            Debug.Log("Here!");
             _startMousePos = Mouse.current.position.ReadValue();
             _isRotating = VirtualCaster.Instance.Raycast(_startMousePos, out RaycastHit _);
         }

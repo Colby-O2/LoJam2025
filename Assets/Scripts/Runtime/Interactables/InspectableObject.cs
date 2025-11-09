@@ -9,6 +9,11 @@ namespace LJ2025
         [SerializeField] private InspectableSettings _settings;
         private InspectorProfile _profile;
 
+        public void SetInteractable(bool state)
+        {
+            _settings.hasInteractions = state;
+        }
+
         private void Start()
         {
             _profile = new InspectorProfile(transform, new MathExt.Transform(transform), _settings);

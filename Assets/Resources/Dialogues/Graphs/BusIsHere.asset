@@ -37,7 +37,7 @@ MonoBehaviour:
     ActorName: You
     GroupName: 
     Type: 1
-    Text: Welp, the bus is here. We should go.
+    Text: The bus is here, I should get going.
     EventID: 
     position: {x: 289, y: -25}
     PropertyType: 
@@ -51,7 +51,7 @@ MonoBehaviour:
     - Text: 
       Next: 65c54180-a312-44b3-a27d-a301b524786a
   - Guid: 65c54180-a312-44b3-a27d-a301b524786a
-    ActorName: Strange Man
+    ActorName: Stranger
     GroupName: 
     Type: 1
     Text: Yeah, we should...

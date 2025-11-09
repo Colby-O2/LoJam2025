@@ -47,6 +47,7 @@ TagManager:
   - Ambiance
   - SpookSound
   - Wind
+  - Connect4
   layers:
   - Default
   - TransparentFX
@@ -62,7 +63,7 @@ TagManager:
   - Ground
   - KeepOn
   - UIMenu
-  - 
+  - InspectorButtonLayer
   - 
   - 
   - 

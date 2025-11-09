@@ -32,14 +32,14 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-    ActorName: Boss Man
+      Next: 19da1606-0977-4b00-bcc8-1893205c34cb
+  - Guid: c6a8f7fe-678c-4b3d-b939-fcfaab598820
+    ActorName: You
     GroupName: 
     Type: 1
-    Text: You need to fill the vending machine.
+    Text: Okay, I got it from here.
     EventID: 
-    position: {x: 289, y: -25}
+    position: {x: 1947, y: 237}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -50,5 +50,234 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 
+  - Guid: 1ca80fe4-22ce-43f1-8dd8-761cb43051f8
+    ActorName: Mark
+    GroupName: 
+    Type: 1
+    Text: Listen, we need time to perpare the rooms for the next nights guests. Just
+      make sure they are all out by six.
+    EventID: 
+    position: {x: 1415, y: -152}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: c6a8f7fe-678c-4b3d-b939-fcfaab598820
+  - Guid: 19da1606-0977-4b00-bcc8-1893205c34cb
+    ActorName: Mark
+    GroupName: 
+    Type: 1
+    Text: 'Hi Darren, I see you made it to the motel safely. '
+    EventID: 
+    position: {x: 94, y: 44}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 386a9c91-1f18-472c-922c-37cd090b5851
+  - Guid: 386a9c91-1f18-472c-922c-37cd090b5851
+    ActorName: Mark
+    GroupName: 
+    Type: 2
+    Text: 'The job is pretty simple. If anyone comes in just assign them to an empty
+      room and remind them that checkout is at 6AM. Any questions? '
+    EventID: 
+    position: {x: 447, y: 27}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 6AM is pretty early for checkout.
+      Next: 7dd9b4a1-304e-45d4-b888-4dc4789bac6f
+    - Text: What happened to the last clerk?
+      Next: 3cd94a84-b158-4308-b806-e8c7f5e48b27
+    - Text: No, that seems pretty clear!
+      Next: c6a8f7fe-678c-4b3d-b939-fcfaab598820
+  - Guid: ee482d06-061c-4a4f-a330-90fb073eb164
+    ActorName: 
+    GroupName: 
+    Type: 3
+    Text: 
+    EventID: 
+    position: {x: 1114, y: -228}
+    PropertyType: Bool
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: Early
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: b5ff4a81-652c-4dbc-9488-494587d5c7fa
+  - Guid: 7dd9b4a1-304e-45d4-b888-4dc4789bac6f
+    ActorName: 
+    GroupName: 
+    Type: 4
+    Text: 
+    EventID: 
+    position: {x: 900, y: -103}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: LastClerk
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: ee482d06-061c-4a4f-a330-90fb073eb164
+    - Text: 
+      Next: 5fe2e0a3-b723-4e15-a649-7d8de816501f
+  - Guid: 5fe2e0a3-b723-4e15-a649-7d8de816501f
+    ActorName: 
+    GroupName: 
+    Type: 3
+    Text: 
+    EventID: 
+    position: {x: 1126, y: -43}
+    PropertyType: Bool
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: Early
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 1ca80fe4-22ce-43f1-8dd8-761cb43051f8
+  - Guid: 3cd94a84-b158-4308-b806-e8c7f5e48b27
+    ActorName: 
+    GroupName: 
+    Type: 4
+    Text: 
+    EventID: 
+    position: {x: 833, y: 417}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: LastClerk
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 708b8401-a7ee-474e-b71a-21fd4242a81c
+    - Text: 
+      Next: abc239b4-5dd4-44af-ae44-3951081c7e76
+  - Guid: 708b8401-a7ee-474e-b71a-21fd4242a81c
+    ActorName: 
+    GroupName: 
+    Type: 3
+    Text: 
+    EventID: 
+    position: {x: 1086, y: 358}
+    PropertyType: Bool
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: LastClerk
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: dca032f2-5d58-4c4e-b69e-66ebb2f12375
+  - Guid: abc239b4-5dd4-44af-ae44-3951081c7e76
+    ActorName: 
+    GroupName: 
+    Type: 3
+    Text: 
+    EventID: 
+    position: {x: 1061, y: 542}
+    PropertyType: Bool
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: LastClerk
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 7ed68228-8a5e-4eaa-9e57-aaaaa983de89
+  - Guid: 7ed68228-8a5e-4eaa-9e57-aaaaa983de89
+    ActorName: Mark
+    GroupName: 
+    Type: 1
+    Text: Jerry is just a low life. He just decided to quit right before his shift
+      started. Thankfully I was able to find a repalcement. Thanks by the way!
+    EventID: 
+    position: {x: 1502, y: 460}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: c6a8f7fe-678c-4b3d-b939-fcfaab598820
+  - Guid: b5ff4a81-652c-4dbc-9488-494587d5c7fa
+    ActorName: Mark
+    GroupName: 
+    Type: 2
+    Text: Listen, we need time to perpare the rooms for the next nights guests. Just
+      make sure they are all out by six.
+    EventID: 
+    position: {x: 1374, y: 122}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: What happened to the last clerk?
+      Next: abc239b4-5dd4-44af-ae44-3951081c7e76
+    - Text: Okay, I got it from here.
+      Next: c6a8f7fe-678c-4b3d-b939-fcfaab598820
+  - Guid: dca032f2-5d58-4c4e-b69e-66ebb2f12375
+    ActorName: Mark
+    GroupName: 
+    Type: 2
+    Text: Jerry is just a low life. He just decided to quit right before his shift
+      started. Thankfully I was able to find a repalcement. Thanks by the way!
+    EventID: 
+    position: {x: 1434, y: 717}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 6AM is pretty early for checkout.
+      Next: 5fe2e0a3-b723-4e15-a649-7d8de816501f
+    - Text: Okay, I got it from here.
+      Next: c6a8f7fe-678c-4b3d-b939-fcfaab598820
   Groups: []
-  Properties: []
+  Properties:
+  - Name: LastClerk
+    Type: Bool
+    BooleanValue: 0
+    IntValue: 0
+  - Name: Early
+    Type: Bool
+    BooleanValue: 0
+    IntValue: 0

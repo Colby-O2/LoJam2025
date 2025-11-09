@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde6bf8a896c98c48b27db112dac91a0, type: 3}
   m_Name: StartingMonologue
   m_EditorClassIdentifier: DialogueGraph::DialogueGraph.Data.DialogueGraphSO
-  id: 2
+  id: -1
   includeInDatabase: 1
   Name: StartingMonologue
   Nodes:
-  - Guid: ad941379-ce3c-43fd-b1b6-b48e8bd4e694
+  - Guid: 596f6915-6f76-4df5-8e4f-73fbad5ab0ab
     ActorName: 
     GroupName: 
     Type: 0
@@ -32,84 +32,84 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-    ActorName: Strange Man
-    GroupName: 
-    Type: 1
-    Text: The hand that reaches out, will you take it or not!
-    EventID: 
-    position: {x: 289, y: -25}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: bfe52c89-fd18-4a4e-a3e8-0896cf9fbf14
-  - Guid: bfe52c89-fd18-4a4e-a3e8-0896cf9fbf14
-    ActorName: The Hand
-    GroupName: 
-    Type: 2
-    Text: Well...
-    EventID: 
-    position: {x: 667, y: 0}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: Take It
-      Next: 8bb14b57-3176-4417-9500-f30dbe8aeb38
-    - Text: Leave It
-      Next: 08238ba4-4e43-405e-b3f3-5bfdd950f48f
-  - Guid: 8bb14b57-3176-4417-9500-f30dbe8aeb38
-    ActorName: Death
-    GroupName: 
-    Type: 1
-    Text: You are dead
-    EventID: 
-    position: {x: 1095, y: 39}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: d7a04ce7-331c-4f8e-a0fd-a66e1378ff0f
-  - Guid: 08238ba4-4e43-405e-b3f3-5bfdd950f48f
-    ActorName: God
-    GroupName: 
-    Type: 1
-    Text: You are saved
-    EventID: 
-    position: {x: 1066, y: 258}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: d7a04ce7-331c-4f8e-a0fd-a66e1378ff0f
-  - Guid: d7a04ce7-331c-4f8e-a0fd-a66e1378ff0f
+      Next: 21b5bb47-bc41-4bf9-b35e-751bad0efe49
+  - Guid: 21b5bb47-bc41-4bf9-b35e-751bad0efe49
     ActorName: You
     GroupName: 
     Type: 1
-    Text: Damn
+    Text: "<i>I must\u2019ve fallen asleep at the TV again.</i>"
     EventID: 
-    position: {x: 1525, y: 258}
+    position: {x: 294, y: -4}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: a1422a84-eb8b-4d88-96c3-76d52b5314ff
+  - Guid: a1422a84-eb8b-4d88-96c3-76d52b5314ff
+    ActorName: You
+    GroupName: 
+    Type: 1
+    Text: <i>Time keeps blurring together since I lost my job at the university.</i>
+    EventID: 
+    position: {x: 721, y: 2}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: b123144b-cc79-40c2-96f5-e70b1706511d
+  - Guid: 04561b2a-980a-439b-a3e3-5d902af3fc97
+    ActorName: You
+    GroupName: 
+    Type: 1
+    Text: "<i>Well\u2026 I better find something soon. The bills are starting to
+      pile up/</i>"
+    EventID: 
+    position: {x: 1424, y: 8}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 1173edfe-a8b0-4efb-ba5e-2f5a0571e596
+  - Guid: b123144b-cc79-40c2-96f5-e70b1706511d
+    ActorName: You
+    GroupName: 
+    Type: 1
+    Text: "<i>Days slip by, nights drag on... It\u2019s all starting to feel the
+      same.</i>"
+    EventID: 
+    position: {x: 1089, y: 3}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 04561b2a-980a-439b-a3e3-5d902af3fc97
+  - Guid: 1173edfe-a8b0-4efb-ba5e-2f5a0571e596
+    ActorName: You
+    GroupName: 
+    Type: 1
+    Text: "<i>I can\u2019t keep living like this.</i>"
+    EventID: 
+    position: {x: 1819, y: 22}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
