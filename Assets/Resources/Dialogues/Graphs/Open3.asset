@@ -37,7 +37,7 @@ MonoBehaviour:
     ActorName: You
     GroupName: 
     Type: 1
-    Text: I cannot beleive what is happening... Please don't be dead.
+    Text: I cannot believe what is happening... Please don't be dead.
     EventID: 
     position: {x: 289, y: -25}
     PropertyType: 

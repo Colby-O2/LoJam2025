@@ -16,13 +16,13 @@ MonoBehaviour:
   includeInDatabase: 1
   Name: Confrontation
   Nodes:
-  - Guid: ad941379-ce3c-43fd-b1b6-b48e8bd4e694
-    ActorName: 
+  - Guid: 4bcc476e-b033-487b-9b65-ea4a5a65bf53
+    ActorName: Stranger
     GroupName: 
-    Type: 0
-    Text: 
+    Type: 1
+    Text: YOU turned the boiler up too high.
     EventID: 
-    position: {x: 0, y: 0}
+    position: {x: 501, y: 131}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -32,14 +32,208 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-    ActorName: Strange Man
+      Next: 1a270f12-46fb-4934-bb1c-070a18ba4dd4
+  - Guid: b88202cf-4cb0-41a5-8114-0aac222b67b3
+    ActorName: Stranger
+    GroupName: 
+    Type: 2
+    Text: YOU throw that poor man's medicine away
+    EventID: 
+    position: {x: 1271, y: 101}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: No... It was an accident
+      Next: cc7bb2a0-3bb8-4431-bb49-605ba0077831
+    - Text: Why?
+      Next: 5320269c-64c6-4740-a872-17264ba0a997
+  - Guid: ad941379-ce3c-43fd-b1b6-b48e8bd4e694
+    ActorName: 
+    GroupName: 
+    Type: 0
+    Text: 
+    EventID: 
+    position: {x: -403, y: -3}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: e3e01677-ecb0-4c78-bb80-5c7d4a0ee885
+  - Guid: cc7bb2a0-3bb8-4431-bb49-605ba0077831
+    ActorName: Stranger
     GroupName: 
     Type: 1
-    Text: WHAT WILL YOU DO NOW BAHAHAHAH
+    Text: No one will believe any of these were ACCIDENTS. Either way...
     EventID: 
-    position: {x: 293, y: -25}
+    position: {x: 1740, y: 5}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 4d080d04-b366-4158-8ec5-7ce7afad0e94
+  - Guid: 5320269c-64c6-4740-a872-17264ba0a997
+    ActorName: Stranger
+    GroupName: 
+    Type: 1
+    Text: "Because I got sick of those ingrates! Every day they looked down on me,
+      like I didn\u2019t matter!"
+    EventID: 
+    position: {x: 1737, y: 361}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 4d080d04-b366-4158-8ec5-7ce7afad0e94
+  - Guid: 4d080d04-b366-4158-8ec5-7ce7afad0e94
+    ActorName: Stranger
+    GroupName: 
+    Type: 1
+    Text: "It doesn\u2019t matter now. The police are already on their way. And when
+      they get here\u2026"
+    EventID: 
+    position: {x: 2375, y: 222}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: ca634b21-2f91-4ebb-8227-127fa46304b7
+  - Guid: b2227684-a468-4e5d-842c-167180145a34
+    ActorName: Stranger
+    GroupName: 
+    Type: 1
+    Text: Oh no. You set yourself up. I just opened the door.
+    EventID: 
+    position: {x: 3579, y: 275}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: cd30cf34-2179-4b7a-8df5-a987b5f52f34
+  - Guid: 0d2df96f-0327-42df-bb0c-7abd8b170a40
+    ActorName: You
+    GroupName: 
+    Type: 1
+    Text: "You set me up\u2026"
+    EventID: 
+    position: {x: 3200, y: 274}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: b2227684-a468-4e5d-842c-167180145a34
+  - Guid: ca634b21-2f91-4ebb-8227-127fa46304b7
+    ActorName: Stranger
+    GroupName: 
+    Type: 1
+    Text: "\u2026every bit of evidence points to you. Every camera. Every log. Every
+      signature."
+    EventID: 
+    position: {x: 2812, y: 250}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 0d2df96f-0327-42df-bb0c-7abd8b170a40
+  - Guid: e3e01677-ecb0-4c78-bb80-5c7d4a0ee885
+    ActorName: 
+    GroupName: 
+    Type: 2
+    Text: SO, WHAT WILL YOU DO NOW?
+    EventID: 
+    position: {x: -29, y: 187}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: What are you talking about?
+      Next: d9f98f99-4308-478a-9065-d283da9a58e7
+    - Text: Who are you?
+      Next: 
+  - Guid: d9f98f99-4308-478a-9065-d283da9a58e7
+    ActorName: Stranger
+    GroupName: 
+    Type: 1
+    Text: It's irrelevant what YOU did is more important.
+    EventID: 
+    position: {x: 314, y: 453}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 4bcc476e-b033-487b-9b65-ea4a5a65bf53
+  - Guid: 1a270f12-46fb-4934-bb1c-070a18ba4dd4
+    ActorName: Stranger
+    GroupName: 
+    Type: 1
+    Text: YOU stocked the vending machine with laced chips
+    EventID: 
+    position: {x: 868, y: 124}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: b88202cf-4cb0-41a5-8114-0aac222b67b3
+  - Guid: cd30cf34-2179-4b7a-8df5-a987b5f52f34
+    ActorName: Stranger
+    GroupName: 
+    Type: 1
+    Text: Goodluck. You're going to need it.
+    EventID: 
+    position: {x: 3911, y: 275}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0

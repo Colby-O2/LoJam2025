@@ -50,29 +50,12 @@ MonoBehaviour:
     Choices:
     - Text: Yes, Darren speaking.
       Next: 78972967-f97b-4f1f-aaa4-d3f59eed960d
-  - Guid: 11f4b447-d624-4dd3-a57c-e402a25dd37e
-    ActorName: Mark
-    GroupName: 
-    Type: 1
-    Text: Great! I'll connect with you once you get on site.
-    EventID: 
-    position: {x: 1795, y: -21}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: 
   - Guid: 07de4090-8121-48c8-8921-775f61e5cb8c
     ActorName: Mark
     GroupName: 
     Type: 1
-    Text: My attendant quit on me with no notice. You can either come in now or I
-      will have to give the job to someone else.
+    Text: My attendant quit on me with no notice. You can either come in now, or
+      I will have to give the job to someone else.
     EventID: 
     position: {x: 1086, y: 265}
     PropertyType: 
@@ -103,7 +86,7 @@ MonoBehaviour:
     Choices:
     - Text: Absolutely!
       Next: 11f4b447-d624-4dd3-a57c-e402a25dd37e
-    - Text: "Tonight? That\u2019s\u2026 kind of abrut."
+    - Text: "Tonight? That\u2019s\u2026 kind of abrupt."
       Next: 07de4090-8121-48c8-8921-775f61e5cb8c
   - Guid: 2207a36e-cb67-41ce-afc0-15582e68dbeb
     ActorName: You
@@ -122,5 +105,22 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 11f4b447-d624-4dd3-a57c-e402a25dd37e
+  - Guid: 11f4b447-d624-4dd3-a57c-e402a25dd37e
+    ActorName: Mark
+    GroupName: 
+    Type: 1
+    Text: Great! I'll connect with you once you get on site.
+    EventID: 
+    position: {x: 1795, y: -21}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 
   Groups: []
   Properties: []

@@ -33,29 +33,11 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-    ActorName: You
-    GroupName: 
-    Type: 1
-    Text: That should do it. I moved the temperature up 10 degrees, should be hot
-      enough for that guy.
-    EventID: 
-    position: {x: 293, y: -25}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: 24b12b3f-bc28-4d63-afa8-f58654f1e425
   - Guid: 24b12b3f-bc28-4d63-afa8-f58654f1e425
     ActorName: You
     GroupName: 
     Type: 1
-    Text: <i>Guess I'll go back to the office.</i>
+    Text: <i>Guess I'll go back to the office now.</i>
     EventID: 
     position: {x: 681, y: 128}
     PropertyType: 
@@ -68,5 +50,23 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 
+  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
+    ActorName: You
+    GroupName: 
+    Type: 1
+    Text: <I>That should do it. I moved the temperature up by 10 degrees, should
+      be hot enough for that guy.</i>
+    EventID: 
+    position: {x: 295, y: -25}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 24b12b3f-bc28-4d63-afa8-f58654f1e425
   Groups: []
   Properties: []

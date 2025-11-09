@@ -11,6 +11,13 @@ namespace LJ2025
 
         private IGameLogicMonoSystem _logic;
 
+        [SerializeField] private bool _isInteractable = true;
+
+        public void SetIsInteractable(bool state)
+        {
+            _isInteractable = state;
+        }
+
         private void Start()
         {
             _logic = GameManager.GetMonoSystem<IGameLogicMonoSystem>();
@@ -18,7 +25,7 @@ namespace LJ2025
 
         public bool IsInteractable()
         {
-            return true;
+            return _isInteractable;
         }
 
         public string GetHintName() => _name;

@@ -33,45 +33,11 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 862580ff-4a57-4b14-9d30-8a1e45df9d5b
-  - Guid: 862580ff-4a57-4b14-9d30-8a1e45df9d5b
-    ActorName: Jeremy
-    GroupName: 
-    Type: 1
-    Text: Hi... I have a reservation uder the name Turner.
-    EventID: 
-    position: {x: -233, y: -13}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: 7e9fea8a-5c9e-4dda-b545-5d7962607adf
-  - Guid: 7e9fea8a-5c9e-4dda-b545-5d7962607adf
-    ActorName: You
-    GroupName: 
-    Type: 1
-    Text: Let me check...
-    EventID: 
-    position: {x: 186, y: -24}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: acbb40a2-af4d-4340-88a8-1751941f4070
   - Guid: acbb40a2-af4d-4340-88a8-1751941f4070
     ActorName: You
     GroupName: 
     Type: 1
-    Text: Ah, yes, Mr. Turner. One night correct?
+    Text: Ah, yes, Mr. Turner. One night, correct?
     EventID: 
     position: {x: 563, y: -18}
     PropertyType: 
@@ -84,23 +50,6 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: b7e79f4a-9ff9-49b3-9836-13f3f64d5919
-  - Guid: b7e79f4a-9ff9-49b3-9836-13f3f64d5919
-    ActorName: Jeremy
-    GroupName: 
-    Type: 1
-    Text: That's correct.
-    EventID: 
-    position: {x: 999, y: -6}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: 9153a9da-5b98-4fef-a05c-7c6f7264f55b
   - Guid: 9153a9da-5b98-4fef-a05c-7c6f7264f55b
     ActorName: You
     GroupName: 
@@ -118,5 +67,56 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 
+  - Guid: 862580ff-4a57-4b14-9d30-8a1e45df9d5b
+    ActorName: Jeremy
+    GroupName: 
+    Type: 1
+    Text: Hi... I have a reservation under the name Turner.
+    EventID: 
+    position: {x: -233, y: -12}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 7e9fea8a-5c9e-4dda-b545-5d7962607adf
+  - Guid: 7e9fea8a-5c9e-4dda-b545-5d7962607adf
+    ActorName: You
+    GroupName: 
+    Type: 1
+    Text: Let me check...
+    EventID: 
+    position: {x: 186, y: -25}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: acbb40a2-af4d-4340-88a8-1751941f4070
+  - Guid: b7e79f4a-9ff9-49b3-9836-13f3f64d5919
+    ActorName: Jeremy
+    GroupName: 
+    Type: 1
+    Text: That's correct.
+    EventID: 
+    position: {x: 995, y: -8}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 9153a9da-5b98-4fef-a05c-7c6f7264f55b
   Groups: []
   Properties: []

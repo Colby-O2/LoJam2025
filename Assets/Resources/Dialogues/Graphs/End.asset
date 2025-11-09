@@ -33,13 +33,13 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: e7ce1a27-5da5-4c1a-a6cc-6a46bbaa4b62
-  - Guid: e7ce1a27-5da5-4c1a-a6cc-6a46bbaa4b62
-    ActorName: News Caster
+  - Guid: 82c6e20f-c8b6-49ad-b877-027028a884e4
+    ActorName: Reporter
     GroupName: 
     Type: 1
-    Text: Very sad
+    Text: For now, police urge anyone with information to come forward.
     EventID: 
-    position: {x: 408, y: 36}
+    position: {x: 1398, y: 36}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -50,5 +50,43 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 
+  - Guid: e7ce1a27-5da5-4c1a-a6cc-6a46bbaa4b62
+    ActorName: Reporter
+    GroupName: 
+    Type: 1
+    Text: "Police say the suspect, whose identity has just been revealed as Darren
+      Holt, was found at the scene in a state of shock. Sources describe the crime
+      as \u2018bizarre\u2019 and \u2018meticulously staged."
+    EventID: 
+    position: {x: 401, y: 47}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 2fc4920e-325c-4bd3-a4b2-44e974ba451d
+  - Guid: 2fc4920e-325c-4bd3-a4b2-44e974ba451d
+    ActorName: Reporter
+    GroupName: 
+    Type: 1
+    Text: Investigators believe the events unfolded over several hours, with the
+      suspect unknowingly responsible for multiple deaths through a series of meticulously
+      targeted attacks.
+    EventID: 
+    position: {x: 881, y: 42}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 82c6e20f-c8b6-49ad-b877-027028a884e4
   Groups: []
   Properties: []

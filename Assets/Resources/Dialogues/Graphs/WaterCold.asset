@@ -32,25 +32,7 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-    ActorName: Guy2
-    GroupName: 
-    Type: 1
-    Text: Hey, yeah, I just started the shower, and the water is FRIGID. You need
-      to fix this now. I need my steaming hot shower.
-    EventID: 
-    position: {x: 293, y: -25}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: f807b837-ac09-450a-99c9-38d552ed3cde
+      Next: 3638ca14-08c5-473d-aa9b-f78e2f7f39b7
   - Guid: f807b837-ac09-450a-99c9-38d552ed3cde
     ActorName: You
     GroupName: 
@@ -69,10 +51,10 @@ MonoBehaviour:
     - Text: 
       Next: 4954ba34-5f89-46b9-840c-206c7eb82116
   - Guid: 4954ba34-5f89-46b9-840c-206c7eb82116
-    ActorName: Guy2
+    ActorName: Aiden
     GroupName: 
     Type: 1
-    Text: You better!
+    Text: Thanks!
     EventID: 
     position: {x: 1200, y: 95}
     PropertyType: 
@@ -85,5 +67,40 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 
+  - Guid: 3638ca14-08c5-473d-aa9b-f78e2f7f39b7
+    ActorName: Aiden
+    GroupName: 
+    Type: 1
+    Text: Hi, it's Aiden. I just went to take a shower, and the water is FRIGID.
+      Can you please fix this now?
+    EventID: 
+    position: {x: 314, y: 85}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: fc9bf922-caee-44ab-ad77-18e82412bce1
+  - Guid: fc9bf922-caee-44ab-ad77-18e82412bce1
+    ActorName: Aiden
+    GroupName: 
+    Type: 1
+    Text: ' I need my steaming hot shower.'
+    EventID: 
+    position: {x: 616, y: 316}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: f807b837-ac09-450a-99c9-38d552ed3cde
   Groups: []
   Properties: []

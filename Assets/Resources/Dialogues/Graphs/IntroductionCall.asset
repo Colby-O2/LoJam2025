@@ -16,23 +16,6 @@ MonoBehaviour:
   includeInDatabase: 1
   Name: IntroductionCall
   Nodes:
-  - Guid: ad941379-ce3c-43fd-b1b6-b48e8bd4e694
-    ActorName: 
-    GroupName: 
-    Type: 0
-    Text: 
-    EventID: 
-    position: {x: 0, y: 0}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: 19da1606-0977-4b00-bcc8-1893205c34cb
   - Guid: c6a8f7fe-678c-4b3d-b939-fcfaab598820
     ActorName: You
     GroupName: 
@@ -54,8 +37,8 @@ MonoBehaviour:
     ActorName: Mark
     GroupName: 
     Type: 1
-    Text: Listen, we need time to perpare the rooms for the next nights guests. Just
-      make sure they are all out by six.
+    Text: Listen, we need time to prepare the rooms for the next night's guests.
+      Just make sure they are all out by six.
     EventID: 
     position: {x: 1415, y: -152}
     PropertyType: 
@@ -89,7 +72,7 @@ MonoBehaviour:
     ActorName: Mark
     GroupName: 
     Type: 2
-    Text: 'The job is pretty simple. If anyone comes in just assign them to an empty
+    Text: 'The job is pretty simple. If anyone comes in, just assign them to an empty
       room and remind them that checkout is at 6AM. Any questions? '
     EventID: 
     position: {x: 447, y: 27}
@@ -217,8 +200,8 @@ MonoBehaviour:
     ActorName: Mark
     GroupName: 
     Type: 1
-    Text: Jerry is just a low life. He just decided to quit right before his shift
-      started. Thankfully I was able to find a repalcement. Thanks by the way!
+    Text: Jerry is just a lowlife. He just decided to quit right before his shift
+      started. Thankfully, I was able to find a replacement. Thanks, by the way!
     EventID: 
     position: {x: 1502, y: 460}
     PropertyType: 
@@ -235,8 +218,8 @@ MonoBehaviour:
     ActorName: Mark
     GroupName: 
     Type: 2
-    Text: Listen, we need time to perpare the rooms for the next nights guests. Just
-      make sure they are all out by six.
+    Text: Listen, we need time to prepare the rooms for the next night's guests.
+      Just make sure they are all out by six.
     EventID: 
     position: {x: 1374, y: 122}
     PropertyType: 
@@ -255,8 +238,8 @@ MonoBehaviour:
     ActorName: Mark
     GroupName: 
     Type: 2
-    Text: Jerry is just a low life. He just decided to quit right before his shift
-      started. Thankfully I was able to find a repalcement. Thanks by the way!
+    Text: Jerry is just a lowlife. He just decided to quit right before his shift
+      started. Thankfully, I was able to find a replacement. Thanks, by the way!
     EventID: 
     position: {x: 1434, y: 717}
     PropertyType: 
@@ -271,6 +254,23 @@ MonoBehaviour:
       Next: 5fe2e0a3-b723-4e15-a649-7d8de816501f
     - Text: Okay, I got it from here.
       Next: c6a8f7fe-678c-4b3d-b939-fcfaab598820
+  - Guid: ad941379-ce3c-43fd-b1b6-b48e8bd4e694
+    ActorName: 
+    GroupName: 
+    Type: 0
+    Text: 
+    EventID: 
+    position: {x: -183, y: 5}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 19da1606-0977-4b00-bcc8-1893205c34cb
   Groups: []
   Properties:
   - Name: LastClerk

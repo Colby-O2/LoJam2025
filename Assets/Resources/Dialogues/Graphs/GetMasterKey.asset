@@ -37,9 +37,10 @@ MonoBehaviour:
     ActorName: You
     GroupName: 
     Type: 1
-    Text: I have to check on them. I should get the master key from the office.
+    Text: <i>This has been way too long, I have to check on them. I should get the
+      master key from the office.</i>
     EventID: 
-    position: {x: 293, y: -25}
+    position: {x: 292, y: -24}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0

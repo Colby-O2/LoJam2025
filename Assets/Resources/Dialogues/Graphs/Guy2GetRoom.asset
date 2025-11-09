@@ -22,7 +22,7 @@ MonoBehaviour:
     Type: 0
     Text: 
     EventID: 
-    position: {x: 0, y: 0}
+    position: {x: 40, y: 30}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -32,14 +32,67 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-  - Guid: f807b837-ac09-450a-99c9-38d552ed3cde
+      Next: b68e6261-da5b-4130-8647-e03df09a145d
+  - Guid: b68e6261-da5b-4130-8647-e03df09a145d
+    ActorName: Aiden
+    GroupName: 
+    Type: 1
+    Text: Hey, I just got off a long day of work, and I need a room. You got any
+      available?
+    EventID: 
+    position: {x: 339, y: 29}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 227cdc0f-cc9b-4226-b35b-848fbf856d7b
+  - Guid: a4864efd-6900-4540-9ee8-6b7ba6f3cf4a
+    ActorName: Aiden
+    GroupName: 
+    Type: 1
+    Text: No, it's too dark out. But I'm sure it's fine.
+    EventID: 
+    position: {x: 2176, y: 248}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 9fed1d73-9119-4c9a-9aca-e2805925a672
+  - Guid: 9fed1d73-9119-4c9a-9aca-e2805925a672
+    ActorName: Aiden
+    GroupName: 
+    Type: 1
+    Text: Anyway, just thought I'd let you know. Have a great night. I need to take
+      a nice hot shower now.
+    EventID: 
+    position: {x: 2637, y: 26}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 76714597-4b7c-4f58-84a2-f561f1049589
+  - Guid: 76714597-4b7c-4f58-84a2-f561f1049589
     ActorName: You
     GroupName: 
     Type: 1
-    Text: Ok, you can take room 2.
+    Text: Ok, keep in mind checkout is at 6AM sharp.
     EventID: 
-    position: {x: 722, y: 69}
+    position: {x: 3221, y: 118}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -50,13 +103,13 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 
-  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-    ActorName: Guy2
+  - Guid: 7f18804c-1015-4b44-88de-aed84d34e31e
+    ActorName: Aiden
     GroupName: 
     Type: 1
-    Text: I would like to get a room.
+    Text: Bennett, thanks!
     EventID: 
-    position: {x: 293, y: -25}
+    position: {x: 1251, y: 54}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -66,6 +119,43 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: f807b837-ac09-450a-99c9-38d552ed3cde
+      Next: 54c9d52a-3717-4662-b108-dbe4049626a2
+  - Guid: 227cdc0f-cc9b-4226-b35b-848fbf856d7b
+    ActorName: You
+    GroupName: 
+    Type: 1
+    Text: Yes, we do! I can book you in for room 1. What's your last name?
+    EventID: 
+    position: {x: 764, y: 39}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 7f18804c-1015-4b44-88de-aed84d34e31e
+  - Guid: 54c9d52a-3717-4662-b108-dbe4049626a2
+    ActorName: Aiden
+    GroupName: 
+    Type: 2
+    Text: 'I think you know I saw some loiters hanging about. I saw a guy near the
+      far room at the end of the lot. '
+    EventID: 
+    position: {x: 1621, y: 33}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: That's werid!
+      Next: 9fed1d73-9119-4c9a-9aca-e2805925a672
+    - Text: Did you see what he looked like?
+      Next: a4864efd-6900-4540-9ee8-6b7ba6f3cf4a
   Groups: []
   Properties: []

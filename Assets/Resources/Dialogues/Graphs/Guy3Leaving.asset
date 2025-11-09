@@ -32,14 +32,15 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-    ActorName: Guy3
+      Next: 546d9252-dbb1-4340-b2cf-f211d83784bf
+  - Guid: d79d3a7f-b680-4910-9bb8-4e905ea554d7
+    ActorName: Noah
     GroupName: 
     Type: 1
-    Text: Hey, I'm heading out for an hour. Could you clean my room while I'm gone?
+    Text: I'm not sure. There is something wrong with that guy, however. Anyway,
+      I need to go. Please clean by room.
     EventID: 
-    position: {x: 289, y: -25}
+    position: {x: 1857, y: 13}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -49,14 +50,50 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: 6833356c-5a39-41c4-a853-635d58246327
-  - Guid: 6833356c-5a39-41c4-a853-635d58246327
+      Next: dd6d3a15-8d8e-4821-926f-761dff32c252
+  - Guid: b80331e1-6ba6-4565-ae7d-ad754eb10e1c
+    ActorName: Noah
+    GroupName: 
+    Type: 2
+    Text: Thanks for the apology. No, it was just some weirdo with blond hair and
+      a blue shirt. The guy gave me some weird vibes.
+    EventID: 
+    position: {x: 1393, y: 69}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: Do you know if it was the owner?
+      Next: d79d3a7f-b680-4910-9bb8-4e905ea554d7
+  - Guid: 817b8e0f-aecb-4f94-b698-19beca22bc34
     ActorName: You
     GroupName: 
     Type: 1
-    Text: 'Yeah, sure. It''ll be brand new by the time you get back! '
+    Text: <i>That guy is kind of mean. I'd better clean his room so I don't have
+      to deal with him again.</i>
     EventID: 
-    position: {x: 706, y: 0}
+    position: {x: 2212, y: 143}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 
+  - Guid: 23adcc4b-acbc-44b3-8f2e-6ede813169f3
+    ActorName: Noah
+    GroupName: 
+    Type: 1
+    Text: 'You''d better, or we''re going to have a problem. '
+    EventID: 
+    position: {x: 1433, y: 450}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -67,13 +104,67 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 817b8e0f-aecb-4f94-b698-19beca22bc34
-  - Guid: 817b8e0f-aecb-4f94-b698-19beca22bc34
+  - Guid: 868e660a-af7b-4fae-890d-8f851b6af118
+    ActorName: Noah
+    GroupName: 
+    Type: 2
+    Text: I'm heading out for an hour. I expect you to have my room cleaned up by
+      the time I get back.
+    EventID: 
+    position: {x: 875, y: 65}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: Sorry, do you know who was working?
+      Next: b80331e1-6ba6-4565-ae7d-ad754eb10e1c
+    - Text: Okay, I will get on this ASAP.
+      Next: 23adcc4b-acbc-44b3-8f2e-6ede813169f3
+  - Guid: 546d9252-dbb1-4340-b2cf-f211d83784bf
+    ActorName: Noah
+    GroupName: 
+    Type: 1
+    Text: 'Hey, I got a room from the guy who worked the day shift, and it''s DISGUSTING. '
+    EventID: 
+    position: {x: 307, y: 40}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: c938e6d1-90f1-44f7-84da-1faa3486cb68
+  - Guid: c938e6d1-90f1-44f7-84da-1faa3486cb68
+    ActorName: Noah
+    GroupName: 
+    Type: 1
+    Text: This is unacceptable. What kind of establishment are you lot running here?
+    EventID: 
+    position: {x: 434, y: 365}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 868e660a-af7b-4fae-890d-8f851b6af118
+  - Guid: dd6d3a15-8d8e-4821-926f-761dff32c252
     ActorName: You
     GroupName: 
     Type: 1
-    Text: <i>I should get the trash bin from the supplies closet.</i>
+    Text: <i>I'd better clean his room before he gets back.</i>
     EventID: 
-    position: {x: 1145, y: 84}
+    position: {x: 2194, y: -118}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0

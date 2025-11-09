@@ -54,7 +54,7 @@ MonoBehaviour:
     ActorName: Jeremy
     GroupName: 
     Type: 1
-    Text: Sir, I wanted to let you know your vending machine is out of Dill Pickel
+    Text: Sir, I wanted to let you know your vending machine is out of Dill Pickle
       chips.
     EventID: 
     position: {x: 289, y: -25}
@@ -68,31 +68,14 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 5214a37e-56d0-4f7e-b516-a2d7921d6f04
-  - Guid: 87419133-c38c-4df5-a530-6f06ce8ed2bd
-    ActorName: You
-    GroupName: 
-    Type: 1
-    Text: <i>I should check the supply room for food to refill it with...</i>
-    EventID: 
-    position: {x: 1534, y: 2}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: 
   - Guid: 17b7a8c0-b28b-42c2-89d8-e56873744b2e
     ActorName: Jeremy
     GroupName: 
     Type: 1
-    Text: Ok, I will wait in the lobby. In the meantime feel free to play a match
-      of connect 4 with me.
+    Text: Ok, I will wait in the lobby. In the meantime, feel free to play a match
+      of Connect 4 with me.
     EventID: 
-    position: {x: 1147, y: 51}
+    position: {x: 1146, y: 50}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -103,5 +86,22 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 87419133-c38c-4df5-a530-6f06ce8ed2bd
+  - Guid: 87419133-c38c-4df5-a530-6f06ce8ed2bd
+    ActorName: You
+    GroupName: 
+    Type: 1
+    Text: <i>I should check the supply room for food to refill it with...</i>
+    EventID: 
+    position: {x: 1534, y: 0}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 
   Groups: []
   Properties: []

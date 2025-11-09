@@ -107,28 +107,11 @@ MonoBehaviour:
       Next: 6910197d-b80f-47cd-a2bb-6945c92711cc
     - Text: 
       Next: 1f835fb7-3c92-4305-96d5-5ddd996d73d1
-  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-    ActorName: You
-    GroupName: 
-    Type: 1
-    Text: Any moment now...
-    EventID: 
-    position: {x: 923, y: 220}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: 
   - Guid: d7ead9fa-1eaf-44a9-b24c-daae0f60d46b
     ActorName: You
     GroupName: 
     Type: 1
-    Text: Must be slow risers.
+    Text: <i>Must be slow risers.</i>
     EventID: 
     position: {x: 1229, y: 26}
     PropertyType: 
@@ -142,10 +125,10 @@ MonoBehaviour:
     - Text: 
       Next: 
   - Guid: 1f835fb7-3c92-4305-96d5-5ddd996d73d1
-    ActorName: 
+    ActorName: You
     GroupName: 
     Type: 1
-    Text: Where is everyone?
+    Text: <i>Where is everyone?</i>
     EventID: 
     position: {x: 1567, y: -129}
     PropertyType: 
@@ -162,9 +145,26 @@ MonoBehaviour:
     ActorName: You
     GroupName: 
     Type: 1
-    Text: I should probably go check on them.
+    Text: <i>I should probably go check on them.</i>
     EventID: 
     position: {x: 1744, y: -386}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 
+  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
+    ActorName: You
+    GroupName: 
+    Type: 1
+    Text: <i>Any moment now...</i>
+    EventID: 
+    position: {x: 924, y: 221}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0

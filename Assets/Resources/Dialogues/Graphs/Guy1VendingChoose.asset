@@ -37,7 +37,7 @@ MonoBehaviour:
     ActorName: Jeremy
     GroupName: 
     Type: 2
-    Text: Thanks so much for your fast responce. I expect to be told off from what
+    Text: Thanks so much for your fast response. I expect to be told off from what
       I heard about the staff here.
     EventID: 
     position: {x: 327, y: -27}
@@ -53,41 +53,6 @@ MonoBehaviour:
       Next: 097b54c0-16e5-4199-af5f-a3926333aa86
     - Text: I wouldn't know, it's my first shift.
       Next: 1aad5e61-6a96-4cda-9fd9-abf449f81148
-  - Guid: 097b54c0-16e5-4199-af5f-a3926333aa86
-    ActorName: Jeremy
-    GroupName: 
-    Type: 1
-    Text: 'I read a lot of reviews about a member of staff being extremely rude to
-      cusomers. '
-    EventID: 
-    position: {x: 735, y: -318}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: 67206555-82b7-477a-9c52-aaa6bbea45e0
-  - Guid: d1998507-73cc-4823-847a-26b2c91cdbf4
-    ActorName: Jeremy
-    GroupName: 
-    Type: 1
-    Text: mmm... Nah screw fruit.
-    EventID: 
-    position: {x: 2434, y: 8}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: 
   - Guid: db76f260-fc2a-446a-bf82-ca82a6cdb495
     ActorName: Jeremy
     GroupName: 
@@ -105,12 +70,48 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 
+  - Guid: 67206555-82b7-477a-9c52-aaa6bbea45e0
+    ActorName: Jeremy
+    GroupName: 
+    Type: 2
+    Text: A friend of mine was telling me he came in last week, and the man running
+      the desk was just staring at him.
+    EventID: 
+    position: {x: 1496, y: -291}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: That's so werid.
+      Next: 1aad5e61-6a96-4cda-9fd9-abf449f81148
+  - Guid: 097b54c0-16e5-4199-af5f-a3926333aa86
+    ActorName: Jeremy
+    GroupName: 
+    Type: 1
+    Text: 'I read a lot of reviews about a member of staff being extremely rude to
+      guests. '
+    EventID: 
+    position: {x: 735, y: -318}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 67206555-82b7-477a-9c52-aaa6bbea45e0
   - Guid: 1aad5e61-6a96-4cda-9fd9-abf449f81148
     ActorName: You
     GroupName: 
     Type: 2
-    Text: Anyways, thanks agian. Do you think I should stick with the Dill Pickel
-      or go with fruit bar instead?
+    Text: Anyway, thanks again. Do you think I should stick with the Dill Pickle
+      or go with the fruit bar instead?
     EventID: 
     position: {x: 1978, y: 50}
     PropertyType: 
@@ -125,14 +126,13 @@ MonoBehaviour:
       Next: d1998507-73cc-4823-847a-26b2c91cdbf4
     - Text: Dill Pickel
       Next: db76f260-fc2a-446a-bf82-ca82a6cdb495
-  - Guid: 67206555-82b7-477a-9c52-aaa6bbea45e0
+  - Guid: d1998507-73cc-4823-847a-26b2c91cdbf4
     ActorName: Jeremy
     GroupName: 
-    Type: 2
-    Text: A friend of mine was telling me he came in last week and the man running
-      the desk was just stairing at him.
+    Type: 1
+    Text: mmm... Nah, screw fruit.
     EventID: 
-    position: {x: 1496, y: -291}
+    position: {x: 2434, y: 8}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
     ComparisonType: 0
     ComparsionCondition: 0
     Choices:
-    - Text: That's so werid.
-      Next: 1aad5e61-6a96-4cda-9fd9-abf449f81148
+    - Text: 
+      Next: 
   Groups: []
   Properties: []

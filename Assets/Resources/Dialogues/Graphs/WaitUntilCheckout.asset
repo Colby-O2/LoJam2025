@@ -32,23 +32,6 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-    ActorName: Strange Man
-    GroupName: 
-    Type: 1
-    Text: Howdy
-    EventID: 
-    position: {x: 289, y: -25}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
       Next: 
   Groups: []
   Properties: []

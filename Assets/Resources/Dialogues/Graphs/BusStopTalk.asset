@@ -52,40 +52,6 @@ MonoBehaviour:
       Next: ae38a120-d5d2-47de-852d-869b97c3af15
     - Text: Not for me
       Next: 044bea9b-6d77-4902-9f90-786569f0f63f
-  - Guid: ae38a120-d5d2-47de-852d-869b97c3af15
-    ActorName: Stranger
-    GroupName: 
-    Type: 2
-    Text: That's interesting. Is today your first night on the job?
-    EventID: 
-    position: {x: 1069, y: -188}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: Yeah, got called in last minute.
-      Next: 428dcb86-b595-407d-aa74-9820ca6e2bdf
-  - Guid: 1d2f0d2b-c93c-46cc-a8ca-10fa4bcb756c
-    ActorName: Stranger
-    GroupName: 
-    Type: 2
-    Text: That's interesting. How long you've been doing that?
-    EventID: 
-    position: {x: 1540, y: 323}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: Tonight is my first shift.
-      Next: ae7fdebc-c096-4ebe-b7f0-c0475daa8831
   - Guid: 428dcb86-b595-407d-aa74-9820ca6e2bdf
     ActorName: Stranger
     GroupName: 
@@ -122,6 +88,40 @@ MonoBehaviour:
     Choices:
     - Text: Yeah, I guess so
       Next: 
+  - Guid: ae38a120-d5d2-47de-852d-869b97c3af15
+    ActorName: Stranger
+    GroupName: 
+    Type: 2
+    Text: That's interesting. Is today your first night on the job?
+    EventID: 
+    position: {x: 1069, y: -189}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: Yeah, got called at the last minute.
+      Next: 428dcb86-b595-407d-aa74-9820ca6e2bdf
+  - Guid: 1d2f0d2b-c93c-46cc-a8ca-10fa4bcb756c
+    ActorName: Stranger
+    GroupName: 
+    Type: 2
+    Text: That's interesting. How long have you been doing that?
+    EventID: 
+    position: {x: 1535, y: 323}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: Tonight is my first shift.
+      Next: ae7fdebc-c096-4ebe-b7f0-c0475daa8831
   - Guid: 044bea9b-6d77-4902-9f90-786569f0f63f
     ActorName: Stranger
     GroupName: 

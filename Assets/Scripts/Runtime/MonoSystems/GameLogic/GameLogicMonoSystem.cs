@@ -379,6 +379,7 @@ namespace LJ2025
                 case "Guy1Talk":
                 {
                     _dialogueMs.StartDialoguePromise("Guy1GetRoom")
+                        .Then(_ => _refs.guy1Pather.GetComponent<Guy>().SetIsInteractable(false))
                         .Then(_ => _refs.guy1Pather.Next())
                         .Then(_ => _scheduler.Wait(2))
                         .Then(_ =>
@@ -442,15 +443,16 @@ namespace LJ2025
                     _gameState = LJ2025.GameState.GetTrashCan;
                     _taskMs.EndTask();
                     _dialogueMs.StartDialoguePromise("Guy3Leaving")
+                        .Then(_ => _refs.guy3Pather.GetComponent<Guy>().SetIsInteractable(false))
                         .Then(_ =>
                         {
                             _refs.guy3Door.Unlock();
-                            _taskMs.StartTask("Go to room 3");
+                            _taskMs.StartTask("Go To Room 3");
                             _scheduler.When(() => IsInRange("Guy3Found"))
                             .Then(_ => {
                                 _taskMs.EndTask();
                                 _refs.roomTrashBin.TaskEnabledRoom = true;
-                                _taskMs.StartTask("Pick up trash", _refs.roomTrashBin.RequiredTrash); 
+                                _taskMs.StartTask("Pick Up Trash", _refs.roomTrashBin.RequiredTrash); 
                             });
                         })
                         .Then(_ => _refs.guy3Pather.Next())
@@ -467,7 +469,7 @@ namespace LJ2025
                 {
                     _refs.roomTrashBin.TaskEnabledRoom = false;
                     _taskMs.EndTask();
-                    _taskMs.StartTask("Throw trash bag in the outside bin");
+                    _taskMs.StartTask("Go To The Alleyway To Throw Out The Trash");
                     _refs.trashBag.SetActive(true);
                     _dialogueMs.StartDialoguePromise("ThatsAllTheTrash");
                     _gameState = LJ2025.GameState.ServeGuest;
@@ -477,8 +479,8 @@ namespace LJ2025
                 case "TrashThrownOut":
                 {
                     _taskMs.EndTask();
-                    _taskMs.StartTask("Help any customers");
-                    _dialogueMs.StartDialoguePromise("GetBackToOffice");
+                    _taskMs.StartTask("Serve Any Customers That Come In.");
+                    _dialogueMs.StartDialoguePromise("GetBackToOffice", passive: true);
                     _refs.guy2Pather.gameObject.SetActive(true);
                     break;
                 }
@@ -486,6 +488,7 @@ namespace LJ2025
                 case "Guy2Talk":
                 {
                     _dialogueMs.StartDialoguePromise("Guy2GetRoom")
+                        .Then(_ => _refs.guy2Pather.GetComponent<Guy>().SetIsInteractable(false))
                         .Then(_ => _refs.guy2Pather.Next())
                         .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy2Pather.transform, 2))
                         .Then(_ => _refs.guy2Pather.Next())
@@ -502,11 +505,11 @@ namespace LJ2025
                         .Then(_ => _dialogueMs.StartDialoguePromise("WaterCold"))
                         .Then(_ =>
                         {
-                            _taskMs.StartTask("Find the maintenance room");
+                            _taskMs.StartTask("Find The Maintenance Room");
                             _scheduler.When(() => IsInRange("InMaintenance"))
                             .Then(_ => {
                                 _taskMs.EndTask();
-                                _taskMs.StartTask("Turn on hot water valve");
+                                _taskMs.StartTask("Turn On Hot Water Valve");
                             });
                             _gameState = LJ2025.GameState.FixWater;
                         });
@@ -517,392 +520,393 @@ namespace LJ2025
                 {
                     if (_gameState != LJ2025.GameState.FixWater) break;
                     _taskMs.EndTask();
-                    _dialogueMs.StartDialoguePromise("WaterFixed")
-                        .Then(_ =>
-                        {
-                            _taskMs.StartTask("Return to office");
-                        })
-                        .Then(_ => _scheduler.When(() => IsInRange("Office")))
-                        .Then(_ =>
-                        {
-                            _taskMs.EndTask();
-                        })
-                        .Then(_ => _scheduler.Wait(5))
-                        .Then(_ => _dialogueMs.StartDialoguePromise("WaitUntilCheckout"))
-                        .Then(_ => _screenEffectMs.Fadeout(1))
-                        .Then(_ => _screenEffectMs.FadeoutText("Checkout Time\n6:00 AM", 1))
-                        .Then(_ => _screenEffectMs.FadeinText(1))
-                        .Then(_ => _screenEffectMs.Fadein(1))
-                        .Then(_ =>
-                        {
-                            _refs.curtains.GetChild(0).localScale = new Vector3(1, 1, 1);
-                            _refs.curtains.GetChild(1).localScale = new Vector3(1, 1, 1);
-                            _refs.curtains.GetChild(2).localScale = new Vector3(1, 1, 1);
-                            _refs.deathRooms.SetActive(true);
-                            _refs.murderBath.Toggle();
-                            _refs.murderKnob.SetInteractable();
-                            _gameState = LJ2025.GameState.WaitCheckout;
-                            
-                            _refs.guy1Door.Close();
-                            _refs.guy2Door.Close();
-                            _refs.guy3Door.Close();
-                            _refs.maintenanceDoor.Close();
-                            _refs.maintenanceDoor.Lock();
-                            _refs.guy1Door.Lock();
-                            _refs.guy2Door.Lock();
-                            _refs.guy3Door.Lock();
-
-                            foreach (LightFlicker2 light in GameObject.FindObjectsByType<LightFlicker2>(FindObjectsSortMode.None))
+                        _dialogueMs.StartDialoguePromise("WaterFixed")
+                            .Then(_ =>
                             {
-                                light.gameObject.SetActive(false);
-                            }
-                            _refs.room1Light.gameObject.SetActive(true);
-                            _refs.room2Light.gameObject.SetActive(true);
-                            _refs.room3Light.gameObject.SetActive(true);
-
-                            _refs.finalLight.gameObject.SetActive(false);
-                            _refs.maintenanceLight.gameObject.SetActive(true);
-                            _refs.maintenanceLight.enabled = true;
-                            
-                            _refs.guy1Door.Lock();
-                            _refs.guy2Door.Lock();
-                            _refs.guy3Door.Lock();
-                            
-                            _taskMs.StartTask("Wait for Guests to Checkout");
-                        })
-                        .Then(_ => _scheduler.Wait(2))
-                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime", passive:true))
-                        .Then(_ => _scheduler.Wait(2))
-                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime", passive:true))
-                        .Then(_ => _scheduler.Wait(2))
-                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime", passive:true))
-                        .Then(_ => _scheduler.Wait(2))
-                        .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime", passive:true))
-                        .Then(_ =>
-                        {
-                            _taskMs.EndTask();
-                            _taskMs.StartTask("Check on Guest in Room 1");
-                            _gameState = LJ2025.GameState.CheckOnGuests;
-                        })
-                        .Then(_ => _scheduler.When(() => IsInRange("Door1Knocked")))
-                        .Then(_ => 
-                        {
-                            _taskMs.EndTask();
-                            _taskMs.StartTask("Check on Guest in Room 2");
-                        })
-                        .Then(_ => _scheduler.When(() => IsInRange("Door2Knocked")))
-                        .Then(_ => 
-                        {
-                            _taskMs.EndTask();
-                            _taskMs.StartTask("Check on Guest in Room 3");
-                        })
-                        .Then(_ => _scheduler.When(() => IsInRange("Door3Knocked")))
-                        .Then(_ => 
-                        {
-                            _taskMs.EndTask();
-                        })
-                        .Then(_ => _scheduler.Wait(3))
-                        .Then(_ => _dialogueMs.StartDialoguePromise("GetMasterKey"))
-                        .Then(_ =>
-                        {
-                            _taskMs.StartTask("Locate Master Key in Office");
-                        })
-                        .Then(_ => _scheduler.When(() => IsInRange("MasterKey")))
-                        .Then(_ => 
-                        {
-                            _taskMs.EndTask();
-                            _taskMs.StartTask("Check on Guest in Room 1");
-                        })
-                        .Then(_ =>
-                        {
-                            _refs.room1Light.enabled = true;
-                            _refs.guy2Door.Unlock();
-                        })
-                        .Then(_ => _scheduler.When(() => IsInRange("Guy1Found")))
-                        .Then(_ =>
-                        {
-                            float amVolFrom = _refs.ambiance.volume;
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
-                                .RequestAnimation(
-                                    this,
-                                    0.6f,
-                                    t => _refs.ambiance.volume = Mathf.Lerp(amVolFrom, 1.0f, t),
-                                    () => { },
-                                    true);
-                            float windVolFrom = _refs.wind.volume;
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
-                                .RequestAnimation(
-                                    this,
-                                    0.6f,
-                                    t => _refs.wind.volume = Mathf.Lerp(windVolFrom, 0.6f, t),
-                                    () => { },
-                                    true);
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
-                                .RequestAnimation(
-                                    this,
-                                    0.6f,
-                                    t => _refs.ambiance.pitch = Mathf.Lerp(1, 1.3f, t),
-                                    () => { },
-                                    true);
-                        })
-                        .Then(_ => _scheduler.When(() => _refs.guy2BathroomDoor.IsOpen()))
-                        .Then(_ => _scheduler.Wait(0.2f))
-                        .Then(_ =>
-                        {
-                            _player.LockHead();
-                            LJ2025GameManager.LockMovement = true;
-                            _player.DetachHead(_refs.showerZoomLocation);
-                            float from = _refs.ambiance.pitch;
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
-                                .RequestAnimation(
-                                    this,
-                                    1.5f,
-                                    t => _refs.ambiance.pitch = Mathf.Lerp(from, 0.73f, t),
-                                    () => { },
-                                    true);
-                            float windVolFrom = _refs.wind.volume;
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
-                                .RequestAnimation(
-                                    this,
-                                    0.6f,
-                                    t => _refs.wind.volume = Mathf.Lerp(windVolFrom, 1.5f, t),
-                                    () => { },
-                                    true);
-
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
-                                .RequestAnimation(
-                                    this,
-                                    4.0f,
-                                    t =>
-                                    {
-                                        _screenEffectMs.SetRedShift(Mathf.Lerp(0, 0.33f, t));
-                                        _screenEffectMs.SetStaticLevel(Mathf.Lerp(0, 0.33f, t) * 0.5f);
-                                        _screenEffectMs.SetScreenRoundness(t);
-                                        _screenEffectMs.SetScreenVignetteOpacity(Mathf.Lerp(1, 0.7f, t));
-                                    },
-                                    () => { },
-                                    true);
-
-                        })
-                        .Then(_ => _scheduler.Wait(6))
-                        .Then(_ =>
-                        {
-                            _player.UnlockHead();
-                            LJ2025GameManager.LockMovement = false;
-                            _player.AttachHeadImmediately();
-                            _refs.room1Light.gameObject.SetActive(false);
-                            _refs.room2Light.enabled = true;
-                        })
-                        .Then(_ => _dialogueMs.StartDialoguePromise("FoundShower"))
-                        .Then(_ =>
-                        {
-                            _refs.guy1Door.Unlock();
-                            float from = _refs.ambiance.pitch;
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
-                                .RequestAnimation(
-                                    this,
-                                    6.0f,
-                                    t => _refs.ambiance.pitch = Mathf.Lerp(from, 1.40f, t),
-                                    () => { },
-                                    true);
-                            _taskMs.EndTask();
-                            _taskMs.StartTask("Check on Guest in Room 2");
-                        })
-                        .Then(_ => _scheduler.When(() => IsInRange("Guy2Found")))
-                        .Then(_ =>
-                        {
-                            _player.LockHead();
-                            LJ2025GameManager.LockMovement = true;
-                            _player.DetachHead(_refs.foodZoomLocation);
-                            float from = _refs.ambiance.pitch;
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>().StopAllAnimations(this);
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
-                                .RequestAnimation(
-                                    this,
-                                    0.6f,
-                                    t => _refs.ambiance.pitch = Mathf.Lerp(from, 0.7f, t),
-                                    () => { },
-                                    true);
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
-                                .RequestAnimation(
-                                    this,
-                                    4.0f,
-                                    t =>
-                                    {
-                                        _screenEffectMs.SetRedShift(Mathf.Lerp(0.33f, 0.66f, t));
-                                        _screenEffectMs.SetStaticLevel(Mathf.Lerp(0.33f, 0.66f, t) * 0.5f);
-                                        _screenEffectMs.SetScreenVignetteOpacity(Mathf.Lerp(0.7f, 0.5f, t));
-                                    },
-                                    () => { },
-                                    true);
-                        })
-                        .Then(_ => _scheduler.Wait(6))
-                        .Then(_ =>
-                        {
-                            _player.UnlockHead();
-                            LJ2025GameManager.LockMovement = false;
-                            _player.AttachHeadImmediately();
-                        })
-                        .Then(_ => _dialogueMs.StartDialoguePromise("FoundFood"))
-                        .Then(_ =>
-                        {
-                            _refs.guy3Door.Unlock();
-                            _refs.room2Light.gameObject.SetActive(false);
-                            _refs.room3Light.enabled = true;
-                            float from = _refs.ambiance.pitch;
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
-                                .RequestAnimation(
-                                    this,
-                                    6.0f,
-                                    t => _refs.ambiance.pitch = Mathf.Lerp(from, 1.40f, t),
-                                    () => { },
-                                    true);
-                            _taskMs.EndTask();
-                            _taskMs.StartTask("Check on Guest in Room 3");
-                        })
-                        .Then(_ => _scheduler.When(() => IsInRange("Guy3Found")))
-                        .Then(_ => _scheduler.When(() => _refs.guy3Door.IsOpen()))
-                        .Then(_ =>
-                        {
-                            _refs.guy3Door.Close();
-                            _player.LockHead();
-                            LJ2025GameManager.LockMovement = true;
-                            _player.DetachHead(_refs.heartAttackLocation);
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>().StopAllAnimations(this);
-                            float from = _refs.ambiance.pitch;
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
-                                .RequestAnimation(
-                                    this,
-                                    0.6f,
-                                    t => _refs.ambiance.pitch = Mathf.Lerp(from, 0.7f, t),
-                                    () => { },
-                                    true);
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>()
-                                .RequestAnimation(
-                                    this,
-                                    4.0f,
-                                    t =>
-                                    {
-                                        _screenEffectMs.SetRedShift(Mathf.Lerp(0.66f, 1, t));
-                                        _screenEffectMs.SetStaticLevel(Mathf.Lerp(0.66f, 1, t) * 0.5f);
-                                        _screenEffectMs.SetScreenVignetteOpacity(Mathf.Lerp(0.5f, 0.3f, t));
-                                    },
-                                    () => { },
-                                    true);
-                        })
-                        .Then(_ => _scheduler.Wait(2))
-                        .Then(_ => _dialogueMs.StartDialoguePromise("HeartAttack"))
-                        .Then(_ =>
-                        {
-                            _refs.heartAttack.StartAttack(4);
-                        })
-                        .Then(_ => _scheduler.Wait(7))
-                        .Then(_ =>
-                        {
-                            _player.UnlockHead();
-                            LJ2025GameManager.LockMovement = false;
-                            _player.AttachHeadImmediately();
-                            _refs.room3Light.gameObject.SetActive(false);
-                            _refs.finalLight.gameObject.SetActive(true);
-                            _refs.finalLight.enabled = true;
-                            _refs.maintenanceDoor.Unlock();
-                            _taskMs.EndTask();
-                            _taskMs.StartTask("Follow the Light");
-                        })
-                        .Then(_ => _scheduler.When(() => _refs.guy3Door.IsOpen()))
-                        .Then(_ => _scheduler.When(() => IsInRange("InMaintenance")))
-                        .Then(_ =>
-                        {
-                            _taskMs.EndTask();
-                            _refs.maintenanceDoor.Close();
-                            _refs.finalLight.gameObject.SetActive(false);
-                        })
-                        .Then(_ => _scheduler.Wait(1.4f))
-                        .Then(_ =>
-                        {
-                            _refs.maintenanceLight.gameObject.SetActive(false);
-                            _refs.ambiance.volume = 0;
-                            _refs.wind.volume = 0;
-                        })
-                        .Then(_ => _scheduler.Wait(3))
-                        .Then(_ =>
-                        {
-                            _refs.maintenanceLight.gameObject.SetActive(true);
-                            _refs.maintenanceLight.enabled = false;
-                            _refs.maintenanceLight.GetComponent<Light>().enabled = true;
-                            _screenEffectMs.RestoreDefaults();
-                            _refs.maintenanceDoor.SetOpenSpeed(0.10f);
-                        })
-                        .Then(_ => _scheduler.When(() => _refs.maintenanceDoor.IsOpen()))
-                        .Then(_ =>
-                        {
-                            _refs.manager.gameObject.SetActive(true);
-                            _player.DetachHeadLookAt(_refs.manager.transform.position + new Vector3(0, 1.4f, 0));
-                            _player.LockHead();
-                            LJ2025GameManager.LockMovement = true;
-                            _refs.maintenanceLight.enabled = true;
-                            _refs.spookSound.Play();
-                            _scheduler.Wait(4)
-                                .Then(_ =>
-                                {
-                                    float from = _refs.spookSound.volume;
-                                    GameManager.GetMonoSystem<IAnimationMonoSystem>()
-                                        .RequestAnimation(
-                                            this,
-                                            1.5f,
-                                            t => _refs.spookSound.volume = Mathf.Lerp(from, 0.0f, t),
-                                            () => { },
-                                            true);
-                                });
-                        })
-                        .Then(_ => _scheduler.Wait(0.8f))
-                        .Then(_ =>
-                        {
-                            _refs.manager.Next().Then(_ =>
+                                _taskMs.StartTask("Return To Front Office");
+                            })
+                            .Then(_ => _scheduler.When(() => IsInRange("Office")))
+                            .Then(_ =>
                             {
+                                _taskMs.EndTask();
+                            })
+                            .Then(_ => _scheduler.Wait(5))
+                            .Then(_ => _dialogueMs.StartDialoguePromise("WaitUntilCheckout"))
+                            .Then(_ => _screenEffectMs.Fadeout(1))
+                            .Then(_ => _screenEffectMs.FadeoutText("Checkout Time\n6:00 AM", 1))
+                            .Then(_ => _screenEffectMs.FadeinText(1))
+                            .Then(_ => _screenEffectMs.Fadein(1))
+                            .Then(_ =>
+                            {
+                                _refs.curtains.GetChild(0).localScale = new Vector3(1, 1, 1);
+                                _refs.curtains.GetChild(1).localScale = new Vector3(1, 1, 1);
+                                _refs.curtains.GetChild(2).localScale = new Vector3(1, 1, 1);
+                                _refs.deathRooms.SetActive(true);
+                                _refs.murderBath.Toggle();
+                                _refs.murderKnob.SetInteractable();
+                                _gameState = LJ2025.GameState.WaitCheckout;
+
+                                _refs.guy1Door.Close();
+                                _refs.guy2Door.Close();
+                                _refs.guy3Door.Close();
                                 _refs.maintenanceDoor.Close();
-                            });
-                            Promise p = new();
-                            Vector3 startPos = _player.transform.position;
-                            Vector3 endPos = startPos + new Vector3(0, 0, 3);
-                            GameManager.GetMonoSystem<IAnimationMonoSystem>().RequestAnimation(
-                                this,
-                                1,
-                                t => _player.Teleport(new MathExt.Transform(
-                                    Vector3.Lerp(startPos, endPos, t),
-                                    _player.transform.rotation
-                                )),
-                                () =>
+                                _refs.maintenanceDoor.Lock();
+                                _refs.guy1Door.Lock();
+                                _refs.guy2Door.Lock();
+                                _refs.guy3Door.Lock();
+
+                                foreach (LightFlicker2 light in GameObject.FindObjectsByType<LightFlicker2>(FindObjectsSortMode.None))
                                 {
-                                    p.Resolve();
-                                },
-                                true);
-                            return p;
-                        })
-                        .Then(_ =>
-                        {
-                            _refs.wind.volume = 1.5f;
-                            _scheduler.Wait(4).Then(_ =>
+                                    light.gameObject.SetActive(false);
+                                }
+                                _refs.room1Light.gameObject.SetActive(true);
+                                _refs.room2Light.gameObject.SetActive(true);
+                                _refs.room3Light.gameObject.SetActive(true);
+
+                                _refs.finalLight.gameObject.SetActive(false);
+                                _refs.maintenanceLight.gameObject.SetActive(true);
+                                _refs.maintenanceLight.enabled = true;
+
+                                _refs.guy1Door.Lock();
+                                _refs.guy2Door.Lock();
+                                _refs.guy3Door.Lock();
+
+                                _taskMs.StartTask("Wait for Guests to Checkout");
+                            })
+                            .Then(_ => _scheduler.Wait(2))
+                            .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime", passive: true))
+                            .Then(_ => _scheduler.Wait(2))
+                            .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime", passive: true))
+                            .Then(_ => _scheduler.Wait(2))
+                            .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime", passive: true))
+                            .Then(_ => _scheduler.Wait(2))
+                            .Then(_ => _dialogueMs.StartDialoguePromise("CheckoutTime", passive: true))
+                            .Then(_ =>
                             {
+                                _taskMs.EndTask();
+                                _taskMs.StartTask("Check on Guest in Room 1");
+                                _gameState = LJ2025.GameState.CheckOnGuests;
+                            })
+                            .Then(_ => _scheduler.When(() => IsInRange("Door1Knocked")))
+                            .Then(_ =>
+                            {
+                                _taskMs.EndTask();
+                                _taskMs.StartTask("Check on Guest in Room 2");
+                            })
+                            .Then(_ => _scheduler.When(() => IsInRange("Door2Knocked")))
+                            .Then(_ =>
+                            {
+                                _taskMs.EndTask();
+                                _taskMs.StartTask("Check on Guest in Room 3");
+                            })
+                            .Then(_ => _scheduler.When(() => IsInRange("Door3Knocked")))
+                            .Then(_ =>
+                            {
+                                _taskMs.EndTask();
+                            })
+                            .Then(_ => _scheduler.Wait(3))
+                            .Then(_ => _dialogueMs.StartDialoguePromise("GetMasterKey"))
+                            .Then(_ =>
+                            {
+                                _taskMs.StartTask("Locate Master Key in Front Office");
+                            })
+                            .Then(_ => _scheduler.When(() => IsInRange("MasterKey")))
+                            .Then(_ =>
+                            {
+                                _taskMs.EndTask();
+                                _taskMs.StartTask("Check on Guest in Room 1");
+                            })
+                            .Then(_ =>
+                            {
+                                _refs.room1Light.enabled = true;
+                                _refs.guy2Door.Unlock();
+                            })
+                            .Then(_ => _scheduler.When(() => IsInRange("Guy1Found")))
+                            .Then(_ =>
+                            {
+                                float amVolFrom = _refs.ambiance.volume;
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                    .RequestAnimation(
+                                        this,
+                                        0.6f,
+                                        t => _refs.ambiance.volume = Mathf.Lerp(amVolFrom, 1.0f, t),
+                                        () => { },
+                                        true);
+                                float windVolFrom = _refs.wind.volume;
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                    .RequestAnimation(
+                                        this,
+                                        0.6f,
+                                        t => _refs.wind.volume = Mathf.Lerp(windVolFrom, 0.6f, t),
+                                        () => { },
+                                        true);
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                    .RequestAnimation(
+                                        this,
+                                        0.6f,
+                                        t => _refs.ambiance.pitch = Mathf.Lerp(1, 1.3f, t),
+                                        () => { },
+                                        true);
+                            })
+                            .Then(_ => _scheduler.When(() => _refs.guy2BathroomDoor.IsOpen()))
+                            .Then(_ => _scheduler.Wait(0.2f))
+                            .Then(_ =>
+                            {
+                                _player.LockHead();
+                                LJ2025GameManager.LockMovement = true;
+                                _player.DetachHead(_refs.showerZoomLocation);
+                                float from = _refs.ambiance.pitch;
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                    .RequestAnimation(
+                                        this,
+                                        1.5f,
+                                        t => _refs.ambiance.pitch = Mathf.Lerp(from, 0.73f, t),
+                                        () => { },
+                                        true);
+                                float windVolFrom = _refs.wind.volume;
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                    .RequestAnimation(
+                                        this,
+                                        0.6f,
+                                        t => _refs.wind.volume = Mathf.Lerp(windVolFrom, 1.5f, t),
+                                        () => { },
+                                        true);
+
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                    .RequestAnimation(
+                                        this,
+                                        4.0f,
+                                        t =>
+                                        {
+                                            _screenEffectMs.SetRedShift(Mathf.Lerp(0, 0.33f, t));
+                                            _screenEffectMs.SetStaticLevel(Mathf.Lerp(0, 0.33f, t) * 0.5f);
+                                            _screenEffectMs.SetScreenRoundness(t);
+                                            _screenEffectMs.SetScreenVignetteOpacity(Mathf.Lerp(1, 0.7f, t));
+                                        },
+                                        () => { },
+                                        true);
+
+                            })
+                            .Then(_ => _scheduler.Wait(6))
+                            .Then(_ =>
+                            {
+                                _player.UnlockHead();
+                                LJ2025GameManager.LockMovement = false;
+                                _player.AttachHeadImmediately();
+                                _refs.room1Light.gameObject.SetActive(false);
+                                _refs.room2Light.enabled = true;
+                            })
+                            .Then(_ => _dialogueMs.StartDialoguePromise("FoundShower"))
+                            .Then(_ =>
+                            {
+                                _refs.guy1Door.Unlock();
+                                float from = _refs.ambiance.pitch;
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                    .RequestAnimation(
+                                        this,
+                                        6.0f,
+                                        t => _refs.ambiance.pitch = Mathf.Lerp(from, 1.40f, t),
+                                        () => { },
+                                        true);
+                                _taskMs.EndTask();
+                                _taskMs.StartTask("Check on Guest in Room 2");
+                            })
+                            .Then(_ => _scheduler.When(() => IsInRange("Guy2Found")))
+                            .Then(_ =>
+                            {
+                                _player.LockHead();
+                                LJ2025GameManager.LockMovement = true;
+                                _player.DetachHead(_refs.foodZoomLocation);
+                                float from = _refs.ambiance.pitch;
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>().StopAllAnimations(this);
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                    .RequestAnimation(
+                                        this,
+                                        0.6f,
+                                        t => _refs.ambiance.pitch = Mathf.Lerp(from, 0.7f, t),
+                                        () => { },
+                                        true);
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                    .RequestAnimation(
+                                        this,
+                                        4.0f,
+                                        t =>
+                                        {
+                                            _screenEffectMs.SetRedShift(Mathf.Lerp(0.33f, 0.66f, t));
+                                            _screenEffectMs.SetStaticLevel(Mathf.Lerp(0.33f, 0.66f, t) * 0.5f);
+                                            _screenEffectMs.SetScreenVignetteOpacity(Mathf.Lerp(0.7f, 0.5f, t));
+                                        },
+                                        () => { },
+                                        true);
+                            })
+                            .Then(_ => _scheduler.Wait(6))
+                            .Then(_ =>
+                            {
+                                _player.UnlockHead();
+                                LJ2025GameManager.LockMovement = false;
+                                _player.AttachHeadImmediately();
+                            })
+                            .Then(_ => _dialogueMs.StartDialoguePromise("FoundFood"))
+                            .Then(_ =>
+                            {
+                                _refs.guy3Door.Unlock();
+                                _refs.room2Light.gameObject.SetActive(false);
+                                _refs.room3Light.enabled = true;
+                                float from = _refs.ambiance.pitch;
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                    .RequestAnimation(
+                                        this,
+                                        6.0f,
+                                        t => _refs.ambiance.pitch = Mathf.Lerp(from, 1.40f, t),
+                                        () => { },
+                                        true);
+                                _taskMs.EndTask();
+                                _taskMs.StartTask("Check on Guest in Room 3");
+                            })
+                            .Then(_ => _scheduler.When(() => IsInRange("Guy3Found")))
+                            .Then(_ => _scheduler.When(() => _refs.guy3Door.IsOpen()))
+                            .Then(_ =>
+                            {
+                                _refs.guy3Door.Close();
+                                _player.LockHead();
+                                LJ2025GameManager.LockMovement = true;
+                                _player.DetachHead(_refs.heartAttackLocation);
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>().StopAllAnimations(this);
+                                float from = _refs.ambiance.pitch;
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                    .RequestAnimation(
+                                        this,
+                                        0.6f,
+                                        t => _refs.ambiance.pitch = Mathf.Lerp(from, 0.7f, t),
+                                        () => { },
+                                        true);
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                    .RequestAnimation(
+                                        this,
+                                        4.0f,
+                                        t =>
+                                        {
+                                            _screenEffectMs.SetRedShift(Mathf.Lerp(0.66f, 1, t));
+                                            _screenEffectMs.SetStaticLevel(Mathf.Lerp(0.66f, 1, t) * 0.5f);
+                                            _screenEffectMs.SetScreenVignetteOpacity(Mathf.Lerp(0.5f, 0.3f, t));
+                                        },
+                                        () => { },
+                                        true);
+                            })
+                            .Then(_ => _scheduler.Wait(2))
+                            .Then(_ => _dialogueMs.StartDialoguePromise("HeartAttack"))
+                            .Then(_ =>
+                            {
+                                _refs.heartAttack.StartAttack(4);
+                            })
+                            .Then(_ => _scheduler.Wait(7))
+                            .Then(_ =>
+                            {
+                                _player.UnlockHead();
+                                LJ2025GameManager.LockMovement = false;
+                                _player.AttachHeadImmediately();
+                                _refs.room3Light.gameObject.SetActive(false);
+                                _refs.finalLight.gameObject.SetActive(true);
+                                _refs.finalLight.enabled = true;
+                                _refs.maintenanceDoor.Unlock();
+                                _taskMs.EndTask();
+                                _taskMs.StartTask("Follow the Light");
+                            })
+                            .Then(_ => _scheduler.When(() => _refs.guy3Door.IsOpen()))
+                            .Then(_ => _scheduler.When(() => IsInRange("InMaintenance")))
+                            .Then(_ =>
+                            {
+                                _taskMs.EndTask();
+                                _refs.maintenanceDoor.Close();
+                                _refs.finalLight.gameObject.SetActive(false);
+                            })
+                            .Then(_ => _scheduler.Wait(1.4f))
+                            .Then(_ =>
+                            {
+                                _refs.maintenanceLight.gameObject.SetActive(false);
+                                _refs.ambiance.volume = 0;
+                                _refs.wind.volume = 0;
+                            })
+                            .Then(_ => _scheduler.Wait(3))
+                            .Then(_ =>
+                            {
+                                _refs.maintenanceLight.gameObject.SetActive(true);
                                 _refs.maintenanceLight.enabled = false;
-                            });
-                        })
-                        .Then(_ => _dialogueMs.StartDialoguePromise("Confrontation"))
-                        .Then(_ => _scheduler.Wait(3f))
-                        .Then(_ => _screenEffectMs.Fadeout(1f))
-                        .Then(_ => _screenEffectMs.FadeoutText("Later", 1f))
-                        .Then(_ =>
-                        {
-                            _taskMs.EndTask();
-                            _refs.tv.DisplayEnd();
-                            GameManager.GetMonoSystem<IUIMonoSystem>().Show<EndView>(hideLastView: false);       
-                        })
-                        .Then(_ => _screenEffectMs.FadeinText(1f))
-                        .Then(_ => _screenEffectMs.Fadein(1f))
-                        .Then(_ =>
-                        {
-                            _dialogueMs.StartDialoguePromise("End");
-                        });
+                                _refs.maintenanceLight.GetComponent<Light>().enabled = true;
+                                _screenEffectMs.RestoreDefaults();
+                                _refs.maintenanceDoor.SetOpenSpeed(0.10f);
+                            })
+                            .Then(_ => _scheduler.When(() => _refs.maintenanceDoor.IsOpen()))
+                            .Then(_ =>
+                            {
+                                _refs.manager.gameObject.SetActive(true);
+                                _player.DetachHeadLookAt(_refs.manager.transform.position + new Vector3(0, 1.4f, 0));
+                                _player.LockHead();
+                                LJ2025GameManager.LockMovement = true;
+                                _refs.maintenanceLight.enabled = true;
+                                _refs.spookSound.Play();
+                                _scheduler.Wait(4)
+                                    .Then(_ =>
+                                    {
+                                        float from = _refs.spookSound.volume;
+                                        GameManager.GetMonoSystem<IAnimationMonoSystem>()
+                                            .RequestAnimation(
+                                                this,
+                                                1.5f,
+                                                t => _refs.spookSound.volume = Mathf.Lerp(from, 0.0f, t),
+                                                () => { },
+                                                true);
+                                    });
+                            })
+                            .Then(_ => _scheduler.Wait(0.8f))
+                            .Then(_ =>
+                            {
+                                _refs.manager.Next().Then(_ =>
+                                {
+                                    _refs.maintenanceDoor.Close();
+                                });
+                                Promise p = new();
+                                Vector3 startPos = _player.transform.position;
+                                Vector3 endPos = startPos + new Vector3(0, 0, 3);
+                                GameManager.GetMonoSystem<IAnimationMonoSystem>().RequestAnimation(
+                                    this,
+                                    1,
+                                    t => _player.Teleport(new MathExt.Transform(
+                                        Vector3.Lerp(startPos, endPos, t),
+                                        _player.transform.rotation
+                                    )),
+                                    () =>
+                                    {
+                                        p.Resolve();
+                                    },
+                                    true);
+                                return p;
+                            })
+                            .Then(_ =>
+                            {
+                                _refs.wind.volume = 1.5f;
+                                _scheduler.Wait(4).Then(_ =>
+                                {
+                                    _refs.maintenanceLight.enabled = false;
+                                });
+                            })
+                            .Then(_ => _dialogueMs.StartDialoguePromise("Confrontation"))
+                            .Then(_ => _scheduler.Wait(3f))
+                            .Then(_ => _screenEffectMs.Fadeout(1f))
+                            .Then(_ => _screenEffectMs.FadeoutText("Later", 1f))
+                            .Then(_ =>
+                            {
+                                _taskMs.EndTask();
+                                _refs.tv.DisplayEnd();
+                                GameManager.GetMonoSystem<IUIMonoSystem>().Show<EndView>(hideLastView: false);
+                            })
+                            .Then(_ => _screenEffectMs.FadeinText(1f))
+                            .Then(_ => _screenEffectMs.Fadein(1f))
+                            .Then(_ => _dialogueMs.StartDialoguePromise("End")
+                            .Then(_ =>
+                            {
+                                Application.Quit();
+                            }));
                     
                     break;
                 }

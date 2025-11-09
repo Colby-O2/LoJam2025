@@ -22,7 +22,7 @@ MonoBehaviour:
     Type: 0
     Text: 
     EventID: 
-    position: {x: 0, y: 0}
+    position: {x: -213, y: -7}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -32,31 +32,14 @@ MonoBehaviour:
     ComparsionCondition: 0
     Choices:
     - Text: 
-      Next: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-  - Guid: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
-    ActorName: You
-    GroupName: 
-    Type: 1
-    Text: I only turn the temperature up a few degress...
-    EventID: 
-    position: {x: 289, y: -25}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: 53bd1f5a-0537-45de-98c5-773187105c44
+      Next: 7ec34fbf-d6f3-4508-9ea8-eecf095b3933
   - Guid: 53bd1f5a-0537-45de-98c5-773187105c44
     ActorName: You
     GroupName: 
     Type: 1
-    Text: He's completly burned
+    Text: He's completely burned.
     EventID: 
-    position: {x: 765, y: 98}
+    position: {x: 415, y: 330}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
@@ -67,5 +50,23 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 
+  - Guid: 7ec34fbf-d6f3-4508-9ea8-eecf095b3933
+    ActorName: You
+    GroupName: 
+    Type: 1
+    Text: Holy, what happened to Aiden? I thought I only turned the temperature up
+      a few degrees...
+    EventID: 
+    position: {x: 4, y: 340}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 53bd1f5a-0537-45de-98c5-773187105c44
   Groups: []
   Properties: []

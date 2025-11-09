@@ -50,6 +50,24 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: a1422a84-eb8b-4d88-96c3-76d52b5314ff
+  - Guid: b123144b-cc79-40c2-96f5-e70b1706511d
+    ActorName: You
+    GroupName: 
+    Type: 1
+    Text: "<i>Days slip by, nights drag on... It\u2019s all starting to feel the
+      same.</i>"
+    EventID: 
+    position: {x: 1089, y: 3}
+    PropertyType: 
+    PropertyBooleanValue: 0
+    PropertyIntValue: 0
+    PropertyName: 
+    IncrementAmount: 0
+    ComparisonType: 0
+    ComparsionCondition: 0
+    Choices:
+    - Text: 
+      Next: 04561b2a-980a-439b-a3e3-5d902af3fc97
   - Guid: a1422a84-eb8b-4d88-96c3-76d52b5314ff
     ActorName: You
     GroupName: 
@@ -71,7 +89,7 @@ MonoBehaviour:
     ActorName: You
     GroupName: 
     Type: 1
-    Text: "<i>Well\u2026 I better find something soon. The bills are starting to
+    Text: "<i>Well\u2026 I'd better find something soon. The bills are starting to
       pile up/</i>"
     EventID: 
     position: {x: 1424, y: 8}
@@ -85,24 +103,6 @@ MonoBehaviour:
     Choices:
     - Text: 
       Next: 1173edfe-a8b0-4efb-ba5e-2f5a0571e596
-  - Guid: b123144b-cc79-40c2-96f5-e70b1706511d
-    ActorName: You
-    GroupName: 
-    Type: 1
-    Text: "<i>Days slip by, nights drag on... It\u2019s all starting to feel the
-      same.</i>"
-    EventID: 
-    position: {x: 1089, y: 3}
-    PropertyType: 
-    PropertyBooleanValue: 0
-    PropertyIntValue: 0
-    PropertyName: 
-    IncrementAmount: 0
-    ComparisonType: 0
-    ComparsionCondition: 0
-    Choices:
-    - Text: 
-      Next: 04561b2a-980a-439b-a3e3-5d902af3fc97
   - Guid: 1173edfe-a8b0-4efb-ba5e-2f5a0571e596
     ActorName: You
     GroupName: 

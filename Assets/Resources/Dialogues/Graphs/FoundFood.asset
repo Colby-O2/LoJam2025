@@ -37,9 +37,10 @@ MonoBehaviour:
     ActorName: You
     GroupName: 
     Type: 1
-    Text: This is horrible. Looks like the vending machine food made him sick.
+    Text: This is horrible. Looks like the vending machine food made I stocked him
+      sick.
     EventID: 
-    position: {x: 289, y: -25}
+    position: {x: 385, y: -22}
     PropertyType: 
     PropertyBooleanValue: 0
     PropertyIntValue: 0
