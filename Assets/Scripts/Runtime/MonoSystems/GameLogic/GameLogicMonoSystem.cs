@@ -103,6 +103,7 @@ namespace LJ2025
             public LightFlicker2 maintenanceLight;
             public TwoWayDoor maintenanceDoor;
             public Peeker peeker;
+            public ShowerController murderBath;
         }
 
         private void Start()
@@ -157,7 +158,8 @@ namespace LJ2025
             _refs.maintenanceLight = GameObject.FindWithTag("MaintenanceLight").GetComponent<LightFlicker2>();
             _refs.maintenanceLight.enabled = false;
             _refs.maintenanceDoor = GameObject.FindWithTag("MaintenanceDoor").GetComponent<TwoWayDoor>();
-            
+            _refs.murderBath = GameObject.FindWithTag("MurderBath").GetComponent<ShowerController>();
+
             _refs.deathRooms.SetActive(false);
             
             _states = GameObject.FindObjectsByType<ResetableState>(FindObjectsInactive.Include, FindObjectsSortMode.None);
@@ -484,6 +486,7 @@ namespace LJ2025
                             _refs.curtains.GetChild(1).localScale = new Vector3(1, 1, 1);
                             _refs.curtains.GetChild(2).localScale = new Vector3(1, 1, 1);
                             _refs.deathRooms.SetActive(true);
+                            _refs.murderBath.Toggle();
                             _gameState = LJ2025.GameState.WaitCheckout;
                         })
                         .Then(_ => _scheduler.Wait(2))

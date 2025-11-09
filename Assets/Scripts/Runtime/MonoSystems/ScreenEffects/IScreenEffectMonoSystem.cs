@@ -10,5 +10,14 @@ namespace  LJ2025
         public Promise FadeinText(float duration);
         public Promise Fadein(float duration);
         public void SetFadeoutText(string text);
+
+        public void RestoreDefaults();
+
+        public void SetRedShift(float value);
+        public void SetScreenVignette(float value);
+        public void SetScreenRoundness(float roudness);
+        public void SetChromicOffset(float level);
+        public void SetStaticLevel(float scale);
+        public void SetContrast(float value);
     }
 }

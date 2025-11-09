@@ -93,6 +93,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b32075a99fac1418c086ca466acb97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LJ2025.ScreenEffectMonoSystem
+  _rendererData: {fileID: 11400000, guid: d93905a3d998ed14a811861dacff7b33, type: 2}
+  _defaultNoiseScale: 0
+  _defaultChromicOffset: 0
+  _defaultScreenRoundness: 0
+  _defaultVignette: 1
+  _defaultRedShift: 0
+  _defaultContrast: 0.5
 --- !u!1 &1229001489034586531
 GameObject:
   m_ObjectHideFlags: 0

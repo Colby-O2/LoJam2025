@@ -50,6 +50,16 @@ namespace PlazmaGames.Rendering.CRT
 		private Material _mat;
 		private CRTRendererPass _rp;
 
+		public void SetContrast(float value)
+		{
+			_contrast = value;
+		}
+
+		public void SetRedShift(float value)
+		{
+			_redShift = value;
+		}
+
 		public void SetHSBSettings(float brightness, float contrast, float hue)
 		{
 			_brightness = brightness;

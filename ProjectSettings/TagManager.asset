@@ -38,6 +38,7 @@ TagManager:
   - FinalDoorLight
   - MaintenanceLight
   - MaintenanceDoor
+  - MurderBath
   layers:
   - Default
   - TransparentFX
