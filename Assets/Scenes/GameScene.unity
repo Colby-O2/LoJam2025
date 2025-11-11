@@ -11720,6 +11720,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4505701393645758327, guid: f6903919e5ef1c94da457ff0b17f5ed8, type: 3}
+      propertyPath: _isInteractable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4676451798117684235, guid: f6903919e5ef1c94da457ff0b17f5ed8, type: 3}
       propertyPath: m_TagString
       value: MurderKnob
@@ -11787,7 +11791,7 @@ PrefabInstance:
     - target: {fileID: 7801712604322870172, guid: f6903919e5ef1c94da457ff0b17f5ed8, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: d318f7a5424469d3589e00663c7c586d, type: 2}
+      objectReference: {fileID: 2100000, guid: e0c65ca90691b2e4ab93f1f904dc3d21, type: 2}
     - target: {fileID: 8020755322990970476, guid: f6903919e5ef1c94da457ff0b17f5ed8, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.23000006
@@ -11817,6 +11821,11 @@ PrefabInstance:
     - {fileID: 3634002187401800926, guid: f6903919e5ef1c94da457ff0b17f5ed8, type: 3}
     - {fileID: 76108825453172055, guid: f6903919e5ef1c94da457ff0b17f5ed8, type: 3}
     - {fileID: 2096849172193178247, guid: f6903919e5ef1c94da457ff0b17f5ed8, type: 3}
+    - {fileID: 4069887132341800103, guid: f6903919e5ef1c94da457ff0b17f5ed8, type: 3}
+    - {fileID: 5887150163067661022, guid: f6903919e5ef1c94da457ff0b17f5ed8, type: 3}
+    - {fileID: 2987162310703967131, guid: f6903919e5ef1c94da457ff0b17f5ed8, type: 3}
+    - {fileID: 1916309102759396772, guid: f6903919e5ef1c94da457ff0b17f5ed8, type: 3}
+    - {fileID: 957045736419640929, guid: f6903919e5ef1c94da457ff0b17f5ed8, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7440343044862646981, guid: f6903919e5ef1c94da457ff0b17f5ed8, type: 3}
       insertIndex: -1
@@ -11968,10 +11977,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LJ2025.LightFlicker2
   _light: {fileID: 0}
-  _flickerInterval: {x: 0.01, y: 0.1}
-  _flickerChance: 0.497
-  _flickerDuration: {x: 0.1, y: 0.1}
-  _glitchChance: 1
+  _flickerInterval: {x: 0.1, y: 0.2}
+  _flickerChance: 0.819
+  _flickerDuration: {x: 0.4, y: 0.5}
+  _glitchChance: 0.535
   _glitchDuration: {x: 0.001, y: 0.005}
   _isOn: 0
 --- !u!114 &460414077
@@ -11987,10 +11996,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LJ2025.LightFlicker2
   _light: {fileID: 0}
-  _flickerInterval: {x: 0.01, y: 0.1}
-  _flickerChance: 0.497
-  _flickerDuration: {x: 0.1, y: 0.1}
-  _glitchChance: 1
+  _flickerInterval: {x: 0.1, y: 0.2}
+  _flickerChance: 0.819
+  _flickerDuration: {x: 0.4, y: 0.5}
+  _glitchChance: 0.535
   _glitchDuration: {x: 0.001, y: 0.005}
   _isOn: 0
 --- !u!114 &460414078
@@ -12006,10 +12015,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LJ2025.LightFlicker2
   _light: {fileID: 0}
-  _flickerInterval: {x: 0.01, y: 0.1}
-  _flickerChance: 0.497
-  _flickerDuration: {x: 0.1, y: 0.1}
-  _glitchChance: 1
+  _flickerInterval: {x: 0.1, y: 0.2}
+  _flickerChance: 0.819
+  _flickerDuration: {x: 0.4, y: 0.5}
+  _glitchChance: 0.535
   _glitchDuration: {x: 0.001, y: 0.005}
   _isOn: 0
 --- !u!1 &462195698
@@ -16083,7 +16092,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: d6efe3c886a84e79ab447737db51ff44, type: 3}
     - target: {fileID: 760435597207061980, guid: 299cd3e9bef20c07cad6739f05c3ec4e, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 1789
+      value: 1277
       objectReference: {fileID: 0}
     - target: {fileID: 2341207583728442569, guid: 299cd3e9bef20c07cad6739f05c3ec4e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22704,10 +22713,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168456460668427831, guid: 69745fe208ab27151910e8bc81015500, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8617895992417366182, guid: 649dc08f5aca84c4684e211166313397, type: 2}
+    - target: {fileID: 2696138141456019902, guid: 69745fe208ab27151910e8bc81015500, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 649dc08f5aca84c4684e211166313397, type: 2}
+    - target: {fileID: 2696138141456019902, guid: 69745fe208ab27151910e8bc81015500, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8617895992417366182, guid: 649dc08f5aca84c4684e211166313397, type: 2}
+    - target: {fileID: 2696138141456019902, guid: 69745fe208ab27151910e8bc81015500, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3027452768395370524, guid: 69745fe208ab27151910e8bc81015500, type: 3}
       propertyPath: m_Name
       value: Hint
       objectReference: {fileID: 0}
+    - target: {fileID: 4280416417569698507, guid: 69745fe208ab27151910e8bc81015500, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 649dc08f5aca84c4684e211166313397, type: 2}
+    - target: {fileID: 4280416417569698507, guid: 69745fe208ab27151910e8bc81015500, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8617895992417366182, guid: 649dc08f5aca84c4684e211166313397, type: 2}
+    - target: {fileID: 4280416417569698507, guid: 69745fe208ab27151910e8bc81015500, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409334922437896929, guid: 69745fe208ab27151910e8bc81015500, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8617895992417366182, guid: 649dc08f5aca84c4684e211166313397, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23591,8 +23632,16 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1314736131}
     m_Modifications:
+    - target: {fileID: 1476654948114164188, guid: 24dd83beb0b18414bbad65f092bee7d7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5.182771
+      objectReference: {fileID: 0}
+    - target: {fileID: 1476654948114164188, guid: 24dd83beb0b18414bbad65f092bee7d7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 19.810284
+      objectReference: {fileID: 0}
     - target: {fileID: 1476654948114164188, guid: 24dd83beb0b18414bbad65f092bee7d7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.794
@@ -23607,7 +23656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1476654948114164188, guid: 24dd83beb0b18414bbad65f092bee7d7, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.18766949
+      value: 0.1876695
       objectReference: {fileID: 0}
     - target: {fileID: 1476654948114164188, guid: 24dd83beb0b18414bbad65f092bee7d7, type: 3}
       propertyPath: m_LocalRotation.x
@@ -23619,7 +23668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1476654948114164188, guid: 24dd83beb0b18414bbad65f092bee7d7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.18766949
+      value: -0.18766946
       objectReference: {fileID: 0}
     - target: {fileID: 1476654948114164188, guid: 24dd83beb0b18414bbad65f092bee7d7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -23642,6 +23691,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24dd83beb0b18414bbad65f092bee7d7, type: 3}
+--- !u!4 &945929466 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1476654948114164188, guid: 24dd83beb0b18414bbad65f092bee7d7, type: 3}
+  m_PrefabInstance: {fileID: 945929465}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &947212643
 GameObject:
   m_ObjectHideFlags: 0
@@ -28000,15 +28054,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 436885060289241112, guid: db08250442dc39146b4d7760d23ee9d2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.247
+      value: 16.211
       objectReference: {fileID: 0}
     - target: {fileID: 436885060289241112, guid: db08250442dc39146b4d7760d23ee9d2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.545
+      value: 1.357
       objectReference: {fileID: 0}
     - target: {fileID: 436885060289241112, guid: db08250442dc39146b4d7760d23ee9d2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 51.458
+      value: 49.479
       objectReference: {fileID: 0}
     - target: {fileID: 436885060289241112, guid: db08250442dc39146b4d7760d23ee9d2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -28088,7 +28142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LJ2025.MoveableObject
   _settings:
     name: Trash Bag
-    holdDistance: 1.2
+    holdDistance: 1.8
     rotateType: 2
     bounds: {fileID: 1151773687}
     ignoreChildren: 0
@@ -31657,6 +31711,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 851940021}
+  - {fileID: 945929466}
   - {fileID: 556922393}
   - {fileID: 1758200854}
   - {fileID: 1936298963}
@@ -33867,10 +33922,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LJ2025.LightFlicker2
   _light: {fileID: 0}
-  _flickerInterval: {x: 0.01, y: 0.1}
-  _flickerChance: 0.497
-  _flickerDuration: {x: 0.1, y: 0.1}
-  _glitchChance: 1
+  _flickerInterval: {x: 0.1, y: 0.2}
+  _flickerChance: 0.819
+  _flickerDuration: {x: 0.4, y: 0.5}
+  _glitchChance: 0.535
   _glitchDuration: {x: 0.001, y: 0.005}
   _isOn: 0
 --- !u!4 &1401228184 stripped
@@ -54751,5 +54806,4 @@ SceneRoots:
   - {fileID: 8686918701967277543}
   - {fileID: 901931503}
   - {fileID: 1462492058}
-  - {fileID: 945929465}
   - {fileID: 2033879025}

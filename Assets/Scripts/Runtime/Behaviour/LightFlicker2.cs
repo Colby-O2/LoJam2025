@@ -61,6 +61,7 @@ namespace LJ2025
         private void OnDisable()
         {
             StopAllCoroutines();
+            _light.enabled = true;
         }
     }
 }
