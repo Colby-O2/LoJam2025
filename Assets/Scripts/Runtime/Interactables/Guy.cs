@@ -8,6 +8,7 @@ namespace LJ2025
     {
         [SerializeField] private SphereCollider _bounds;
         [SerializeField] private string _name;
+        [SerializeField] private string _eventName;
 
         private IGameLogicMonoSystem _logic;
 
@@ -38,7 +39,7 @@ namespace LJ2025
         {
             if (_logic.GameState() == GameState.ServeGuest)
             {
-                _logic.TriggerEvent($"{_name}Talk", transform);
+                _logic.TriggerEvent($"{_eventName}Talk", transform);
             }
 
             return true;

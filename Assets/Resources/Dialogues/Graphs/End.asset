@@ -56,7 +56,7 @@ MonoBehaviour:
     Type: 1
     Text: "Police say the suspect, whose identity has just been revealed as Darren
       Holt, was found at the scene in a state of shock. Sources describe the crime
-      as \u2018bizarre\u2019 and \u2018meticulously staged."
+      as \u2018bizarre\u2019 and \u2018meticulously' staged."
     EventID: 
     position: {x: 401, y: 47}
     PropertyType: 

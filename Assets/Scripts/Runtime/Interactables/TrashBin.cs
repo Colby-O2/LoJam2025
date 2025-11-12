@@ -11,6 +11,10 @@ namespace LJ2025
     {
         [SerializeField] private string _id;
         [SerializeField] private int _requiredTrashCount = 10;
+        [SerializeField] private string _tag;
+
+        [SerializeField] private AudioSource _as;
+        [SerializeField] private AudioClip _clip;
 
         [SerializeField, ReadOnly] private int _trashCount = 0;
 
@@ -19,10 +23,11 @@ namespace LJ2025
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Trash") && !other.CompareTag("TrashBag")) return;
+            if (!other.CompareTag(_tag)) return;
+            if (_as && _clip) _as.PlayOneShot(_clip);
             other.gameObject.SetActive(false);
             GameManager.GetMonoSystem<IGameLogicMonoSystem>().GetObjectMover().EndMove();
-            if (other.CompareTag("Trash") && TaskEnabledRoom) GameManager.GetMonoSystem<ITaskMonoSystem>().UpdateTask();
+            if (TaskEnabledRoom) GameManager.GetMonoSystem<ITaskMonoSystem>().UpdateTask();
             _trashCount += 1;
             if (_trashCount >= _requiredTrashCount)
             {

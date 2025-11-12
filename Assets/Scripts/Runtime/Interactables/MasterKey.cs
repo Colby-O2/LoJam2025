@@ -1,4 +1,5 @@
 using LJ2025.Player;
+using PlazmaGames.Attribute;
 using PlazmaGames.Core;
 using UnityEngine;
 
@@ -8,7 +9,14 @@ namespace LJ2025
     {
         [SerializeField] private SphereCollider _bounds;
 
-        public bool IsInteractable() => true;
+        [SerializeField, ReadOnly] private bool _isInteractable = true;
+
+        public void SetIsInteractable(bool state)
+        {
+            _isInteractable = state;
+        }
+
+        public bool IsInteractable() => _isInteractable;
 
         public string GetHintName() => "Master Key";
 

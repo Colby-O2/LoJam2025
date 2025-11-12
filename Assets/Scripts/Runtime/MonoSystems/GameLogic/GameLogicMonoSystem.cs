@@ -115,6 +115,11 @@ namespace LJ2025
             public AudioSource spookSound;
             public AudioSource wind;
             public InspectableObject connect4;
+            public WaterFixer waterFixer;
+            public GameObject room1Block;
+            public GameObject room2Block;
+            public GameObject room3Block;
+            public MasterKey masterKey;
         }
 
         private void Start()
@@ -191,6 +196,16 @@ namespace LJ2025
             _refs.room3Light.enabled = false;
             _refs.room3Light.GetComponent<Light>().enabled = true;
             _refs.connect4 = GameObject.FindWithTag("Connect4").GetComponent<InspectableObject>();
+            _refs.waterFixer = GameObject.FindWithTag("WaterFixer").GetComponent<WaterFixer>();
+            _refs.waterFixer.SetInteractable(false);
+            _refs.room1Block = GameObject.FindWithTag("Room1Block");
+            _refs.room1Block.SetActive(false);
+            _refs.room2Block = GameObject.FindWithTag("Room2Block");
+            _refs.room2Block.SetActive(false);
+            _refs.room3Block = GameObject.FindWithTag("Room3Block");
+            _refs.room3Block.SetActive(true);
+            _refs.masterKey = GameObject.FindWithTag("MasterKey").GetComponent<MasterKey>();
+            _refs.masterKey.SetIsInteractable(false);
 
             _refs.deathRooms.SetActive(false);
             
@@ -371,7 +386,11 @@ namespace LJ2025
                         .Then(_ => _scheduler.Wait(UnityEngine.Random.Range(5f, 20f)))
                         .Then(_ => _refs.guy1Pather.Next())
                         .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy1Pather.transform, 2))
-                        .Then(_ => _refs.guy1Pather.Next());
+                        .Then(_ => _refs.guy1Pather.Next())
+                        .Then(_ =>
+                         {
+                             _refs.guy1Pather.GetComponent<Guy>().SetIsInteractable(true);
+                         });
                     break;
                 }
 
@@ -408,6 +427,7 @@ namespace LJ2025
                         .Then(_ => _dialogueMs.StartDialoguePromise("Guy1VendingChoose"))
                         .Then(_ =>
                         {
+                            _refs.room2Block.SetActive(true);
                             _refs.connect4.SetInteractable(false);
                         })
                         .Then(_ =>
@@ -433,7 +453,11 @@ namespace LJ2025
                         })
                         .Then(_ => _refs.guy3Pather.Next())
                         .Then(_ => _refs.officeDoors.OpenThenClose(_refs.guy3Pather.transform, 2))
-                        .Then(_ => _refs.guy3Pather.Next());
+                        .Then(_ => _refs.guy3Pather.Next())
+                        .Then(_ =>
+                         {
+                             _refs.guy3Pather.GetComponent<Guy>().SetIsInteractable(true);
+                         });
                     break;
                 }
 
@@ -445,6 +469,7 @@ namespace LJ2025
                         .Then(_ => _refs.guy3Pather.GetComponent<Guy>().SetIsInteractable(false))
                         .Then(_ =>
                         {
+                            _refs.room3Block.SetActive(false);
                             _refs.guy3Door.Unlock();
                             _taskMs.StartTask("Go To Room 3");
                             _scheduler.When(() => IsInRange("Guy3Found"))
@@ -481,11 +506,13 @@ namespace LJ2025
                     _taskMs.StartTask("Serve Any Customers That Come In.");
                     _dialogueMs.StartDialoguePromise("GetBackToOffice", passive: true);
                     _refs.guy2Pather.gameObject.SetActive(true);
+                    _refs.guy2Pather.GetComponent<Guy>().SetIsInteractable(true);
                     break;
                 }
 
                 case "Guy2Talk":
                 {
+                    _refs.room1Block.SetActive(true);
                     _dialogueMs.StartDialoguePromise("Guy2GetRoom")
                         .Then(_ => _refs.guy2Pather.GetComponent<Guy>().SetIsInteractable(false))
                         .Then(_ => _refs.guy2Pather.Next())
@@ -509,6 +536,7 @@ namespace LJ2025
                             .Then(_ => {
                                 _taskMs.EndTask();
                                 _taskMs.StartTask("Turn On Hot Water Valve");
+                                _refs.waterFixer.SetInteractable(true);
                             });
                             _gameState = LJ2025.GameState.FixWater;
                         });
@@ -519,6 +547,10 @@ namespace LJ2025
                     {
                         if (_gameState != LJ2025.GameState.FixWater) break;
                         _taskMs.EndTask();
+                        _refs.waterFixer.SetInteractable(false);
+                        _refs.room1Block.SetActive(false);
+                        _refs.room2Block.SetActive(false);
+                        _refs.room3Block.SetActive(false);
                         _dialogueMs.StartDialoguePromise("WaterFixed")
                             .Then(_ =>
                             {
@@ -603,9 +635,10 @@ namespace LJ2025
                                 _taskMs.EndTask();
                             })
                             .Then(_ => _scheduler.Wait(3))
-                            .Then(_ => _dialogueMs.StartDialoguePromise("GetMasterKey"))
+                            .Then(_ => _dialogueMs.StartDialoguePromise("GetMasterKey", passive: true))
                             .Then(_ =>
                             {
+                                _refs.masterKey.SetIsInteractable(true);
                                 _taskMs.StartTask("Locate Master Key in Front Office");
                             })
                             .Then(_ => _scheduler.When(() => IsInRange("MasterKey")))

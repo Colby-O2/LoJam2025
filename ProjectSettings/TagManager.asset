@@ -48,6 +48,11 @@ TagManager:
   - SpookSound
   - Wind
   - Connect4
+  - WaterFixer
+  - Room3Block
+  - Room2Block
+  - Room1Block
+  - MasterKey
   layers:
   - Default
   - TransparentFX
@@ -64,7 +69,7 @@ TagManager:
   - KeepOn
   - UIMenu
   - InspectorButtonLayer
-  - 
+  - GuestInvisible
   - 
   - 
   - 

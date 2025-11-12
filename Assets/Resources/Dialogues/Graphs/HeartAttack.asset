@@ -34,7 +34,7 @@ MonoBehaviour:
     - Text: 
       Next: f748c5c3-29e0-4b00-8f2f-ae79bad41e0c
   - Guid: 706e3f46-3cc9-4809-a2db-9cd21cc85dbf
-    ActorName: Guy3
+    ActorName: Noah
     GroupName: 
     Type: 1
     Text: The white bag...
@@ -51,7 +51,7 @@ MonoBehaviour:
     - Text: 
       Next: c4193ec5-0d1e-47c4-98ab-0c8f8e87cf9b
   - Guid: c4193ec5-0d1e-47c4-98ab-0c8f8e87cf9b
-    ActorName: Guy3
+    ActorName: Noah
     GroupName: 
     Type: 1
     Text: Eughhhff

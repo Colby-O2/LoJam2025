@@ -90,7 +90,7 @@ namespace LJ2025
 
         public override string GetApplicationVersion()
         {
-            return "v0.0.1";
+            return "v0.0.2";
         }
 
         protected override void OnInitalized()

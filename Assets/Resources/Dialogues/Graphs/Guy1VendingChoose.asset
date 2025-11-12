@@ -37,7 +37,7 @@ MonoBehaviour:
     ActorName: Jeremy
     GroupName: 
     Type: 2
-    Text: Thanks so much for your fast response. I expect to be told off from what
+    Text: Thanks so much for your fast response. I expected to be told off from what
       I heard about the staff here.
     EventID: 
     position: {x: 327, y: -27}
