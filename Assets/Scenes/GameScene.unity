@@ -54669,6 +54669,44 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1083001162}
     m_Modifications:
+    - target: {fileID: 4245492610871084680, guid: bbd35dc2be762634596290a995c4d0c0, type: 3}
+      propertyPath: _settings.readText
+      value: "<b><size=24>Job Application \u2013 Front Desk Attendant</size>\\n\\n 
+        <align=\"left\"><b>Position Applied For:</b> Front Desk / Night Shift Clerk</align>\\n 
+        <align=\"left\"><b>Full Name:</b> Darren Holt</align>\\n  <align=\"left\"><b>Address:</b>
+        128 Brookside Crescent, London, ON N6H 3V8</align>\\n  <align=\"left\"><b>Phone
+        Number:</b> (519) 555-2749</align>\\n  <align=\"left\"><b>Email:</b> darren.holt@email.com</align>\\n 
+        <align=\"left\"><b>Date:</b> November 9, 2025</align>\\n  \\n\\n <align=\"left\"><b>Availability:</b> 
+        ( ) Full-Time\u2003\u2003( ) Part-Time\u2003\u2003(\u2713) Night Shift  \\n<align=\"left\"><b>Preferred
+        Start Date:</b> November 18, 2025</align>  <br>  \\n\\n <b><size=20>Education</size>\\n 
+        <align=\"left\"><b>School / University:</b> Fanshawe College, London ON</align>
+        \\n  <align=\"left\"><b>Degree / Certification:</b> Diploma \u2013 Hospitality
+        Management</align> \\n  <align=\"left\"><b>Years Attended:</b> 2019 \u2013
+        2021</align> \\n\\n <b><size=20>Work Experience</size></b> \\n  <align=\"left\"><b>Company
+        Name:</b> Western University, London ON</align> \\n  <align=\"left\"><b>Position
+        Title:</b> Front Desk & Administrative Assistant \u2013 Residence Services</align>
+        \\n  <align=\"left\"><b>Dates of Employment:</b> June 2021 \u2013 October
+        2025</align> \\n  <align=\"left\"><b>Responsibilities:</b></align> \\n  <align=\"left\">-
+        Assisted students, faculty, and visitors with inquiries and room assignments</align>
+        \\n  <align=\"left\">- Managed check-ins and check-outs for residence halls</align>
+        \\n  <align=\"left\">- Maintained accurate records and handled booking software</align>
+        \\n  <align=\"left\">- Responded to after-hours calls and coordinated maintenance
+        requests</align> \\n \\n <b><size=20>Skills & Qualifications</size> \\n 
+        <align=\"left\">- Excellent customer service and communication skills</align> 
+        \\n  <align=\"left\">- Experience with check-ins/check-outs and record keeping</align> 
+        \\n  <align=\"left\">- Basic computer and booking system knowledge</align> 
+        \\n  <align=\"left\">- Ability to work independently during late hours</align> 
+        \\n  <align=\"left\">- Reliable, organized, and detail-oriented</align>  
+        \\n \\n <b><size=20>References (Optional)</size> \\n  <align=\"left\"><b>Name:</b>
+        Sarah McIntyre</align>  \\n  <align=\"left\"><b>Relationship:</b> Supervisor
+        \u2013 Residence Services, Western University</align>  \\n  <align=\"left\"><b>Contact:</b>
+        (519) 555-8832</align>   \\n \\n <b><size=20>Applicant\u2019s Statement</size></b> 
+        \\n  <align=\"left\">I certify that the information provided above is true
+        and complete to the best of my knowledge.</align>  \\n  <align=\"left\">I
+        understand that false information may disqualify me from employment.</align>  
+        \\n \\n <align=\"left\"><b>Signature:</b> Darren Holt</align>  \\n  <b>Date:</b>
+        _________________________________  "
+      objectReference: {fileID: 0}
     - target: {fileID: 4736445893481457258, guid: bbd35dc2be762634596290a995c4d0c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.526
