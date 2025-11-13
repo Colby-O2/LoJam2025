@@ -37,7 +37,7 @@ MonoBehaviour:
     ActorName: Stranger
     GroupName: 
     Type: 2
-    Text: YOU throw that poor man's medicine away
+    Text: YOU threw that poor man's medicine away
     EventID: 
     position: {x: 1271, y: 101}
     PropertyType: 

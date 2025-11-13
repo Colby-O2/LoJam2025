@@ -141,8 +141,8 @@ MonoBehaviour:
     ActorName: Aiden
     GroupName: 
     Type: 2
-    Text: 'I think you know I saw some loiters hanging about. I saw a guy near the
-      far room at the end of the lot. '
+    Text: 'I think you should know I saw some loiters hanging about. I saw a guy
+      near the far room at the end of the lot. '
     EventID: 
     position: {x: 1621, y: 33}
     PropertyType: 
